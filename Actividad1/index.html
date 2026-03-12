@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia del Internet - Lara Hernandez Angel Husiel</title>
+    <style>
+        /* --- Estilos Generales --- */
+        :root {
+            --line-color: #9fa8da;    /* Azul Lavanda */
+            --bg-color: #e3f2fd;      /* Azul Pastel */
+            --text-color: #546e7a;    /* Gris azulado */
+            --accent-pink: #f48fb1;
+            --card-bg: #ffffff;
+            --line-height: 16px;      /* Grosor de la línea */
+            --line-top: 260px;        /* Altura de la línea */
+            --curve-width: 90px;      /* Ancho de la curva */
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden; 
+        }
+
+        /* --- Encabezado Flotante --- */
+        header {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 280px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 16px;
+            border-left: 6px solid #3949ab;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            z-index: 100;
+        }
+
+        .student-info h1 {
+            margin: 0 0 8px 0;
+            color: #3949ab;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .student-info p { 
+            margin: 4px 0; 
+            font-size: 0.9rem; 
+            color: #607d8b; 
+            font-weight: 500;
+        }
+
+        /* --- Contenedor Principal --- */
+        .timeline-container {
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 var(--curve-width) 50px var(--curve-width); 
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* --- FILAS --- */
+        .timeline-row {
+            position: relative;
+            width: 100%;
+            min-height: 520px; 
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            box-sizing: border-box;
+        }
+
+        /* Fila 1: Especial */
+        .timeline-row:first-child {
+            display: flex;
+            padding-left: 340px; 
+            justify-content: space-between; 
+        }
+        
+        .timeline-row:first-child .timeline-item { flex: 1; }
+
+        .timeline-row.reverse { direction: rtl; }
+        .timeline-row.reverse .timeline-item { direction: ltr; }
+
+        /* --- LÍNEAS Y CONECTORES --- */
+        
+        /* 1. Línea Recta Central */
+        .row-line {
+            position: absolute;
+            top: var(--line-top);
+            height: var(--line-height);
+            background-color: var(--line-color);
+            border-radius: 8px;
+            z-index: 0;
+            margin-top: calc(var(--line-height) / -2);
+        }
+
+        /* A. Línea Fila 1 */
+        .timeline-row:first-child .row-line {
+            left: 340px; 
+            right: -4px; 
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+
+        /* B. Líneas Intermedias Normales (incluyendo la última fila) */
+        .timeline-row:not(:first-child):not(.reverse) .row-line {
+            left: -4px;  
+            right: -4px; 
+            border-radius: 0; 
+        }
+
+        /* C. Líneas Intermedias Invertidas (incluyendo la penúltima fila) */
+        .timeline-row.reverse .row-line {
+            right: -4px;
+            left: -4px;
+            border-radius: 0;
+        }
+
+        /* 2. Curvas Laterales */
+        .connector {
+            position: absolute;
+            top: var(--line-top);
+            width: var(--curve-width);
+            height: calc(100% + var(--line-height)); 
+            margin-top: calc(var(--line-height) / -2);
+            box-sizing: border-box;
+            border: var(--line-height) solid var(--line-color);
+            z-index: 0;
+        }
+
+        .curve-right {
+            right: calc(var(--curve-width) * -1); 
+            border-left: none;
+            border-bottom: none;
+            border-bottom: var(--line-height) solid var(--line-color);
+            border-radius: 0 90px 90px 0; 
+        }
+
+        .curve-left {
+            left: calc(var(--curve-width) * -1);
+            border-right: none;
+            border-top: var(--line-height) solid var(--line-color);
+            border-left: var(--line-height) solid var(--line-color);
+            border-bottom: var(--line-height) solid var(--line-color);
+            border-radius: 90px 0 0 90px;
+        }
+        
+        .timeline-row:last-child .connector { display: none; }
+
+        /* --- Ítems --- */
+        .timeline-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            padding: 0 10px;
+            padding-top: 60px; 
+        }
+
+        /* Imagen Circular */
+        .image-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 5px solid #fff;
+            outline: 4px solid var(--line-color);
+            overflow: hidden;
+            margin-bottom: 25px; 
+            box-shadow: 0 8px 20px rgba(159, 168, 218, 0.4);
+            transition: all 0.3s ease;
+            z-index: 5;
+        }
+
+        .image-circle img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .image-circle:hover {
+            transform: scale(1.1);
+            outline-color: var(--accent-pink);
+            z-index: 20;
+        }
+
+        /* Año (Píldora) */
+        .year-pill {
+            background-color: var(--line-color);
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 6px 0;
+            width: 110px;
+            text-align: center;
+            border-radius: 30px;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 10px rgba(159, 168, 218, 0.4);
+            position: relative;
+            z-index: 10;
+            margin-top: -30px; 
+            margin-bottom: 25px;
+        }
+
+        /* Tarjeta de Texto */
+        .text-card {
+            background: #fff;
+            padding: 20px 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            width: 90%;
+            text-align: center;
+            position: relative;
+            border: 1px solid #f2f4f8;
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+
+        .text-card:hover { transform: translateY(-3px); }
+
+        .text-card::before {
+            content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+            border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid #fff;
+        }
+
+        .text-card h3 {
+            margin: 0 0 8px 0;
+            color: #5c6bc0;
+            font-size: 1rem;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .text-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #78909c;
+            line-height: 1.45;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #fff;
+            padding: 3rem 5%;
+            margin-top: 2rem;
+            border-top: 8px solid var(--line-color);
+        }
+        .references { max-width: 1200px; margin: 0 auto; }
+        .references h2 { color: #5c6bc0; border-bottom: 2px solid #e8eaf6; padding-bottom: 10px; margin-bottom: 20px; font-size: 1.4rem; }
+        .apa-item { margin-bottom: 12px; padding-left: 20px; text-indent: -20px; color: #607d8b; font-size: 0.95rem; }
+        .apa-item a { color: #f48fb1; text-decoration: none; font-weight: bold; }
+
+        /* --- Responsividad --- */
+        @media (max-width: 1100px) {
+            .timeline-row:first-child { padding-left: 0; display: grid; grid-template-columns: repeat(3, 1fr); }
+            .timeline-row:first-child .row-line { left: 16.66%; right: -4px; }
+            header { position: relative; width: auto; margin: 20px; left: 0; top: 0; border-left: none; border-bottom: 5px solid #3949ab; }
+        }
+
+        @media (max-width: 768px) {
+            .timeline-container { padding: 10px; }
+            .timeline-row, .timeline-row.reverse, .timeline-row:first-child { 
+                display: flex; flex-direction: column; min-height: auto; padding: 0; margin-bottom: 0;
+            }
+            .timeline-item { width: 100% !important; margin-bottom: 50px; direction: ltr !important; padding-top: 0; }
+            .row-line, .connector { display: none; }
+            .timeline-container::before {
+                content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 6px; background: var(--line-color); transform: translateX(-50%); z-index: 0;
+            }
+            .year-pill { margin-top: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="student-info">
+            <h1>Actividad 1</h1>
+            <p><strong>Alumno:</strong> Lara Hernandez Angel Husiel</p>
+            <p><strong>No Cuenta:</strong> 32006082-9</p>
+            <p><strong> | </p>
+        </div>
+    </header>
+
+    <div class="timeline-container">
+
+        <!-- FILA 1 -->
+        <div class="timeline-row">
+            <div class="row-line"></div>
+            <div class="connector curve-right"></div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image1.jpg" alt="Telégrafo">
+                </div>
+                <div class="year-pill">1837</div>
+                <div class="text-card">
+                    <h3>Telégrafo</h3>
+                    <p>Desarrolldo por Samuel Morse, presento el primer telegrafo de Morse, este mismo utilizaba un sistema de un solo cable que producia una linea similar, donde el sistema de comunicacion fue el Codigo Morse.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image2.jpg" alt="Teléfono">
+                </div>
+                <div class="year-pill">1858</div>
+                <div class="text-card">
+                    <h3>Cable transatlántico</h3>
+                    <p>Un nuevo cable telegrafico logro hacer posible la conexion entre Europa y America del Norte, donde se podia enviar un mensaje en minutos en lugar de dias.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image3.jpg" alt="Telefono">
+                </div>
+                <div class="year-pill">1876</div>
+                <div class="text-card">
+                    <h3>Telefono</h3>
+                    <p>Alexander Graham Bell patento el telefono, donde 3 dias despues se realizo la primera llamada telefonica, citando las primeras palabras "Mr. Watson, venga aquí, quiero verle".</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FILA 2 -->
+        <div class="timeline-row reverse">
+            <div class="row-line"></div>
+            <div class="connector curve-left"></div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image4.jpg" alt="Radio">
+                </div>
+                <div class="year-pill">1895</div>
+                <div class="text-card">
+                    <h3>Radio</h3>
+                    <p>Guillermo Marconi contruyo el primer sistema de radio donde este aprovecha las ondas electromagneticas.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image5.jpg" alt="Sputnik">
+                </div>
+                <div class="year-pill">1957</div>
+                <div class="text-card">
+                    <h3>Sputnik y ARPA </h3>
+                    <p>La URRS lanza el primer satelite artificial, donde en respuesta crea la Agencia de Proyectos de Investigación Avanzada (ARPA).</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image6.png" alt="teoría de conmutación de paquetes">
+                </div>
+                <div class="year-pill">1958 </div>
+                <div class="text-card">
+                    <h3>Primer Modem</h3>
+                    <p>Bell Labs, desarrolla el primer modem 101 para transmitir datos en binario, donde este tambien fue el primero en utilizar la codificacion de caracteres ASCII. </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image7.png" alt="Email">
+                </div>
+                <div class="year-pill">1961</div>
+                <div class="text-card">
+                    <h3>Teoría de conmutación de paquetes</h3>
+                    <p>Leonard Kleinrock , también académico del MIT, publicó su teoría de conmutación de paquetes, donde la informacion es dividida en paquetes y es enviada por paquetes de forma mas eficiente.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FILA 3 -->
+        <div class="timeline-row">
+            <div class="row-line"></div>
+            <div class="connector curve-right"></div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image8.png" alt="TCP/IP">
+                </div>
+                <div class="year-pill">1969</div>
+                <div class="text-card">
+                    <h3>ARPANET</h3>
+                    <p>ARPANET Nace oficialmente siendo la primera red de computadoras interconectadas, donde el primer mensaje fue "LO".</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image9.png" alt="WWW">
+                </div>
+                <div class="year-pill">1971</div>
+                <div class="text-card">
+                    <h3>El correo electronico</h3>
+                    <p> Ray Tomlinson envio el primer correo electronico del mundo, donde a  Ray Tomlinson se le atribuye  el desarrollo del uso del símbolo @, que en su sistema inicial mostraba literalmente la ubicación del remitente. </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image10.png" alt="Ethernet">
+                </div>
+                <div class="year-pill">1973</div>
+                <div class="text-card">
+                    <h3>Ethernet</h3>
+                    <p> Robert Metcalfe desarrolla Ethernet, el estándar para conectar computadoras en redes de área local (LAN). La primera Ethernet funcionaba a 2,94 megabits por segundo, unas 10 000 veces más rápida que las redes de terminales.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image11.png" alt="1ª Web">
+                </div>
+                <div class="year-pill">1977</div>
+                <div class="text-card">
+                    <h3>APPLE II</h3>
+                    <p>De la mano de la empresa recien creada APPLE creo la apple II donde esta se convitio en la computadora personal mas vendida en su tiempo.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FILA 4 -->
+        <div class="timeline-row reverse">
+            <div class="row-line"></div>
+            <!-- Conector a la izquierda para la nueva fila -->
+            <div class="connector curve-left"></div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image12.png" alt="protocolo TCP/IP">
+                </div>
+                <div class="year-pill">1983</div>
+                <div class="text-card">
+                    <h3>protocolo TCP/IP</h3>
+                    <p>Las maquinas ARPANET adoptaron los protocolos TCP/IP, donde este punto nace el "internet" debido a que se conviritio en estandar.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image13.png" alt="iPhone">
+                </div>
+                <div class="year-pill">1983</div>
+                <div class="text-card">
+                    <h3>Sistema de Nombres de Dominio (DNS)</h3>
+                    <p>Se implementa el DNS para traducir direcciones IP numéricas a nombres legibles para el usuario (humano). </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image14.png" alt="Redes">
+                </div>
+                <div class="year-pill">1989</div>
+                <div class="text-card">
+                    <h3>World Wide Web</h3>
+                    <p>Tim Berners-Lee, la web se desarrolló originalmente para la demanda de intercambio automatizado de información entre científicos de universidades e institutos de todo el mundo, esto logro que se pudiera accerder a las redes mundiales conocidas. </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image15.png" alt="IA">
+                </div>
+                <div class="year-pill">1991</div>
+                <div class="text-card">
+                    <h3>Primera pagina Web.</h3>
+                    <p>Se ública la primera pagina web y el WWW se abre al publico externo a la organizacion de CERN, donde tambien nacio el protocolo HTPPS y el lenguaje HTML para las paginas Web.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FILA 5 (NUEVA): 4 Óvalos de Relleno -->
+        <div class="timeline-row">
+            <div class="row-line"></div>
+            <!-- Última fila: sin conector -->
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image16.png" alt="Futuro 1">
+                </div>
+                <div class="year-pill">1995</div>
+                <div class="text-card">
+                    <h3>Nace e-Commerce</h3>
+                    <p>Las restricciones comerciales hechas para controlar internet son eliminadas, esto logra la fundacion de Amazon y eBay, esto logro que se produjera la inversion y la innovacion, lo cual pudo hacer el internet actual.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image17.png" alt="Futuro 2">
+                </div>
+                <div class="year-pill">1998</div>
+                <div class="text-card">
+                    <h3>Google</h3>
+                    <p>Sergey Brin y Larry Page crean Google donde priorizaron una interfaz de usuario clara y un modelo de ingresos basado en publicidad dirigida, lo que los diferenció de la competencia.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image18.png" alt="Futuro 3">
+                </div>
+                <div class="year-pill">2007</div>
+                <div class="text-card">
+                    <h3>Iphone</h3>
+                    <p>La revolucion de los smartphone inicio gracias apple, impulsando el desarrollo de las redes 3G y la experiencia tactil, transformo al internet para que se adapatara al sisma tactil.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="image-circle">
+                    <img src="image/image19.png" alt="Futuro 4">
+                </div>
+                <div class="year-pill">2020</div>
+                <div class="text-card">
+                    <h3>Nacimiento de la IA</h3>
+                    <p>Apartir de este momento nace ChatGPT, asi como tecnologias descentralizadas, lo que impulso posteriormente la integracion de la IA en los motores de busqueda y los servicios de red cambiaran la forma de generacion de la busqueda de enlaces a generacion de respuestas .</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<footer>
+    <div class="references">
+        <h2>BIBLIOGRAFÍA</h2>
+
+        <div class="apa-item">
+            Imagining the Internet Center.   <em>1830s-1860s Telegraph</em>. Elon University. Recuperado el 8 de febrero de 2026, de <a href="https://www.elon.edu/u/imagining/time-capsule/150-years/back-1830-1860/" target="_blank">https://www.elon.edu/u/imagining/time-capsule/150-years/back-1830-1860/</a>
+        </div>
+
+        <div class="apa-item">
+            Science Museum Group.   <em>How perseverance laid the first transatlantic telegraph cable</em>. Recuperado el 8 de febrero de 2026, de <a href="https://www.sciencemuseum.org.uk/objects-and-stories/how-perseverance-laid-first-transatlantic-telegraph-cable" target="_blank">https://www.sciencemuseum.org.uk/objects-and-stories/how-perseverance-laid-first-transatlantic-telegraph-cable</a>
+        </div>
+
+        <div class="apa-item">
+            Huerta, J. (2020, 13 de febrero). <em>La radio en México: más viva que nunca</em>. Gaceta UNAM. Recuperado el 8 de febrero de 2026, de <a href="https://www.gaceta.unam.mx/la-radio-en-mexico-mas-viva-que-nunca/" target="_blank">https://www.gaceta.unam.mx/la-radio-en-mexico-mas-viva-que-nunca/</a>
+        </div>
+
+        <div class="apa-item">
+            Prensa IBERO. (2019, 17 de mayo). <em>¿Cómo surge el Internet? Aquí una breve historia</em>. Universidad Iberoamericana. Recuperado el 8 de febrero de 2026, de <a href="https://prensa.ibero.mx/es-MX/nota/como-surge-el-internet-aqui-una-breve-historia" target="_blank">https://prensa.ibero.mx/es-MX/nota/como-surge-el-internet-aqui-una-breve-historia</a>
+        </div>
+
+        <div class="apa-item">
+            Norman, J.   <em>First Message Sent Over the ARPANET</em>. History of Information. Recuperado el 8 de febrero de 2026, de <a href="https://www.historyofinformation.com/detail.php?id=765" target="_blank">https://www.historyofinformation.com/detail.php?id=765</a>
+        </div>
+
+        <div class="apa-item">
+            mail.com. (2021, 12 de octubre). <em>Happy Birthday, Email! The 50th Anniversary of Email</em>. Recuperado el 8 de febrero de 2026, de <a href="https://www.mail.com/blog/posts/fiftieth-anniversary-of-email/20/" target="_blank">https://www.mail.com/blog/posts/fiftieth-anniversary-of-email/20/</a>
+        </div>
+
+        <div class="apa-item">
+            Association for Computing Machinery.   <em>Robert M Metcalfe: A.M. Turing Award Laureate</em>. Recuperado el 8 de febrero de 2026, de <a href="https://awards.acm.org/award-recipients/metcalfe_3968158" target="_blank">https://awards.acm.org/award-recipients/metcalfe_3968158</a>
+        </div>
+
+        <div class="apa-item">
+            ClouDNS. (2022, 28 de enero). <em>DNS History: Creation & First Steps</em>. ClouDNS Blog. Recuperado el 8 de febrero de 2026, de <a href="https://www.cloudns.net/blog/dns-history-creation-first/" target="_blank">https://www.cloudns.net/blog/dns-history-creation-first/</a>
+        </div>
+
+        <div class="apa-item">
+            Zakon, R. H. (1997, noviembre). <em>RFC 2235: Hobbes' Internet Timeline</em>. RFC Editor. Recuperado el 8 de febrero de 2026, de <a href="https://www.rfc-editor.org/rfc/rfc2235.html" target="_blank">https://www.rfc-editor.org/rfc/rfc2235.html</a>
+        </div>
+
+        <div class="apa-item">
+            MDN Web Docs. (2025). <em>Evolución de HTTP</em>. Mozilla. Recuperado el 8 de febrero de 2026, de <a href="https://developer.mozilla.org/es/docs/Web/HTTP/Guides/Evolution_of_HTTP" target="_blank">https://developer.mozilla.org/es/docs/Web/HTTP/Guides/Evolution_of_HTTP</a>
+        </div>
+
+        <div class="apa-item">
+            CERN.   <em>The birth of the Web</em>. Recuperado el 8 de febrero de 2026, de <a href="https://home.cern/science/computing/birth-web" target="_blank">https://home.cern/science/computing/birth-web</a>
+        </div>
+
+        <div class="apa-item">
+            Analysys Mason. (2021, 8 de junio). <em>The 30th anniversary of the commercial internet</em>. Recuperado el 8 de febrero de 2026, de <a href="https://www.analysysmason.com/consulting/articles/anniversary-commercial-internet/" target="_blank">https://www.analysysmason.com/consulting/articles/anniversary-commercial-internet/</a>
+        </div>
+
+        <div class="apa-item">
+            EBSCO.   <em>Google Founded</em>. EBSCO Research Starters. Recuperado el 8 de febrero de 2026, de <a href="https://www.ebsco.com/research-starters/history/google-founded" target="_blank">https://www.ebsco.com/research-starters/history/google-founded</a>
+        </div>
+
+        <div class="apa-item">
+            Apple. (2007, 9 de enero). <em>Apple Reinvents the Phone with iPhone</em>. Apple Newsroom. Recuperado el 8 de febrero de 2026, de <a href="https://www.apple.com/newsroom/2007/01/09Apple-Reinvents-the-Phone-with-iPhone/" target="_blank">https://www.apple.com/newsroom/2007/01/09Apple-Reinvents-the-Phone-with-iPhone/</a>
+        </div>
+
+        <div class="apa-item">
+            Digitalis. (2023, 8 de febrero). <em>ChatGPT and the impact on search engines</em>. Recuperado el 8 de febrero de 2026, de <a href="https://digitalis.com/news/chatgpt-and-the-impact-on-search-engines/" target="_blank">https://digitalis.com/news/chatgpt-and-the-impact-on-search-engines/</a>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        // SCRIPT: Igualar alturas
+        function equalizeRowHeights() {
+            if (window.innerWidth <= 768) return; 
+            
+            const rows = document.querySelectorAll('.timeline-row');
+            let maxHeight = 0;
+            
+            rows.forEach(row => row.style.height = 'auto');
+            
+            rows.forEach(row => {
+                const h = row.offsetHeight;
+                if(h > maxHeight) maxHeight = h;
+            });
+            
+            rows.forEach(row => {
+                row.style.height = maxHeight + 'px';
+            });
+        }
+        
+        window.addEventListener('load', equalizeRowHeights);
+        window.addEventListener('resize', equalizeRowHeights);
+    </script>
+
+</body>
+</html>
