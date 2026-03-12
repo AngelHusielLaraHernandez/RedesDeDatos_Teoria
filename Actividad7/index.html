@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 7 LaraHernandez</title>
+    <!-- Importación de Tipografías de Google Fonts (Múltiples Fuentes) -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Exo+2:wght@600&family=Inconsolata:wght@400;700&family=Montserrat:wght@400;700;900&family=Nunito:wght@400;600&family=Open+Sans:wght@300;400;600&family=Oswald:wght@400;600&family=Quicksand:wght@500;700&family=Rajdhani:wght@700&family=Russo+One&display=swap" rel="stylesheet">
+    <!-- Importación de FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Variables de Color y Diseño - Paleta VIBRANTE (Estilo Glassmorphism) */
+        :root {
+            /* Fondo Degradado Vivo y Energético */
+            --bg-gradient: linear-gradient(135deg, #ff007a 0%, #7000ff 50%, #00f2fe 100%);
+            
+            /* Paneles de Cristal (Glassmorphism) */
+            --surface-color: rgba(255, 255, 255, 0.15); 
+            --glass-border: rgba(255, 255, 255, 0.3);
+            
+            /* Textos Claros con Sombra para Legibilidad */
+            --text-main: #ffffff; 
+            --text-muted: #f1f5f9; 
+            
+            /* Paleta Extensa - Subsistemas (Tonos Neón Ultra Brillantes) */
+            --c-sub1: #00ffcc; /* Cyan Neón */
+            --c-sub2: #ffea00; /* Amarillo Láser */
+            --c-sub3: #ff007f; /* Rosa Fuerte */
+            --c-sub4: #00f2fe; /* Azul Hielo */
+            --c-sub5: #ff6a00; /* Naranja Eléctrico */
+            --c-sub6: #b100ff; /* Violeta Brillante */
+
+            /* Paleta Extensa - Seguridad */
+            --c-sec1: #ffea00; /* Amarillo Alerta */
+            --c-sec2: #00ffcc; /* Cyan Hielo */
+            --c-sec3: #ff007f; /* Rosa Peligro */
+
+            --fun-fact-bg: #ccff00; /* Lima/Amarillo Neón ultra llamativo */
+            --fun-fact-text: #000000; /* Texto oscuro para máxima alerta */
+        }
+
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: var(--bg-gradient);
+            background-attachment: fixed; /* Mantiene el fondo fijo al hacer scroll */
+            color: var(--text-main);
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Contenedor principal */
+        .infographic-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding-bottom: 50px;
+            overflow: hidden; 
+        }
+
+        /* Capa de Stickers de Fondo - Marcas de agua blancas translúcidas */
+        .bg-stickers-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none; 
+            overflow: hidden;
+        }
+
+        .bg-sticker {
+            position: absolute;
+            color: #ffffff;
+            opacity: 0.20; /* Opacidad aumentada para que sean muy visibles */
+            font-size: 15rem; 
+            filter: drop-shadow(3px 5px 10px rgba(0, 0, 0, 0.4)); /* Sombra para que destaquen del fondo brillante */
+        }
+
+        /* Asegurar que el contenido principal esté sobre los stickers */
+        header, section, footer {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Estilos de información del alumno (Glassmorphism) */
+        .student-info {
+            background: var(--surface-color);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: var(--text-main);
+            text-align: center;
+            padding: 12px 20px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+            z-index: 5;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .student-info span {
+            color: var(--c-sub2); /* Amarillo Láser */
+            font-weight: 700;
+            text-shadow: none;
+        }
+
+        /* Encabezado */
+        header {
+            text-align: center;
+            padding: 50px 20px 40px;
+            background: rgba(0, 0, 0, 0.15); /* Ligero oscurecimiento para destacar */
+            border-bottom: 2px solid var(--glass-border);
+            position: relative;
+            color: #ffffff;
+            backdrop-filter: blur(5px);
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255,255,255,0.4), 2px 2px 5px rgba(0,0,0,0.5);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--c-sub1); /* Cyan Neón */
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+        }
+
+        header p {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #ffffff;
+            max-width: 95%; 
+            margin: 15px auto 0;
+            line-height: 1.4;
+            text-align: center;
+            letter-spacing: 0.5px;
+            background: rgba(0,0,0,0.25);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .emotive-text {
+            color: var(--c-sub2); /* Amarillo Láser */
+            font-weight: 700;
+            text-decoration: underline;
+        }
+
+        /* Secciones */
+        section {
+            padding: 60px 40px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+
+        #subsistemas .section-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        #subsistemas .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20%;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(to right, var(--c-sub1), var(--c-sub2));
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--c-sub1);
+        }
+
+        #seguridad .section-title {
+            font-family: 'Russo One', sans-serif;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        #seguridad .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(to right, var(--c-sec1), var(--c-sec3));
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--c-sec3);
+        }
+
+        /* Timeline / Subsistemas */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-item.left { flex-direction: row; }
+        .timeline-item.right { flex-direction: row-reverse; }
+
+        /* Tarjetas (GLASSMORPHISM) */
+        .subsystem-card, .security-card {
+            padding: 20px 30px;
+            background: var(--surface-color);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .subsystem-card { width: 45%; }
+
+        .subsystem-card:hover, .security-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .subsystem-card h3, .security-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(0,0,0,0.8);
+        }
+        
+        .security-card h3 { font-family: 'Exo 2', sans-serif; }
+
+        .subsystem-card p, .security-card p {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        
+        .security-card p { font-family: 'Nunito', sans-serif; }
+
+        .subsystem-icon, .security-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 8px rgba(0,0,0,0.5));
+        }
+
+        /* Colores Neón para las Tarjetas de Subsistemas */
+        .timeline-item:nth-child(1) .subsystem-card { border-left: 6px solid var(--c-sub1); }
+        .timeline-item:nth-child(1) .subsystem-icon { color: var(--c-sub1); text-shadow: 0 0 15px var(--c-sub1); }
+
+        .timeline-item:nth-child(2) .subsystem-card { border-right: 6px solid var(--c-sub2); }
+        .timeline-item:nth-child(2) .subsystem-icon { color: var(--c-sub2); text-shadow: 0 0 15px var(--c-sub2); }
+
+        .timeline-item:nth-child(3) .subsystem-card { border-left: 6px solid var(--c-sub3); }
+        .timeline-item:nth-child(3) .subsystem-icon { color: var(--c-sub3); text-shadow: 0 0 15px var(--c-sub3); }
+
+        .timeline-item:nth-child(4) .subsystem-card { border-right: 6px solid var(--c-sub4); }
+        .timeline-item:nth-child(4) .subsystem-icon { color: var(--c-sub4); text-shadow: 0 0 15px var(--c-sub4); }
+
+        .timeline-item:nth-child(5) .subsystem-card { border-left: 6px solid var(--c-sub5); }
+        .timeline-item:nth-child(5) .subsystem-icon { color: var(--c-sub5); text-shadow: 0 0 15px var(--c-sub5); }
+
+        .timeline-item:nth-child(6) .subsystem-card { border-right: 6px solid var(--c-sub6); }
+        .timeline-item:nth-child(6) .subsystem-icon { color: var(--c-sub6); text-shadow: 0 0 15px var(--c-sub6); }
+
+        /* Contenedores de Datos Curiosos e Imágenes */
+        .fact-wrapper {
+            width: 45%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .curious-fact {
+            background: var(--fun-fact-bg);
+            color: var(--fun-fact-text);
+            padding: 20px 25px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 320px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            line-height: 1.3;
+            box-shadow: 10px 15px 30px rgba(0,0,0,0.4);
+            border: 3px dashed #000000;
+            transition: transform 0.3s ease;
+        }
+
+        /* Imágenes de Relleno */
+        .section-image {
+            width: 100%;
+            max-width: 320px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 10px 15px 30px rgba(0,0,0,0.5);
+            border: 2px solid var(--glass-border);
+            transition: all 0.4s ease;
+            background-color: rgba(0,0,0,0.3); /* Por si tarda en cargar */
+        }
+
+        .timeline-item.left .curious-fact, .timeline-item.left .section-image { transform: rotate(4deg); }
+        .timeline-item.right .curious-fact, .timeline-item.right .section-image { transform: rotate(-3deg); }
+        
+        .curious-fact:hover, .section-image:hover { 
+            transform: scale(1.05) rotate(0deg) !important; 
+            z-index: 10; 
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+        }
+
+        .fact-standalone {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0 40px 0;
+            width: 100%;
+        }
+
+        .fact-standalone .curious-fact {
+            transform: rotate(2deg);
+            max-width: 450px;
+        }
+
+        .curious-fact i {
+            color: #ff007f;
+            margin-right: 8px;
+            font-size: 1.5rem;
+        }
+
+        .curious-fact::before {
+            content: ' Dato Curioso';
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            color: #000000;
+            letter-spacing: 1px;
+        }
+
+        /* Medidas de Seguridad */
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .security-card { text-align: center; }
+
+        /* Colores Específicos para Seguridad */
+        .security-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .security-grid-2 .security-card:nth-child(1) { border-top: 5px solid var(--c-sub1); }
+        .security-grid-2 .security-card:nth-child(1) .security-icon { color: var(--c-sub1); }
+
+        .security-grid-2 .security-card:nth-child(2) { border-top: 5px solid var(--c-sub2); }
+        .security-grid-2 .security-card:nth-child(2) .security-icon { color: var(--c-sub2); }
+
+        .security-grid .security-card:nth-child(1) { border-top: 5px solid var(--c-sub3); }
+        .security-grid .security-card:nth-child(1) .security-icon { color: var(--c-sub3); }
+
+        .security-grid .security-card:nth-child(2) { border-top: 5px solid var(--c-sub4); }
+        .security-grid .security-card:nth-child(2) .security-icon { color: var(--c-sub4); }
+
+        .security-grid .security-card:nth-child(3) { border-top: 5px solid var(--c-sub5); }
+        .security-grid .security-card:nth-child(3) .security-icon { color: var(--c-sub5); }
+
+        /* Referencias APA (Glassmorphism Oscuro) */
+        .apa-references {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 40px;
+            margin: 40px;
+            border-radius: 10px;
+            font-family: 'Inconsolata', monospace;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            border-left: 6px solid var(--c-sub1);
+            border-right: 1px solid var(--glass-border);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .apa-references h3 {
+            font-family: 'Inconsolata', monospace;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .apa-references p {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            text-indent: -30px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        /* Estilos para los Enlaces de las Referencias */
+        .apa-references a {
+            color: #00f2fe; /* Azul fuerte brillante */
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .apa-references a:hover {
+            color: #ff007f; /* Cambia a rojo/rosa fuerte al pasar el cursor */
+            text-decoration: underline;
+            text-shadow: 0 0 10px rgba(255, 0, 127, 0.8);
+        }
+
+        /* ============================================================
+           ESTILOS PARA IMPRESIÓN / EXPORTACIÓN A PDF
+           Objetivo: Mantener el diseño visual original lo más fiel posible
+           ============================================================ */
+        @media print {
+
+            /* Configuración de página A4 vertical sin márgenes */
+            @page {
+                size: A4 portrait;
+                margin: 18mm 8mm 10mm 8mm;
+            }
+
+            /* Forzar impresión de todos los colores y fondos */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            /* Fondo degradado original — background-attachment: scroll
+               soluciona el problema de que Chrome no imprime fixed backgrounds */
+            body {
+                background-image: linear-gradient(135deg, #ff007a 0%, #7000ff 50%, #00f2fe 100%) !important;
+                background-attachment: scroll !important;
+                background-size: cover !important;
+                background-repeat: no-repeat !important;
+                color: #ffffff !important;
+            }
+
+            /* Necesario para que el degradado cubra toda la altura del documento */
+            html {
+                background-image: linear-gradient(135deg, #ff007a 0%, #7000ff 50%, #00f2fe 100%) !important;
+                background-attachment: scroll !important;
+                min-height: 100% !important;
+            }
+
+            /* Permitir que el contenedor fluya sin recortar los stickers */
+            .infographic-container {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding-bottom: 20px !important;
+                overflow: visible !important;
+            }
+
+            /* === STICKERS DE FONDO — mantener visibles === */
+            .bg-stickers-layer {
+                display: block !important;
+                position: absolute !important;
+            }
+
+            /* === BARRA DE ALUMNO === */
+            .student-info {
+                background: rgba(255, 255, 255, 0.15) !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                color: #ffffff !important;
+                border-bottom: 1px solid rgba(255,255,255,0.3) !important;
+                box-shadow: none !important;
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+            }
+
+            /* === ENCABEZADO === */
+            header {
+                background: rgba(0, 0, 0, 0.20) !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                color: #ffffff !important;
+                page-break-after: avoid;
+            }
+
+            header p {
+                background: rgba(0, 0, 0, 0.30) !important;
+                backdrop-filter: none !important;
+            }
+
+            /* === TARJETAS DE SUBSISTEMAS Y SEGURIDAD ===
+               Reemplaza backdrop-filter con fondo semiopaco sólido */
+            .subsystem-card,
+            .security-card {
+                background: rgba(255, 255, 255, 0.18) !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                color: #ffffff !important;
+                border: 1px solid rgba(255, 255, 255, 0.35) !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            .subsystem-card h3,
+            .security-card h3 {
+                color: #ffffff !important;
+            }
+
+            .subsystem-card p,
+            .security-card p {
+                color: #f1f5f9 !important;
+            }
+
+            /* Restaurar bordes de colores neón para subsistemas */
+            .timeline-item:nth-child(1) .subsystem-card { border-left: 6px solid #00ffcc !important; }
+            .timeline-item:nth-child(2) .subsystem-card { border-right: 6px solid #ffea00 !important; border-left: 1px solid rgba(255,255,255,0.35) !important; }
+            .timeline-item:nth-child(3) .subsystem-card { border-left: 6px solid #ff007f !important; }
+            .timeline-item:nth-child(4) .subsystem-card { border-right: 6px solid #00f2fe !important; border-left: 1px solid rgba(255,255,255,0.35) !important; }
+            .timeline-item:nth-child(5) .subsystem-card { border-left: 6px solid #ff6a00 !important; }
+            .timeline-item:nth-child(6) .subsystem-card { border-right: 6px solid #b100ff !important; border-left: 1px solid rgba(255,255,255,0.35) !important; }
+
+            /* === TIMELINE === */
+            .timeline-item {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                margin-bottom: 30px !important;
+            }
+
+            /* Quitar rotaciones para que no se corten al imprimir */
+            .timeline-item.left .curious-fact,
+            .timeline-item.left .section-image,
+            .timeline-item.right .curious-fact,
+            .timeline-item.right .section-image,
+            .fact-standalone .curious-fact {
+                transform: none !important;
+            }
+
+            /* === DATOS CURIOSOS === */
+            .curious-fact {
+                background: #ccff00 !important;
+                color: #000000 !important;
+                border: 3px dashed #000000 !important;
+                box-shadow: 4px 6px 12px rgba(0,0,0,0.35) !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            .curious-fact::before {
+                color: #000000 !important;
+            }
+
+            /* === IMÁGENES === */
+            .section-image {
+                border: 2px solid rgba(255,255,255,0.4) !important;
+                box-shadow: 4px 6px 12px rgba(0,0,0,0.4) !important;
+            }
+
+            /* === REFERENCIAS APA === */
+            .apa-references {
+                background: rgba(0, 0, 0, 0.40) !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                color: #cbd5e1 !important;
+                border-left: 6px solid #00ffcc !important;
+                border-right: 1px solid rgba(255,255,255,0.3) !important;
+                border-top: 1px solid rgba(255,255,255,0.3) !important;
+                border-bottom: 1px solid rgba(255,255,255,0.3) !important;
+                box-shadow: none !important;
+                margin: 20px !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            .apa-references h3 {
+                color: #ffffff !important;
+            }
+
+            .apa-references p {
+                color: #cbd5e1 !important;
+            }
+
+            .apa-references a {
+                color: #00f2fe !important;
+                text-decoration: underline !important;
+            }
+
+            /* === SEGURIDAD === */
+            .security-grid,
+            .security-grid-2 {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            /* === PREVENIR CORTES EN TÍTULOS === */
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+
+            section {
+                page-break-inside: auto;
+            }
+
+            /* ================================================
+               COMPACTACIÓN DE ESPACIADO PARA APROVECHAR PÁGINAS
+               El CSS original usa paddings enormes (60px, 50px…)
+               que en pantalla se ven bien pero en A4 crean gaps.
+               ================================================ */
+
+            /* Barra de alumno */
+            .student-info {
+                padding: 7px 15px !important;
+                font-size: 1rem !important;
+            }
+
+            /* Encabezado */
+            header {
+                padding: 20px 20px 16px !important;
+            }
+
+            header h1 {
+                font-size: 2.4rem !important;
+                margin-bottom: 3px !important;
+            }
+
+            header h2 {
+                font-size: 1.15rem !important;
+            }
+
+            header p {
+                font-size: 0.88rem !important;
+                padding: 10px 12px !important;
+                margin-top: 10px !important;
+                line-height: 1.4 !important;
+            }
+
+            /* Secciones */
+            section {
+                padding: 18px 25px !important;
+            }
+
+            /* Títulos de sección */
+            .section-title {
+                font-size: 1.75rem !important;
+                margin-bottom: 22px !important;
+            }
+
+            /* Timeline */
+            .timeline {
+                max-width: 100% !important;
+            }
+
+            .timeline-item {
+                margin-bottom: 14px !important;
+                align-items: flex-start !important;
+            }
+
+            /* Tarjetas */
+            .subsystem-card {
+                width: 46% !important;
+                padding: 12px 16px !important;
+            }
+
+            .subsystem-card h3 {
+                font-size: 1.05rem !important;
+                margin-bottom: 6px !important;
+            }
+
+            .subsystem-card p {
+                font-size: 0.80rem !important;
+                line-height: 1.4 !important;
+            }
+
+            .subsystem-icon {
+                font-size: 1.8rem !important;
+                margin-bottom: 8px !important;
+            }
+
+            /* Wrappers de facts e imágenes */
+            .fact-wrapper {
+                width: 46% !important;
+            }
+
+            /* Datos curiosos */
+            .curious-fact {
+                font-size: 1.05rem !important;
+                padding: 12px 14px !important;
+                max-width: 100% !important;
+                line-height: 1.3 !important;
+            }
+
+            .curious-fact::before {
+                font-size: 0.75rem !important;
+                margin-bottom: 5px !important;
+            }
+
+            /* Imágenes */
+            .section-image {
+                height: 150px !important;
+                max-width: 100% !important;
+            }
+
+            /* Seguridad — tarjetas */
+            .security-card {
+                padding: 12px 16px !important;
+            }
+
+            .security-card h3 {
+                font-size: 1.0rem !important;
+                margin-bottom: 6px !important;
+            }
+
+            .security-card p {
+                font-size: 0.80rem !important;
+                line-height: 1.4 !important;
+            }
+
+            .security-icon {
+                font-size: 1.8rem !important;
+                margin-bottom: 8px !important;
+            }
+
+            .security-grid {
+                gap: 14px !important;
+            }
+
+            .security-grid-2 {
+                gap: 14px !important;
+                margin-bottom: 14px !important;
+            }
+
+            /* Referencias APA */
+            .apa-references {
+                padding: 20px 25px !important;
+                margin: 10px !important;
+                font-size: 0.82rem !important;
+            }
+
+            .apa-references h3 {
+                font-size: 1.0rem !important;
+                margin-bottom: 12px !important;
+            }
+
+            .apa-references p {
+                margin-bottom: 8px !important;
+                line-height: 1.4 !important;
+            }
+
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timeline::after { left: 30px; }
+            .security-grid-2 { grid-template-columns: 1fr; }
+            .timeline-item {
+                flex-direction: column !important;
+                align-items: flex-end;
+                margin-bottom: 30px;
+            }
+            .subsystem-card {
+                width: 100%;
+                padding-left: 60px;
+                border-right: 1px solid var(--glass-border) !important;
+            }
+            /* Re-aplicar bordes para móvil */
+            .timeline-item:nth-child(1) .subsystem-card { border-left: 6px solid var(--c-sub1) !important; }
+            .timeline-item:nth-child(2) .subsystem-card { border-left: 6px solid var(--c-sub2) !important; }
+            .timeline-item:nth-child(3) .subsystem-card { border-left: 6px solid var(--c-sub3) !important; }
+            .timeline-item:nth-child(4) .subsystem-card { border-left: 6px solid var(--c-sub4) !important; }
+            .timeline-item:nth-child(5) .subsystem-card { border-left: 6px solid var(--c-sub5) !important; }
+            .timeline-item:nth-child(6) .subsystem-card { border-left: 6px solid var(--c-sub6) !important; }
+
+            .fact-wrapper {
+                width: 100%;
+                padding-left: 60px;
+                margin-top: 20px;
+                justify-content: flex-start;
+            }
+            .curious-fact, .section-image {
+                transform: rotate(0) !important;
+                max-width: 100%;
+            }
+            .fact-standalone .curious-fact {
+                transform: rotate(0) !important;
+                max-width: 100%;
+            }
+            header h1 { font-size: 2.2rem; }
+            
+            .student-info {
+                font-size: 1rem;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="infographic-container">
+        
+        <!-- Información del Alumno -->
+        <div class="student-info">
+            <span>Nombre:</span> Lara Hernandez Angel Husiel &nbsp;|&nbsp; <span>No. cuenta:</span> 320060829 &nbsp;|&nbsp; <span>Actividad:</span> 7
+        </div>
+
+        <!-- Capa de Stickers de Fondo -->
+        <div class="bg-stickers-layer">
+            <!-- Arriba -->
+            <i class="fa-solid fa-server bg-sticker" style="top: 2%; left: -5%; transform: rotate(-15deg); font-size: 18rem; opacity: 0.25;"></i>
+            <i class="fa-solid fa-database bg-sticker" style="top: 8%; right: 2%; transform: rotate(12deg); font-size: 12rem; opacity: 0.20;"></i>
+            
+            <!-- Medio Alto -->
+            <i class="fa-solid fa-network-wired bg-sticker" style="top: 15%; right: -10%; transform: rotate(20deg); font-size: 22rem; opacity: 0.18;"></i>
+            <i class="fa-solid fa-route bg-sticker" style="top: 22%; left: 8%; transform: rotate(-25deg); font-size: 14rem; opacity: 0.22;"></i>
+            <i class="fa-solid fa-diagram-project bg-sticker" style="top: 25%; left: 45%; transform: rotate(15deg); font-size: 25rem; opacity: 0.15;"></i>
+            
+            <!-- Centro -->
+            <i class="fa-solid fa-globe bg-sticker" style="top: 32%; right: 5%; transform: rotate(8deg); font-size: 18rem; opacity: 0.20;"></i>
+            <i class="fa-solid fa-ethernet bg-sticker" style="top: 38%; left: 2%; transform: rotate(45deg); font-size: 16rem; opacity: 0.25;"></i>
+            <i class="fa-solid fa-computer bg-sticker" style="top: 45%; right: 35%; transform: rotate(-18deg); font-size: 24rem; opacity: 0.12;"></i>
+            
+            <!-- Medio Bajo -->
+            <i class="fa-solid fa-plug bg-sticker" style="top: 52%; right: -5%; transform: rotate(-30deg); font-size: 16rem; opacity: 0.20;"></i>
+            <i class="fa-solid fa-tower-cell bg-sticker" style="top: 58%; left: 10%; transform: rotate(22deg); font-size: 14rem; opacity: 0.25;"></i>
+            <i class="fa-solid fa-sitemap bg-sticker" style="top: 62%; left: 35%; transform: rotate(-10deg); font-size: 28rem; opacity: 0.15;"></i>
+            
+            <!-- Abajo -->
+            <i class="fa-solid fa-wifi bg-sticker" style="top: 72%; left: -8%; transform: rotate(10deg); font-size: 20rem; opacity: 0.18;"></i>
+            <i class="fa-solid fa-plug-circle-check bg-sticker" style="top: 78%; right: 20%; transform: rotate(-12deg); font-size: 16rem; opacity: 0.22;"></i>
+            <i class="fa-solid fa-server bg-sticker" style="top: 82%; left: 45%; transform: rotate(10deg); font-size: 26rem; opacity: 0.12;"></i>
+            
+            <!-- Footer Area -->
+            <i class="fa-solid fa-satellite-dish bg-sticker" style="top: 86%; right: -2%; transform: rotate(35deg); font-size: 18rem; opacity: 0.20;"></i>
+            <i class="fa-solid fa-microchip bg-sticker" style="top: 91%; left: 5%; transform: rotate(-25deg); font-size: 15rem; opacity: 0.25;"></i>
+            <i class="fa-solid fa-hard-drive bg-sticker" style="top: 95%; right: 25%; transform: rotate(15deg); font-size: 15rem; opacity: 0.20;"></i>
+        </div>
+
+        <header>
+            <h1>Cableado Estructurado</h1>
+            <h2>Redes de datos Seguras</h2>
+            <br>
+            <p>El cableado estructurado es una <span class="emotive-text">infraestructura de medios físicos</span> destinada a transportar señales en un área determinada. Funciona como una red unificada, flexible y con una vida útil prolongada, capaz de soportar el crecimiento y los cambios tecnológicos de una organización.</p>
+        </header>
+
+        <section id="subsistemas">
+            <h2 class="section-title">Los 6 subsistemas <i class="fa-solid fa-network-wired" style="color: var(--c-sub3)"></i></h2>
+            
+            <div class="timeline">
+                
+                <!-- Subsistema 1 + Dato Curioso -->
+                <div class="timeline-item left">
+                    <div class="subsystem-card">
+                        <i class="fa-solid fa-building-circle-arrow-right subsystem-icon"></i>
+                        <h3>1. Entrada de Servicios</h3>
+                        <p>Es el punto donde la instalación exterior y los servicios de telecomunicaciones ingresan al edificio. Puede contener interfaces de acceso a redes externas, así como los dispositivos de protección contra sobrecargas eléctricas.</p>
+                    </div>
+                    <div class="fact-wrapper">
+                        <div class="curious-fact">
+                            <i class="fa-solid fa-lightbulb"></i> "Físicamente es una red de cable única y completa con un largo tiempo de vida útil, flexible, que soporta cambios y crecimiento a futuro..."
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subsistema 2 + Imagen -->
+                <div class="timeline-item right">
+                    <div class="subsystem-card">
+                        <i class="fa-solid fa-server subsystem-icon"></i>
+                        <h3>2. Cuarto de Equipos</h3>
+                        <p>Es un espacio centralizado de ambiente controlado que aloja equipos de telecomunicaciones de uso común, como servidores y routers. Su distinción frente a un cuarto de telecomunicaciones es en la mayor complejidad que este maneja para ser gestionado y valor económico del equipo.</p>
+                    </div>
+                    <div class="fact-wrapper">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=400&q=80" alt="Servidores en Cuarto de Equipos" class="section-image">
+                    </div>
+                </div>
+
+                <!-- Subsistema 3 + Dato Curioso -->
+                <div class="timeline-item left">
+                    <div class="subsystem-card">
+                        <i class="fa-solid fa-arrows-up-down subsystem-icon"></i>
+                        <h3>3. Cableado Vertical (Backbone)</h3>
+                        <p>Proporciona la interconexión entre la entrada de servicios, los cuartos de equipos y los de telecomunicaciones. Suele utilizar una topología física de estrella jerárquica para limitar la degradación de la señal en la red.</p>
+                    </div>
+                    <div class="fact-wrapper">
+                        <div class="curious-fact">
+                            <i class="fa-solid fa-bolt"></i> "A menudo se aplica un tratamiento especial a las paredes, pisos y techo para reducir el polvo y la electricidad estática."
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subsistema 4 + Dato Curioso -->
+                <div class="timeline-item right">
+                    <div class="subsystem-card">
+                        <i class="fa-solid fa-door-closed subsystem-icon"></i>
+                        <h3>4. Cuarto de Telecomunicaciones</h3>
+                        <p>Funciona como el punto de conexión entre el cableado vertical (backbone) y el horizontal. En esta área se ubican las terminaciones de cable y los equipos de interconexión para administrar los servicios de cada piso.</p>
+                    </div>
+                    <div class="fact-wrapper">
+                        <div class="curious-fact">
+                            <i class="fa-solid fa-temperature-arrow-up"></i> "Los edificios son dinámicos: Las remodelaciones se presentan de manera frecuente durante la existencia de un edificio."
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subsistema 5 + Imagen -->
+                <div class="timeline-item left">
+                    <div class="subsystem-card">
+                        <i class="fa-solid fa-diagram-project subsystem-icon"></i>
+                        <h3>5. Cableado Horizontal</h3>
+                        <p>Es la porción de la red que conecta el armario de telecomunicaciones con las salidas en el área de trabajo. Su diseño contempla una distancia máxima de 90 metros y utiliza una topología en estrella.</p>
+                    </div>
+                    <div class="fact-wrapper">
+                        <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=400&q=80" alt="Cables de red estructurados" class="section-image">
+                    </div>
+                </div>
+
+                <!-- Subsistema 6 + Imagen -->
+                <div class="timeline-item right">
+                    <div class="subsystem-card">
+                        <i class="fa-solid fa-laptop-house subsystem-icon"></i>
+                        <h3>6. Área de Trabajo</h3>
+                        <p>Comprende la zona donde se ubican los usuarios finales y sus equipos, como computadoras y teléfonos. El cableado a partir de la roseta no es permanente, lo que facilita realizar cambios y movimientos de manera ágil.</p>
+                    </div>
+                    <div class="fact-wrapper">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&q=80" alt="Oficina y área de trabajo conectada" class="section-image">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="seguridad">
+            <h2 class="section-title">Medidas de Seguridad y Prevención <i class="fa-solid fa-shield-halved" style="color: var(--c-sub4)"></i></h2>
+            <p style="text-align: center; margin-bottom: 30px; color: var(--text-muted);">La implementación de controles preventivos es esencial para garantizar el rendimiento, la organización y la vida útil de la infraestructura.</p>
+
+            <!-- Nuevas Medidas (Extraídas del PDF) - Prevención de agua y Visibilidad -->
+            <div class="security-grid-2">
+                <div class="security-card">
+                    <i class="fa-solid fa-droplet-slash security-icon"></i>
+                    <h3>Prevención de Filtraciones</h3>
+                    <p>Se deben evitar ubicaciones propensas a la humedad. Queda estrictamente prohibido el paso de tuberías de agua o drenaje por los cuartos de equipos para prevenir desastres e inundaciones.</p>
+                </div>
+
+                <div class="security-card">
+                    <i class="fa-solid fa-eye security-icon"></i>
+                    <h3>Estructura y Visibilidad</h3>
+                    <p>En el cuarto de equipos se tienen que tener cristales templados transparantes para saber quien es el que esta trabajando, y las paredes deben pintarse de blanco o colores claros para maximizar en todo momento la visibilidad del entorno.</p>
+                </div>
+            </div>
+
+            <div class="security-grid">
+                
+                <div class="security-card">
+                    <i class="fa-solid fa-plug-circle-bolt security-icon"></i>
+                    <h3>Protección Eléctrica</h3>
+                    <p>Es fundamental aplicar sistemas de puesta a tierra (estándar ANSI/EIA/TIA 607) y utilizar equipos de respaldo (UPS) para proteger los dispositivos contra fallas o sobrecargas de voltaje.</p>
+                </div>
+
+                <div class="security-card">
+                    <i class="fa-solid fa-fan security-icon"></i>
+                    <h3>Control de calor</h3>
+                    <p>Los cuartos de equipos deben mantener una temperatura constante de entre 18°C y 24°C, con una humedad relativa del 30% al 55%, para prevenir fallos por estática o condensación en el hardware.</p>
+                </div>
+
+                <div class="security-card">
+                    <i class="fa-solid fa-tags security-icon"></i>
+                    <h3>Administración y Etiquetado</h3>
+                    <p>Conforme al estándar EIA/TIA 606, es necesario utilizar un sistema de etiquetado estructurado y un código de colores específico para identificar cada conducto y terminación, facilitando su mantenimiento.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Referencias APA 6 -->
+        <footer class="apa-references">
+            <h3>Referencias: </h3>
+
+            <p>Macías Ríos, M. E., & Rentería Anguiano, E. (2009). <em>Apuntes de la Asignaturas de Redes de Datos I y Redes de Datos II (Manual de la Asignatura)</em>. Departamento de Ingeniería en Computación. Facultad de Ingeniería, Universidad Nacional Autónoma de México. Recuperado el 23 de febrero de 2026, de <a href="https://n9.cl/5szw4" target="_blank">https://n9.cl/5szw4</a></p>
+
+            <p>RackOnline. (s.f.). <em>¿Qué es un sistema de cableado estructurado?</em>. Recuperado el 23 de febrero de 2026, de <a href="https://www.rackonline.es/content/que-es-un-sistema-de-cableado-estructurado" target="_blank">https://www.rackonline.es/content/que-es-un-sistema-de-cableado-estructurado</a></p>
+
+            <p>(s.f.). <em>Cableado Estructurado y Seguridad</em>. Calaméo. Recuperado el 23 de febrero de 2026, de <a href="https://www.calameo.com/read/007509666b4da3a12817c" target="_blank">https://www.calameo.com/read/007509666b4da3a12817c</a></p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

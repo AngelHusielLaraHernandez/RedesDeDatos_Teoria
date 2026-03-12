@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amenazas de Seguridad en Red</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'cyber': ['Orbitron', 'sans-serif'],
+                        'tech': ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        'neon-blue': '#00f3ff',
+                        'neon-pink': '#bc13fe',
+                        'neon-red': '#ff003c',
+                        'neon-green': '#0aff00',
+                        'neon-yellow': '#fcee0a',
+                        'dark-bg': '#050510',
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #1f2937 1px, transparent 1px), linear-gradient(to bottom, #1f2937 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050510;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Fondo Animado */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(circle at 15% 50%, rgba(188, 19, 254, 0.15), transparent 25%),
+                        radial-gradient(circle at 85% 30%, rgba(0, 243, 255, 0.15), transparent 25%);
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            z-index: -1;
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        }
+
+        /* Efectos de Texto Neón */
+        .text-glow-blue { text-shadow: 0 0 10px rgba(0, 243, 255, 0.7); }
+        .text-glow-red { text-shadow: 0 0 10px rgba(255, 0, 60, 0.7); }
+        .text-glow-white { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+        
+        /* Tarjetas Avanzadas */
+        .glass-card {
+            background: rgba(20, 20, 30, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.8);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Imagen de fondo en tarjeta con mezcla */
+        .card-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            transition: opacity 0.3s ease, transform 0.5s ease;
+            z-index: 0;
+            filter: grayscale(100%) contrast(1.2);
+        }
+        
+        .glass-card:hover .card-bg-image {
+            opacity: 0.25;
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Barras de progreso decorativas */
+        .progress-bar-bg {
+            background: rgba(255,255,255,0.1);
+            height: 4px;
+            width: 100%;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress-fill-red { background: #ff003c; box-shadow: 0 0 10px #ff003c; }
+        .progress-fill-blue { background: #00f3ff; box-shadow: 0 0 10px #00f3ff; }
+
+        .glass-card:hover .icon-pulse {
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255,255,255,0)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 10px currentColor); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255,255,255,0)); }
+        }
+        
+        /* Ajuste para textos largos en tarjetas más estrechas */
+        h3 { line-height: 1.1; }
+        p { line-height: 1.3; }
+    </style>
+</head>
+<body class="font-tech antialiased min-h-screen flex flex-col">
+
+    <!-- Fondos -->
+    <div class="bg-animated"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- Barra de Datos Personales -->
+    <div class="w-full bg-slate-900 border-b border-gray-800 py-2 px-6 text-center z-50 relative shadow-lg">
+        <p class="font-tech text-gray-300 text-sm md:text-base tracking-widest uppercase flex flex-wrap justify-center items-center gap-4 md:gap-8">
+            <span class="flex items-center"><i class="fa-solid fa-user-circle mr-2 text-neon-blue"></i> <span class="font-bold text-white">Nombre: Lara Hernandez Angel Husiel</span></span>
+            <span class="hidden md:inline text-gray-700">|</span>
+            <span class="flex items-center"><i class="fa-solid fa-file-code mr-2 text-neon-pink"></i> <span class="text-neon-pink font-bold">Actividad 3</span></span>
+            <span class="hidden md:inline text-gray-700">|</span>
+            <span class="flex items-center"><i class="fa-solid fa-id-card mr-2 text-neon-green"></i> <span class="text-neon-green font-bold">No.Cuenta: 32006082-9</span></span>
+        </p>
+    </div>
+
+    <!-- Encabezado Compacto -->
+    <header class="w-full py-4 px-6 text-center relative z-10 border-b border-gray-800 bg-black/40 backdrop-blur-md">
+        <div class="flex flex-col md:flex-row justify-between items-center max-w-[99%] mx-auto">
+            <div class="flex items-center gap-5 mb-2 md:mb-0">
+                <div class="relative">
+                    <i class="fa-solid fa-shield-halved text-4xl text-neon-blue animate-pulse"></i>
+                    <i class="fa-solid fa-lock absolute -bottom-1 -right-1 text-xs bg-black text-white p-1 rounded-full border border-neon-blue"></i>
+                </div>
+                <div class="text-left">
+                    <h1 class="font-cyber text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-blue via-white to-neon-pink leading-none tracking-tighter">
+                        AMENAZAS DE RED
+                    </h1>
+                    <div class="flex gap-4 mt-1">
+                        <span class="text-neon-blue uppercase tracking-widest text-[10px] font-bold border border-neon-blue/30 px-2 py-0.5 rounded bg-neon-blue/5">Protocolo V.1</span>
+                        <span class="text-gray-400 text-[10px] flex items-center gap-1"><div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></div> SISTEMA ACTIVO</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal - Layout Horizontal Expandido -->
+    <main class="flex-grow w-full max-w-[99%] mx-auto px-4 py-6 z-10 relative flex flex-col gap-8 justify-center">
+
+        <!-- NUEVA SECCIÓN: DEFINICIÓN GENERAL -->
+        <section class="w-full glass-card rounded-xl p-6 border-l-4 border-l-white relative overflow-hidden group">
+            <!-- Fondo decorativo sutil para la intro -->
+            <div class="absolute -right-20 -top-20 w-64 h-64 bg-white/5 rounded-full blur-3xl group-hover:bg-neon-blue/10 transition-colors duration-700"></div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-8 relative z-10">
+                <div class="md:w-1/4 flex flex-col items-center justify-center text-center border-r border-white/10 pr-4">
+                    <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-3 ring-1 ring-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                        <i class="fa-solid fa-circle-exclamation text-3xl text-white"></i>
+                    </div>
+                    <h2 class="font-cyber text-xl font-bold text-white tracking-widest text-glow-white">AMENAZA</h2>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Definición Base</p>
+                </div>
+                
+                <div class="md:w-3/4">
+                    <h3 class="font-cyber text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400 mb-3">
+                        ¿QUÉ ES UNA AMENAZA?
+                    </h3>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                        En ciberseguridad, una amenaza se define como <span class="text-white font-bold">cualquier situacion o evento con el potencial de causar consecuencias negativas</span>, esto ya sea para los activos o personas, mediante el acceso no autorizado, destrucción, divulgación o modificación de información, todo esto se hace a espaldas del mismo usuario, haciendo uso de brechas de seguridad o descuidos humanos.
+                    </p>
+                    <p class="text-gray-400 text-xs leading-relaxed border-t border-white/10 pt-3">
+                        <i class="fa-solid fa-code-branch mr-2 text-neon-pink"></i>
+                        Para esto una amenza lo que hace princicpalmente es que explotan <strong>vulnerabilidades</strong> existentes en el sistema. Para esto tenemos dos tipos de clasificaciones:
+                        <span class="text-neon-red font-bold ml-1">EL MUNDO FÍSICO</span> (Hardware) y <span class="text-neon-blue font-bold ml-1">EL MUNDO LÓGICO</span> (Software).
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SECCIÓN 1: AMENAZAS FÍSICAS (5 COLUMNAS) -->
+        <section class="w-full relative">
+            <!-- Encabezado de Sección Restaurado -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-4 border-b border-neon-red/30 pb-2">
+                <div class="flex items-center">
+                    <div class="bg-neon-red/10 border border-neon-red/30 p-2 rounded mr-3 backdrop-blur-sm">
+                        <i class="fa-solid fa-triangle-exclamation text-2xl text-neon-red shadow-neon-red"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-cyber text-2xl font-bold text-white text-glow-red tracking-wide">AMENAZAS FÍSICAS</h2>
+                        <p class="text-neon-red font-bold text-[10px] tracking-widest uppercase">Daño Tangible</p>
+                    </div>
+                </div>
+                <!-- Definición Restaurada -->
+                <p class="text-gray-400 text-xs max-w-2xl text-right mt-2 md:mt-0 leading-relaxed font-light border-l-2 border-neon-red/50 pl-4 hidden md:block">
+                    Refieren a cualquier evento que cause daño directo al hardware. Si el atacante tiene acceso físico, en este punto las contraseñas asi como seguridad del sistema puede que no sean suficiente, ya que tambien significa perdida de hardware o daño significativo. <span class="text-white font-bold">"Seguridad perimetral es clave".</span>
+                </p>
+            </div>
+
+            <!-- GRID 5 COLUMNAS -->
+            <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4">
+                
+                <!-- 1. Desastres -->
+                <article class="glass-card rounded-xl group hover:border-neon-red/80">
+                    <div class="card-bg-image" style="background-image: url('https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=600&auto=format&fit=crop');"></div>
+                    <div class="card-content p-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="p-2 rounded-lg bg-black/60 border border-neon-red/30 text-neon-red icon-pulse"><i class="fa-solid fa-fire-extinguisher"></i></div>
+                            <span class="text-[9px] font-bold bg-neon-red/20 text-neon-red px-1.5 py-0.5 rounded border border-neon-red/20">CRÍTICO</span>
+                        </div>
+                        <h3 class="font-cyber text-lg font-bold text-white mb-1 group-hover:text-neon-red transition-colors">Desastres</h3>
+                        <p class="text-gray-300 text-[11px] mb-3 flex-grow">Para estp temos eventos fisicos que puedes tener alto impacto en el lugar de trabajo de los equipos, tenemos el caso de fuego o de agua que destruyen el soporte material. <strong>Es física</strong> porque anula la disponibilidad del hardware esto puede llegar a ser una perdida total.</p>
+                        <div class="bg-black/40 p-2 rounded border border-white/5 mb-2">
+                            <div class="progress-bar-bg"><div class="progress-fill-red h-full" style="width: 95%"></div></div>
+                            <p class="text-[10px] text-white mt-1">Pérdida total.</p>
+                        </div>
+                        <div class="text-[10px] font-bold text-gray-400 border-t border-white/10 pt-2"><i class="fa-solid fa-shield text-green-500 mr-1"></i> Sistemas Anti-incendios.</div>
+                    </div>
+                </article>
+
+                <!-- 2. Robo -->
+                <article class="glass-card rounded-xl group hover:border-neon-red/80">
+                    <div class="card-bg-image" style="background-image: url('https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=600&auto=format&fit=crop');"></div>
+                    <div class="card-content p-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="p-2 rounded-lg bg-black/60 border border-neon-red/30 text-neon-red icon-pulse"><i class="fa-solid fa-user-ninja"></i></div>
+                            <span class="text-[9px] font-bold bg-neon-red/20 text-neon-red px-1.5 py-0.5 rounded border border-neon-red/20">ALTO</span>
+                        </div>
+                        <h3 class="font-cyber text-lg font-bold text-white mb-1 group-hover:text-neon-red transition-colors">Robo</h3>
+                        <p class="text-gray-300 text-[11px] mb-3 flex-grow">Durante un robo el atanque puede vulnerar la seguridad fisica, donde en este caso la perdida seria los equipos. <strong>Es física</strong> porque el atacante salta las barreras lógicas al llevarse los equipos con memoria con informacion en su interior.</p>
+                        <div class="bg-black/40 p-2 rounded border border-white/5 mb-2">
+                            <div class="progress-bar-bg"><div class="progress-fill-red h-full" style="width: 80%"></div></div>
+                            <p class="text-[10px] text-white mt-1">Fuga de hardware.</p>
+                        </div>
+                        <div class="text-[10px] font-bold text-gray-400 border-t border-white/10 pt-2"><i class="fa-solid fa-shield text-green-500 mr-1"></i> Control Biométrico.</div>
+                    </div>
+                </article>
+
+                <!-- 3. Fallo Eléctrico -->
+                <article class="glass-card rounded-xl group hover:border-neon-red/80">
+                    <div class="card-bg-image" style="background-image: url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=600&auto=format&fit=crop');"></div>
+                    <div class="card-content p-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="p-2 rounded-lg bg-black/60 border border-neon-red/30 text-neon-red icon-pulse"><i class="fa-solid fa-bolt"></i></div>
+                            <span class="text-[9px] font-bold bg-neon-yellow/20 text-neon-yellow px-1.5 py-0.5 rounded border border-neon-yellow/20">MEDIO</span>
+                        </div>
+                        <h3 class="font-cyber text-lg font-bold text-white mb-1 group-hover:text-neon-red transition-colors">Corto Circuito</h3>
+                        <p class="text-gray-300 text-[11px] mb-3 flex-grow">Interrupción de corriente o sobrecarga debido a causas ambientales o perdida de serivicio de luz. <strong>Es física</strong> porque daña los circuitos electrónicos o los mismo discos duros,esto hace que los datos tengan la posibilidad de perderse o no salvar el progreso de operaciones.</p>
+                        <div class="bg-black/40 p-2 rounded border border-white/5 mb-2">
+                            <div class="progress-bar-bg"><div class="progress-fill-red h-full" style="width: 60%"></div></div>
+                            <p class="text-[10px] text-white mt-1">Daño de componentes.</p>
+                        </div>
+                        <div class="text-[10px] font-bold text-gray-400 border-t border-white/10 pt-2"><i class="fa-solid fa-shield text-green-500 mr-1"></i> UPS y Generadores.</div>
+                    </div>
+                </article>
+
+                <!-- 4. Error Humano -->
+                <article class="glass-card rounded-xl group hover:border-neon-red/80">
+                    <div class="card-bg-image" style="background-image: url('https://images.unsplash.com/photo-1525785967371-d291454d9c82?q=80&w=600&auto=format&fit=crop');"></div>
+                    <div class="card-content p-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="p-2 rounded-lg bg-black/60 border border-neon-red/30 text-neon-red icon-pulse"><i class="fa-solid fa-mug-hot"></i></div>
+                            <span class="text-[9px] font-bold bg-neon-red/20 text-neon-red px-1.5 py-0.5 rounded border border-neon-red/20">ALTO</span>
+                        </div>
+                        <h3 class="font-cyber text-lg font-bold text-white mb-1 group-hover:text-neon-red transition-colors">Error Humano</h3>
+                        <p class="text-gray-300 text-[11px] mb-3 flex-grow">Accidentes inesperados o descuidos por causas de distraccion (derrames, tropiezos con cables). <strong>Es física</strong> porque resulta daño fisico a los componentes electronicos, en este punto el daño puede ir desde una desconexcion paulatina a daños severos (perdida de equipo)</p>
+                        <div class="bg-black/40 p-2 rounded border border-white/5 mb-2">
+                            <div class="progress-bar-bg"><div class="progress-fill-red h-full" style="width: 70%"></div></div>
+                            <p class="text-[10px] text-white mt-1">Daño accidental.</p>
+                        </div>
+                        <div class="text-[10px] font-bold text-gray-400 border-t border-white/10 pt-2"><i class="fa-solid fa-shield text-green-500 mr-1"></i> Orden y Normativas.</div>
+                    </div>
+                </article>
+
+                <!-- 5. Desgaste Hardware -->
+                <article class="glass-card rounded-xl group hover:border-neon-red/80">
+                    <div class="card-bg-image" style="background-image: url('https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?q=80&w=600&auto=format&fit=crop');"></div>
+                    <div class="card-content p-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="p-2 rounded-lg bg-black/60 border border-neon-red/30 text-neon-red icon-pulse"><i class="fa-solid fa-hard-drive"></i></div>
+                            <span class="text-[9px] font-bold bg-neon-yellow/20 text-neon-yellow px-1.5 py-0.5 rounded border border-neon-yellow/20">MEDIO</span>
+                        </div>
+                        <h3 class="font-cyber text-lg font-bold text-white mb-1 group-hover:text-neon-red transition-colors">Desgaste HW</h3>
+                        <p class="text-gray-300 text-[11px] mb-3 flex-grow">Deterioro natural de componentes. <strong>Es física</strong> porque implica el fin de la vida útil de los materiales, causando fallos sin ataque externo.</p>
+                        <div class="bg-black/40 p-2 rounded border border-white/5 mb-2">
+                            <div class="progress-bar-bg"><div class="progress-fill-red h-full" style="width: 50%"></div></div>
+                            <p class="text-[10px] text-white mt-1">Pérdida de datos local.</p>
+                        </div>
+                        <div class="text-[10px] font-bold text-gray-400 border-t border-white/10 pt-2"><i class="fa-solid fa-shield text-green-500 mr-1"></i> Mantenimiento/Backups.</div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: AMENAZAS LÓGICAS (5 COLUMNAS) -->
+        <section class="w-full relative">
+            <!-- Encabezado de Sección Restaurado -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-4 border-b border-neon-blue/30 pb-2">
+                <!-- Definición Restaurada -->
+                <p class="text-gray-400 text-xs max-w-2xl mt-2 md:mt-0 leading-relaxed font-light border-r-2 border-neon-blue/50 pr-4 text-right md:text-left order-2 md:order-1 hidden md:block">
+                    Se trata de aprovechar fallos en el software, el cifrado o las redes. A diferencia de los riesgos físicos, estas amenazas son puramente digitales: buscan vulnerar la información sin necesidad de tocar físicamente los equipos.
+                </p>
+                <div class="flex items-center justify-end order-1 md:order-2">
+                    <div class="text-right mr-3">
+                        <h2 class="font-cyber text-2xl font-bold text-white text-glow-blue tracking-wide">AMENAZAS LÓGICAS</h2>
+                        <p class="text-neon-blue font-bold text-[10px] tracking-widest uppercase">Peligro Digital</p>
+                    </div>
+                    <div class="bg-neon-blue/10 border border-neon-blue/30 p-2 rounded backdrop-blur-sm">
+                        <i class="fa-solid fa-network-wired text-2xl text-neon-blue shadow-neon-blue"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GRID 5 COLUMNAS -->
+            <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4">
+                
+                <!-- 1. Malware -->
+                <article class="glass-card rounded-xl group hover:border-neon-blue/80">
+                    <div class="card-bg-image" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=600&auto=format&fit=crop');"></div>
+                    <div class="card-content p-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="p-2 rounded-lg bg-black/60 border border-neon-blue/30 text-neon-blue icon-pulse"><i class="fa-solid fa-bug"></i></div>
+                            <span class="text-[9px] font-bold bg-neon-blue/20 text-neon-blue px-1.5 py-0.5 rounded border border-neon-blue/20">VIRAL</span>
+                        </div>
+                        <h3 class="font-cyber text-lg font-bold text-white mb-1 group-hover:text-neon-blue transition-colors">Malware</h3>
+                        <p class="text-gray-300 text-[11px] mb-3 flex-grow">Código malicioso (Virus, Spyware). <strong>Es lógica</strong> porque opera puramente a nivel de software, corrompiendo datos y procesos sin tocar el equipo físico.</p>
+                        <div class="bg-black/40 p-2 rounded border border-white/5 mb-2">
+                            <div class="progress-bar-bg"><div class="progress-fill-blue h-full" style="width: 90%"></div></div>
+                            <p class="text-[10px] text-white mt-1">Secuestro de datos.</p>
+                        </div>
+                        <div class="text-[10px] font-bold text-gray-400 border-t border-white/10 pt-2"><i class="fa-solid fa-shield text-green-500 mr-1"></i> Antivirus EDR.</div>
+                    </div>
+                </article>
+
+                <!-- 2. Ingeniería Social -->
+                <article class="glass-card rounded-xl group hover:border-neon-blue/80">
+                    <div class="card-bg-image" style="background-image: url('https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600&auto=format&fit=crop');"></div>
+                    <div class="card-content p-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="p-2 rounded-lg bg-black/60 border border-neon-blue/30 text-neon-blue icon-pulse"><i class="fa-solid fa-user-secret"></i></div>
+                            <span class="text-[9px] font-bold bg-neon-blue/20 text-neon-blue px-1.5 py-0.5 rounded border border-neon-blue/20">HUMANO</span>
+                        </div>
+                        <h3 class="font-cyber text-lg font-bold text-white mb-1 group-hover:text-neon-blue transition-colors">Phishing</h3>
+                        <p class="text-gray-300 text-[11px] mb-3 flex-grow">Manipulación al usuario del uso del equipo. <strong>Es lógica</strong> porque ataca la capa de autenticación, explotando la confianza del usuario para obtener claves sin fuerza bruta, todo esto a traves de engaños con anuncios falsos y teniendo acceso a equipos destino.</p>
+                        <div class="bg-black/40 p-2 rounded border border-white/5 mb-2">
+                            <div class="progress-bar-bg"><div class="progress-fill-blue h-full" style="width: 85%"></div></div>
+                            <p class="text-[10px] text-white mt-1">Acceso no autorizado.</p>
+                        </div>
+                        <div class="text-[10px] font-bold text-gray-400 border-t border-white/10 pt-2"><i class="fa-solid fa-shield text-green-500 mr-1"></i> Capacitación / 2FA.</div>
+                    </div>
+                </article>
+
+                <!-- 3. DDoS -->
+                <article class="glass-card rounded-xl group hover:border-neon-blue/80">
+                    <div class="card-bg-image" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop');"></div>
+                    <div class="card-content p-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="p-2 rounded-lg bg-black/60 border border-neon-blue/30 text-neon-blue icon-pulse"><i class="fa-solid fa-server"></i></div>
+                            <span class="text-[9px] font-bold bg-neon-blue/20 text-neon-blue px-1.5 py-0.5 rounded border border-neon-blue/20">RED</span>
+                        </div>
+                        <h3 class="font-cyber text-lg font-bold text-white mb-1 group-hover:text-neon-blue transition-colors">DDoS</h3>
+                        <p class="text-gray-300 text-[11px] mb-3 flex-grow">Saturación por tráfico masivo. <strong>Es lógica</strong> porque agota los recursos digitales (ancho de banda) negando el servicio sin dañar el servidor.</p>
+                        <div class="bg-black/40 p-2 rounded border border-white/5 mb-2">
+                            <div class="progress-bar-bg"><div class="progress-fill-blue h-full" style="width: 75%"></div></div>
+                            <p class="text-[10px] text-white mt-1">Caída del servicio.</p>
+                        </div>
+                        <div class="text-[10px] font-bold text-gray-400 border-t border-white/10 pt-2"><i class="fa-solid fa-shield text-green-500 mr-1"></i> Firewalls WAF.</div>
+                    </div>
+                </article>
+
+                <!-- 4. Man in the Middle -->
+                <article class="glass-card rounded-xl group hover:border-neon-blue/80">
+                    <div class="card-bg-image" style="background-image: url('https://images.unsplash.com/photo-1520690214124-2405c5217036?q=80&w=600&auto=format&fit=crop');"></div>
+                    <div class="card-content p-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="p-2 rounded-lg bg-black/60 border border-neon-blue/30 text-neon-blue icon-pulse"><i class="fa-solid fa-wifi"></i></div>
+                            <span class="text-[9px] font-bold bg-neon-blue/20 text-neon-blue px-1.5 py-0.5 rounded border border-neon-blue/20">ALTO</span>
+                        </div>
+                        <h3 class="font-cyber text-lg font-bold text-white mb-1 group-hover:text-neon-blue transition-colors">Wifi Pública</h3>
+                        <p class="text-gray-300 text-[11px] mb-3 flex-grow">Intercepción de datos (MitM). <strong>Es lógica</strong> porque vulnera la confidencialidad de los datos en tránsito digital.</p>
+                        <div class="bg-black/40 p-2 rounded border border-white/5 mb-2">
+                            <div class="progress-bar-bg"><div class="progress-fill-blue h-full" style="width: 80%"></div></div>
+                            <p class="text-[10px] text-white mt-1">Robo de credenciales.</p>
+                        </div>
+                        <div class="text-[10px] font-bold text-gray-400 border-t border-white/10 pt-2"><i class="fa-solid fa-shield text-green-500 mr-1"></i> Uso de VPN / HTTPS.</div>
+                    </div>
+                </article>
+
+                <!-- 5. Claves Débiles -->
+                <article class="glass-card rounded-xl group hover:border-neon-blue/80">
+                    <div class="card-bg-image" style="background-image: url('https://images.unsplash.com/photo-1589652717521-10c0d092dea9?q=80&w=600&auto=format&fit=crop');"></div>
+                    <div class="card-content p-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="p-2 rounded-lg bg-black/60 border border-neon-blue/30 text-neon-blue icon-pulse"><i class="fa-solid fa-unlock"></i></div>
+                            <span class="text-[9px] font-bold bg-neon-blue/20 text-neon-blue px-1.5 py-0.5 rounded border border-neon-blue/20">CRÍTICO</span>
+                        </div>
+                        <h3 class="font-cyber text-lg font-bold text-white mb-1 group-hover:text-neon-blue transition-colors">Accesos no autorizados</h3>
+                        <p class="text-gray-300 text-[11px] mb-3 flex-grow">Uso de passwords simples. <strong>Es lógica</strong> porque es una falla en la configuración de seguridad que permite el acceso no autorizado mediante software, esto se debe a que por fuerza bruta es facil de acceder, o tambien con contraseñas obvias se pueden vulnerar las credeciales.</p>
+                        <div class="bg-black/40 p-2 rounded border border-white/5 mb-2">
+                            <div class="progress-bar-bg"><div class="progress-fill-blue h-full" style="width: 95%"></div></div>
+                            <p class="text-[10px] text-white mt-1">Fácil hackeo.</p>
+                        </div>
+                        <div class="text-[10px] font-bold text-gray-400 border-t border-white/10 pt-2"><i class="fa-solid fa-shield text-green-500 mr-1"></i> Gestor de Claves.</div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE REFERENCIAS BIBLIOGRÁFICAS (CORREGIDA Y VERIFICADA) -->
+        <section class="w-full glass-card rounded-xl p-6 border-t-4 border-t-neon-green relative overflow-hidden mt-4">
+            <h2 class="font-cyber text-xl font-bold text-white mb-4 flex items-center">
+                <i class="fa-solid fa-book-bookmark mr-3 text-neon-green"></i>
+                Bibliografias:
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-[10px] text-gray-300 font-tech">
+                <div class="space-y-2">
+                    <p>
+                        <span class="text-neon-blue font-bold"></span> (s.f.). <em>¿Qué es la seguridad de red?</em>. IBM. Recuperado el 12 de febrero de 2026, de  
+                        <a href="https://www.ibm.com/mx-es/think/topics/network-security" target="_blank" class="text-neon-green hover:underline">https://www.ibm.com/mx-es/think/topics/network-security</a>       
+                    </p>
+                    <p>
+                        <span class="text-neon-blue font-bold"></span> (s.f.). <em>¿Qué es la ingeniería social?</em>. IBM. Recuperado el 12 de febrero de 2026, de 
+                        <a href="https://www.ibm.com/mx-es/think/topics/social-engineering" target="_blank" class="text-neon-green hover:underline">https://www.ibm.com/mx-es/think/topics/social-engineering</a>                       
+                    </p>
+                    <p>
+                        <span class="text-neon-blue font-bold"></span> (s.f.). <em>Consejos de ciberseguridad: Lista de verificación</em>. Fortinet. Recuperado el 12 de febrero de 2026, de 
+                        <a href="https://www.fortinet.com/lat/resources/cyberglossary/10-cybersecurity-tips-small-business" target="_blank" class="text-neon-green hover:underline">https://www.fortinet.com/lat/resources/cyberglossary/10-cybersecurity-tips-small-business</a>                       
+                    </p>
+                </div>
+                <div class="space-y-2">
+                    <p>
+                        <span class="text-neon-blue font-bold"></span> (s.f.). <em>¿Qué es el malware?</em>. Malwarebytes. Recuperado el 12 de febrero de 2026, de 
+                        <a href="https://es.malwarebytes.com/malware/" target="_blank" class="text-neon-green hover:underline">https://es.malwarebytes.com/malware/</a>     
+                    </p>
+                    <p>
+                        <span class="text-neon-blue font-bold"></span> (s.f.). <em>Tipos de ciberataques</em>. Fortinet. Recuperado el 12 de febrero de 2026, de 
+                        <a href="https://www.fortinet.com/lat/resources/cyberglossary/types-of-cyber-attacks" target="_blank" class="text-neon-green hover:underline">https://www.fortinet.com/lat/resources/cyberglossary/types-of-cyber-attacks</a>
+                    </p>
+                     <p>
+                        <span class="text-neon-blue font-bold"></span> (s.f.). <em>¿Qué es un ataque DDoS?</em>. Cloudflare. Recuperado el 12 de febrero de 2026, de 
+                        <a href="https://www.cloudflare.com/es-es/learning/ddos/what-is-a-ddos-attack/" target="_blank" class="text-neon-green hover:underline">https://www.cloudflare.com/es-es/learning/ddos/what-is-a-ddos-attack/</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Compacto -->
+    <footer class="w-full py-3 bg-black/60 backdrop-blur border-t border-gray-800 flex justify-between px-8 text-[10px] md:text-xs font-tech text-gray-500 z-10 uppercase tracking-wider">
+        <span>Sistema de Seguridad </span>
+        <div class="flex items-center gap-4">
+            <span class="text-white"><i class="fa-solid fa-satellite-dish mr-1 text-neon-blue"></i> Conectado</span>
+            <span>RDS</span>
+        </div>
+    </footer>
+
+</body>
+</html>

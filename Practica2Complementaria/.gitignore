@@ -1,0 +1,27 @@
+# LaTeX auxiliary files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.blg
+*.bbl
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.dvi
+*.idx
+*.ilg
+*.ind
+*.lof
+*.lot
+*.glg
+*.glo
+*.gls
+
+# Temp files
+tmpclaude-*

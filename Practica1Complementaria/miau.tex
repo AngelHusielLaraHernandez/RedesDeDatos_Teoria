@@ -1,0 +1,344 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{siunitx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[citecolor=blue,breaklinks=true]{hyperref}        % Para enlaces en el documento
+\usepackage{fancyhdr}
+\usepackage{circuitikz}
+\usepackage{amssymb}
+\usepackage{animate}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{gensymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{microtype}      % Micro-tipografía: reduce overfull hbox automáticamente
+
+% Ajuste de la altura del encabezado
+\setlength{\headheight}{76.27646pt}
+\addtolength{\topmargin}{-34.27646pt}
+
+\lstdefinestyle{mystyle}{
+    language=Matlab,
+    inputencoding=utf8,
+    backgroundcolor=\color{black!5},
+    commentstyle=\color{green!60!black},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{purple},
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showstringspaces=false,
+}
+\lstset{style=mystyle}
+
+\setlength{\parindent}{0pt}
+\emergencystretch=3em          % Tolerancia extra para evitar overfull hbox residuales
+
+% Crear la portada manualmente
+\begin{document}
+
+% Desactivar la numeración de página para la portada
+\thispagestyle{empty}
+
+% Colocar las imágenes en las esquinas superiores
+\begin{minipage}[t]{0.4\textwidth}
+    \raggedright
+    \includegraphics[width=2cm]{image/der.png}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+    \raggedleft
+    \includegraphics[width=2cm]{image/izq.png}
+\end{minipage}
+
+\vspace{1cm}
+
+\begin{center}
+    \Huge{\textbf{Práctica Complementaria y Obligatoria 1. Normatividad.}} \\
+    \vspace{0.5cm}
+    \Huge{\textbf{Cuestionario Previo.}} \\
+    \vspace{1.5cm}
+    \Large{\textbf{Universidad Nacional Autónoma de México.}}\\
+    \Large{\textbf{Facultad de Ingeniería.}}\\
+    \vspace{1cm}
+    \Large{Redes de Datos Seguras.} \\
+    \vspace{0.5cm}
+    \LARGE{\textbf{Profesora:}}
+    \LARGE{\textit{MTRA. MARIA EUGENIA BAUTISTA GONZALEZ.}}\\
+    \vspace{0.5cm}
+    \Large{\textbf{Grupo:} 2} \\
+    \vspace{0.5cm}
+    \LARGE{\textbf{Alumno:}}\\
+    \Large{320060829} \\
+    \vspace{3cm}
+    \Large{\textbf{Fecha de Entrega:}}\\
+    \vspace{0.5cm}
+    \large{{Febrero 27, 2026}}
+\end{center}
+
+\newpage
+
+% Configuración del encabezado y pie de página
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[width=1.5cm]{image/izq.png}}
+\fancyhead[R]{\includegraphics[width=1.5cm]{image/der.png}}
+\fancyfoot[C]{\thepage}  % Coloca el número de página en el centro del pie de página
+
+% Línea horizontal en el pie de página
+\renewcommand{\footrulewidth}{0.4pt}  % Define el grosor de la línea en el pie de página
+
+% Empezar numeración de páginas desde 1 en la segunda página
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\tableofcontents
+
+\newpage
+
+% ======================================================================
+\section{Defina el término norma.}
+
+Una \textbf{norma} es un documento técnico de carácter jurídico, emitido y avalado por una autoridad gubernamental competente, cuyo propósito fundamental es regular comportamientos, procesos o características físicas y lógicas de un sistema. En el ámbito de la ingeniería de telecomunicaciones y el derecho administrativo, la norma adquiere una connotación estricta: no es una recomendación ni una guía de mejores prácticas emitida por un fabricante privado, sino un mandato irrenunciable que busca proteger un bien jurídico superior, como la vida de los trabajadores, la salud pública o la prevención de desastres físicos.
+
+A diferencia de los manuales de instalación creados por la industria, una norma posee un peso coercitivo respaldado por el Estado. Cuando un ingeniero diseña un centro de datos, los calibres de los conductores de puesta a tierra, la capacidad ignífuga de los cables de red o los límites de radiación electromagnética de las antenas no son sugerencias, sino obligaciones dictaminadas por las normas vigentes. Sus características esenciales son:
+
+\begin{itemize}
+    \item \textbf{Obligatoriedad:} Su cumplimiento no es opcional; está respaldado por el poder coercitivo del Estado.
+    \item \textbf{Protección:} Resguarda la vida humana, el patrimonio, el medio ambiente y la seguridad nacional.
+    \item \textbf{Origen público:} Es emitida por dependencias gubernamentales, no por fabricantes privados.
+    \item \textbf{Alcance territorial:} Tiene jurisdicción dentro de las fronteras del país que la emite.
+\end{itemize}
+
+En el contexto de las redes de datos seguras, la norma constituye el cimiento de la seguridad física (Capa 1 del Modelo OSI). La resiliencia de una red no se limita a la fortaleza de sus algoritmos criptográficos; si la infraestructura subyacente no cumple con las normas de instalación eléctrica y acondicionamiento ambiental, la red es intrínsecamente vulnerable. Un fallo provocado por materiales no normados puede resultar en la caída total del servicio, violando el pilar de \textit{Disponibilidad} de la seguridad de la información (CIA). Por ello, el cumplimiento normativo es el paso inicial e indispensable para cualquier auditoría de ciberseguridad.
+
+El ciclo de vida de una norma refleja su naturaleza jurídica y pública, atravesando las siguientes etapas:
+\begin{enumerate}
+    \item Redacción del proyecto por el organismo competente.
+    \item Apertura a periodos de consulta pública.
+    \item Revisión por comités consultivos (sector público, privado y académico).
+    \item Sanción y publicación en el diario oficial del país.
+\end{enumerate}
+
+\newpage
+
+% ======================================================================
+\section{Defina el término estándar.}
+
+Según la \textbf{Guía ISO/IEC 2:2004}, un estándar es un documento establecido por consenso y aprobado por un organismo reconocido, que proporciona, para un uso común y repetido, reglas, directrices o características para las actividades o sus resultados, con el fin de lograr el grado óptimo de orden en un contexto determinado. La esencia del estándar radica en dos pilares fundamentales: el \textbf{consenso técnico} y la \textbf{adopción voluntaria} por parte de la industria y el mercado global.
+
+A lo largo de la historia de las tecnologías de la información, los estándares se han manifestado en dos vertientes principales. Un \textbf{estándar de facto} surge de manera orgánica cuando una tecnología obtiene una aceptación masiva en el mercado sin la aprobación previa de un comité oficial; el ejemplo más paradigmático es la arquitectura TCP/IP, adoptada globalmente por su resiliencia antes de ser formalmente regulada. Por otro lado, los \textbf{estándares de iure} son diseñados, debatidos y ratificados por organismos oficiales como la ISO, la IEC o el IEEE, garantizando especificaciones universales libres de la influencia monopólica de un solo fabricante. Ambos tipos pueden coexistir, y de hecho es frecuente que un estándar de facto sea posteriormente formalizado por un comité oficial.
+
+En el diseño y aseguramiento de redes de datos, los estándares son el único mecanismo que garantiza la \textbf{interoperabilidad}: la capacidad de sistemas de distintos fabricantes para comunicarse e intercambiar información de forma fluida. Gracias a la estandarización estricta del Modelo OSI y de los protocolos en cada una de sus capas, es posible que un enrutador fabricado en Asia interopere con un servidor de Norteamérica usando cables de fibra óptica producidos en Europa. Sin estas definiciones universales, el internet moderno colapsaría en un caos de ecosistemas cerrados e incompatibles.
+
+Desde la perspectiva de la ciberseguridad, los estándares son fundamentales para combatir el paradigma de la ``seguridad por oscuridad''. Un algoritmo como el AES es considerado altamente seguro precisamente porque su funcionamiento interno es público y ha soportado el escrutinio de miles de criptoanalistas independientes durante años. Del mismo modo, estandarizar el etiquetado de los puertos de red y la arquitectura de los cuartos de telecomunicaciones eleva drásticamente el nivel de madurez operativa de la organización.
+
+\newpage
+
+% ======================================================================
+\section{Indique si existe alguna diferencia entre normas y estándares. Justifique su respuesta.}
+
+Sí existe una diferencia abismal, estructural y ontológica entre una norma y un estándar. A pesar de que en la jerga técnica cotidiana ambos términos suelen utilizarse de manera intercambiable, la justificación de esta diferencia se fundamenta en tres ejes críticos.
+
+\subsection*{Eje 1: Obligatoriedad}
+
+Una norma es una imposición jurídica dictada por el Estado; su cumplimiento no está sujeto a la discrecionalidad del diseñador de la red ni al presupuesto del proyecto. Por el contrario, un estándar es adoptado de manera voluntaria por la industria, por definición de la propia Guía ISO/IEC 2. Un fabricante de switches puede ignorar el IEEE 802.3 y fabricar un equipo con un protocolo propietario sin incurrir en ningún ilícito, aunque sufrirá las consecuencias comerciales del mercado. Sin embargo, si ese mismo fabricante viola las normas de aislamiento eléctrico del país destino, enfrentará incautación del producto y acciones penales.
+
+\begin{itemize}
+    \item \textbf{Norma:} Mandato legal del Estado. Incumplimiento implica ilícito administrativo o penal.
+    \item \textbf{Estándar:} Adopción voluntaria. Incumplimiento implica penalización comercial.
+\end{itemize}
+
+\subsection*{Eje 2: Alcance territorial}
+
+Las normas están estrictamente circunscritas a la soberanía de la nación que las emite. Una Norma Oficial Mexicana (NOM) tiene jurisdicción únicamente dentro de las fronteras de México; un equipo legal bajo las normas de la FCC de los Estados Unidos podría ser ilegal en México si no se alinea con los parámetros de radiación locales. En contraposición, los estándares poseen una vocación puramente global y trascienden fronteras, convirtiéndose en el idioma técnico universal de la ingeniería moderna.
+
+\begin{itemize}
+    \item \textbf{Norma:} Aplicación territorial y soberana.
+    \item \textbf{Estándar:} Adopción global, independiente de fronteras geopolíticas.
+\end{itemize}
+
+\subsection*{Eje 3: Consecuencias del incumplimiento}
+
+La violación de una norma conlleva sanciones impuestas por las autoridades administrativas o judiciales, que van desde multas económicas y decomiso de infraestructura hasta la clausura definitiva de un centro de datos y la privación de la libertad de los responsables. La inobservancia de un estándar, en cambio, no conlleva castigos legales sino castigos del mercado: pérdida de paquetes, diafonía incontrolable, rechazo del cliente o exclusión competitiva. No obstante, existe un importante fenómeno de convergencia: es frecuente que el gobierno emita una norma que cite y exija el cumplimiento de un estándar técnico internacional, convirtiendo así el estándar voluntario en ley dentro de su territorio.
+
+\newpage
+
+% ======================================================================
+\section{Mencione las ventajas y desventajas de utilizar normas.}
+
+La aplicación de normas y estándares en el diseño y administración de redes de telecomunicaciones acarrea una transformación profunda en el modelo operativo de las organizaciones. Esta formalización técnica y legal ofrece ventajas formidables que justifican ampliamente la inversión requerida, pero simultáneamente impone restricciones estructurales que deben sopesarse con cuidado.
+
+\subsection*{Ventajas}
+
+Entre las ventajas más destacadas, la \textbf{interoperabilidad tecnológica} se posiciona como el beneficio supremo. Al adherirse a parámetros universales, las infraestructuras de red se independizan de monopolios tecnológicos, eliminando el fenómeno de ``vendor lock-in''. Una empresa puede combinar cableado de un fabricante, switches de otro y puntos de acceso de un tercero, y todo el ecosistema funcionará de forma simbiótica porque los interfaces físicos, las impedancias eléctricas y el formato de las tramas Ethernet obedecen a un estándar inmutable, promoviendo además la competencia en costos y calidad de soporte.
+
+\begin{itemize}
+    \item \textbf{Seguridad física garantizada:} Las normas de puesta a tierra (ANSI/TIA-607) y de materiales eléctricos previenen cortocircuitos, electrocuciones e incendios en los racks de servidores.
+    \item \textbf{Gestión simplificada:} Estándares como ANSI/TIA-606 permiten que nuevos técnicos descifren la topología de la red en minutos, reduciendo el tiempo medio de recuperación (MTTR) ante contingencias.
+    \item \textbf{Protección de la información:} La familia ISO 27000 proporciona una hoja de ruta auditada para blindar los datos contra intrusiones, garantizando Confidencialidad, Integridad y Disponibilidad (CIA).
+\end{itemize}
+
+\subsection*{Desventajas}
+
+La adhesión estricta a este marco normativo conlleva desventajas insoslayables. La primera y más notable es la \textbf{barrera económica de entrada}: diseñar una red que cumpla con todos los estándares internacionales y normas nacionales exige una inyección masiva de capital (CapEx). Los materiales certificados (cables plenum, paneles apantallados, gabinetes sismo-resistentes) y los instrumentos de certificación metrológica (reflectómetros ópticos, certificadores de cobre) tienen costos muy superiores a sus equivalentes genéricos.
+
+\begin{itemize}
+    \item \textbf{Rigidez e innovación lenta:} El proceso de publicación de un estándar puede prolongarse años, mientras que tecnologías como IoT, SDN e IA evolucionan cada semestre, generando vacíos regulatorios que obligan a las empresas a implementar arquitecturas ``pre-estándar'' asumiendo el riesgo técnico.
+    \item \textbf{Mínimo común denominador:} El consenso entre corporaciones rivales puede resultar en estándares comprometidos que no reflejan la máxima capacidad técnica disponible, sino la solución que generó menos fricciones comerciales.
+\end{itemize}
+
+\newpage
+
+% ======================================================================
+\section[¿Qué nomenclatura emplean las normas en México?, describa la diferencia entre cada una de ellas.]{¿Qué nomenclatura emplean las normas en México?,\texorpdfstring{\\}{} describa la diferencia entre cada una de ellas.}
+
+El Estado mexicano rige su sistema de normalización a través de la \textbf{Ley de Infraestructura de la Calidad (LIC, 2020)}, que abrogó a la antigua Ley Federal sobre Metrología y Normalización (LFMN). Esta reforma introdujo un sistema integral que sistematiza los procesos de estandarización, evaluación de la conformidad y metrología a través de plataformas tecnológicas. En este ecosistema, la nomenclatura oficial se bifurca en dos grandes instrumentos regulatorios: las \textbf{Normas Oficiales Mexicanas (NOM)} y las \textbf{Normas Mexicanas (NMX)}.
+
+\subsection*{NOM (Norma Oficial Mexicana)}
+
+Las NOM constituyen regulaciones técnicas de observancia absoluta, general y obligatoria. Son expedidas por las dependencias competentes del gobierno federal (Secretaría de Economía, STPS, IFT) y su objetivo no es optimizar el rendimiento tecnológico, sino garantizar que los productos, procesos e instalaciones no representen un riesgo para la vida, la integridad física, la salud humana o el medio ambiente. El desacato a una NOM implica la comisión de un ilícito sujeto a sanciones administrativas graves, incautación de bienes y clausura de instalaciones.
+
+\subsection*{NMX (Norma Mexicana)}
+
+Las NMX han sido concebidas como regulaciones de aplicación voluntaria, elaboradas por Organismos Nacionales de Normalización (ONN) privados o por Comités Técnicos coordinados por la Secretaría de Economía. Su objetivo es elevar la calidad de los procesos, fomentar la homogeneidad en las cadenas de suministro y ``tropicalizar'' los estándares internacionales de la ISO o el IEEE hacia el marco técnico mexicano. Una NMX solo se vuelve obligatoria si una NOM hace referencia directa a ella, imponiéndola como requisito de cumplimiento.
+
+La codificación alfanumérica de ambos instrumentos sigue el patrón mostrado a continuación, cuyos componentes son:
+
+\begin{center}
+\texttt{[Tipo]-[Rubro]-[Número]-[Organismo]-[Año]}
+\end{center}
+
+\begin{itemize}
+    \item \textbf{Tipo:} NOM (obligatorio), NMX (voluntario), PROY (proyecto en consulta pública), EM (norma de emergencia de corta duración).
+    \item \textbf{Rubro:} I = Informática y Telecomunicaciones, J = Instalaciones eléctricas, C = Construcción.
+    \item \textbf{Número:} Identificador secuencial único dentro de la categoría.
+    \item \textbf{Organismo:} SCFI, SE, NYCE (Normalización y Certificación Electrónica), entre otros.
+    \item \textbf{Año:} Año de publicación en el Diario Oficial de la Federación (DOF).
+\end{itemize}
+
+Por ejemplo, la clave \texttt{NMX-I-27032-NYCE-2018} indica una Norma Mexicana de cumplimiento voluntario, clasificada en el rubro de Informática, con número de registro 27032, elaborada por NYCE y vigente desde 2018. Esta estructura semántica permite a los ingenieros y auditores de TI rastrear rápidamente el origen y la vigencia de las reglas bajo las cuales se está diseñando una infraestructura de red en territorio nacional.
+
+\newpage
+
+% ======================================================================
+\section{¿Cuáles son las normas y estándares que se utilizan en México?}
+
+El panorama tecnológico de México requiere la combinación de normativas obligatorias y estándares voluntarios para garantizar que la expansión de los servicios digitales y las telecomunicaciones corporativas se sustente sobre bases seguras, interoperables y confiables.
+
+En el ámbito del hardware de redes, la \textbf{NOM-001-SCFI-2018} rige los aparatos electrónicos y sus requisitos de seguridad, exigiendo que cualquier dispositivo energizado (routers, puentes inalámbricos, UPS, fuentes de poder de centros de datos) posea aislamientos térmicos, protecciones contra sobrecorriente y etiquetas claras respecto a los medios de desconexión, para evitar que un colapso en la fuente derive en electrocución o incendios estructurales. En colaboración con esta, la \textbf{NOM-019-SE-2021} legisla sobre la seguridad física y las pruebas de laboratorio requeridas para equipos de procesamiento de datos, incluyendo los lineamientos para recertificar hardware reacondicionado antes de reintegrarlo a una red de producción nacional.
+
+Para la infraestructura de cableado, el organismo NYCE ha desarrollado una serie de Normas Mexicanas complementarias:
+
+\begin{itemize}
+    \item \textbf{NMX-I-132-NYCE-2006:} Especificaciones de espacios y trayectorias de cableado en edificios comerciales, evitando la mezcla peligrosa de cables de datos con líneas de alta tensión.
+    \item \textbf{NMX-I-248-NYCE-2008:} Reglas de etiquetado y administración física, prescribiendo identificadores únicos e indelebles en cada puerto, roseta y cable, lo cual es el principio fundamental para auditar el acceso físico en redes seguras.
+    \item \textbf{NMX-I-154-NYCE-2008:} Parámetros y metodologías para la certificación de desempeño de los enlaces instalados.
+\end{itemize}
+
+En materia de ciberseguridad, la columna vertebral es la serie \textbf{NMX-I-27000}, que introduce los Sistemas de Gestión de Seguridad de la Información (SGSI) a la industria nacional. Destaca la \textbf{NMX-I-27032-NYCE-2018}, que define roles, conceptos e interoperabilidad para mitigar ataques en el ciberespacio, y la \textbf{NMX-I-27033-1-NYCE-2018}, orientada a la seguridad lógica de arquitecturas de red, guiando la implementación de cortafuegos, VLANs y túneles criptográficos.
+
+Finalmente, cualquier despliegue que involucre señales electromagnéticas a través de medios no guiados (radioenlaces de microondas, redes Wi-Fi empresariales o sistemas de quinta generación) debe acatar las Disposiciones Técnicas del \textbf{Instituto Federal de Telecomunicaciones (IFT)}, que limitan la potencia efectiva de transmisión y los patrones de canales de salto, salvaguardando la comunicación ininterrumpida de las redes de emergencia y aviación nacional.
+
+\newpage
+
+% ======================================================================
+\section{¿Qué nomenclatura emplea una norma internacional?}
+
+La nomenclatura de una norma internacional depende íntegramente de la organización multilateral responsable de su desarrollo y publicación. A diferencia de las normativas nacionales, estas cadenas alfanuméricas están diseñadas para reflejar de forma transparente la entidad emisora, el comité técnico, la familia tecnológica regulada y la cronología de sus enmiendas, conformando un sistema de archivo técnico estandarizado globalmente.
+
+\subsection*{ISO/IEC (JTC 1)}
+
+El formato más reconocido globalmente proviene de la alianza entre la Organización Internacional de Normalización (ISO) y la Comisión Electrotécnica Internacional (IEC), quienes constituyeron el Comité Conjunto Técnico 1 (JTC 1) dedicado a las Tecnologías de la Información. La nomenclatura sigue el patrón \texttt{ISO/IEC [número][-parte]:[año]}, donde el número identifica la familia tecnológica, el guion y número subsecuente indica el volumen específico cuando la norma es extensa, y los dos puntos separan el año de la última revisión mayor. Por ejemplo, \texttt{ISO/IEC 27001:2022} identifica al estándar central de la familia de Sistemas de Gestión de Seguridad de la Información (serie 27000), en su versión modernizada en 2022 con controles adaptados a amenazas de inteligencia artificial y computación en la nube.
+
+\subsection*{IEEE}
+
+El Instituto de Ingenieros Eléctricos y Electrónicos (IEEE), siendo la máxima autoridad mundial en arquitecturas de redes locales y protocolos de acceso al medio, emplea una nomenclatura estructurada bajo comités especializados con el patrón \texttt{IEEE [comité].[subcomité][enmienda]-[año]}. En redes de datos, el comité omnipresente es el \texttt{802}, cuyas ramificaciones se denotan con un punto y un número secuencial: \texttt{IEEE 802.3} rige todo lo relacionado con Ethernet cableada, mientras que \texttt{IEEE 802.11} legisla el universo de las redes inalámbricas Wi-Fi. A medida que la tecnología avanza, el IEEE añade letras minúsculas para designar enmiendas o saltos generacionales; así, \texttt{IEEE 802.11ax-2021} identifica la enmienda que estandariza Wi-Fi 6, aprobada en 2021.
+
+\subsection*{ANSI/TIA}
+
+Para la infraestructura física del cableado, el sistema norteamericano de referencia mundial es el originado por el Instituto Nacional Estadounidense de Estándares (ANSI) junto con la Asociación de la Industria de Telecomunicaciones (TIA), con el patrón \texttt{ANSI/TIA-[número].[parte]-[revisión]}. Los números maestros son: 568 (cableado de edificios comerciales), 569 (rutas y espacios), 606 (administración) y 607 (puesta a tierra). Una letra mayúscula indica la iteración evolutiva (la revisión ``D'' suplanta a la ``C''), y los números decimales separan los capítulos: .2 para cobre trenzado, .3 para fibra óptica. Así, \texttt{ANSI/TIA-568.2-D} garantiza que el producto de cobre ha superado las pruebas de atenuación, diafonía y pérdida de retorno estipuladas en la cuarta revisión del estándar.
+
+\newpage
+
+% ======================================================================
+\section{Indique las normas internacionales que se emplean para el cableado estructurado.}
+
+El diseño, despliegue y certificación de un sistema de cableado estructurado constituye el cimiento físico de las redes de datos seguras. Si el medio físico es inestable, asimétrico en sus terminaciones o indocumentado, los protocolos criptográficos y lógicos de capas superiores fracasarán debido a pérdidas masivas de tramas y retransmisiones constantes. Para evitar esto, la industria mundial se adhiere a la familia de estándares ANSI/TIA-568 y su contraparte global ISO/IEC 11801, complementadas por normas de espacios, puesta a tierra y administración.
+
+\subsection*{ANSI/TIA-568 (serie principal de cableado)}
+
+La espina dorsal de este compendio es la serie ANSI/TIA-568, actualmente en su revisión ``D''. El documento \textbf{ANSI/TIA-568.0-D} establece los requisitos genéricos de infraestructura para cualquier instalación de cliente, mientras que el \textbf{ANSI/TIA-568.1-D} aplica estos principios a los edificios comerciales, dictaminando una topología en estrella jerárquica donde el cableado horizontal no debe exceder los 90 metros de enlace permanente más 10 metros de patch cords, sumando un canal máximo de 100 metros.
+
+El \textbf{ANSI/TIA-568.2-D} regula el cableado de par trenzado balanceado (UTP, FTP, STP), definiendo los esquemas de conexión T568A y T568B, los radios de curvatura permitidos y las categorías de desempeño disponibles:
+
+\begin{itemize}
+    \item \textbf{Cat 5e:} 100 MHz, soporta Gigabit Ethernet a los 100 m completos.
+    \item \textbf{Cat 6:} 250 MHz, soporta 10 GbE hasta 55 m o Gigabit a 100 m.
+    \item \textbf{Cat 6A:} 500 MHz, soporta 10 GbE a 100 m completos con control de Alien Crosstalk (AXT).
+\end{itemize}
+
+Cuando el ruido industrial o las distancias superan las capacidades del cobre, el \textbf{ANSI/TIA-568.3-D} define los parámetros para el cableado de fibra óptica, incluyendo los tipos de conectores (LC, SC, MTP), fibras multimodo (OM3, OM4, OM5) y monomodo (OS1, OS2) utilizadas en el cableado troncal que interconecta los cuartos de telecomunicaciones con el cuarto de equipos principal del edificio.
+
+\subsection*{ISO/IEC 11801}
+
+En el ámbito internacional, la norma ISO/IEC 11801 funge como el espejo global de la serie TIA-568. Establece especificaciones equivalentes para infraestructuras informáticas pero utiliza una nomenclatura de ``Clases'' de canal: Clase D equivale a Cat5e, Clase E a Cat6 y Clase EA a Cat6A. Es el documento de referencia principal para proyectos multinacionales de origen europeo y asiático, siendo funcionalmente compatible con los requisitos de la serie TIA.
+
+\subsection*{Estándares complementarios}
+
+El ecosistema de cableado estructurado no se restringe al cable portador de la información; el ambiente físico y la administración son igualmente críticos para la seguridad de la red:
+
+\begin{itemize}
+    \item \textbf{ANSI/TIA-569-E:} Rige las rutas y espacios de telecomunicaciones, estableciendo porcentajes máximos de llenado en charolas y ducterías para evitar aplastamiento de cables y sobrecalentamiento por densidad de Power over Ethernet (PoE).
+    \item \textbf{ANSI/TIA-607-D:} Regula la conexión a tierra y el enlace equipotencial. Detalla la instalación de la Barra Principal de Tierra para Telecomunicaciones (TMGB) y la red de conductores de cobre desnudo, protegiendo equipos y personas ante fallas de aislamiento y transitorios electromagnéticos.
+    \item \textbf{ANSI/TIA-606-C:} Administración de la infraestructura. Exige identificadores únicos e indelebles en cada puerto, cable y roseta, siendo la barrera principal contra la inserción clandestina de dispositivos de intercepción y la herramienta fundamental para agilizar la recuperación ante fallos físicos.
+\end{itemize}
+
+\newpage
+% ----------------------------------------------------------------------
+% REFERENCIAS BIBLIOGRÁFICAS EN FORMATO APA 6
+% ----------------------------------------------------------------------
+\renewcommand{\refname}{Referencias Bibliográficas}
+\begin{thebibliography}{99}
+
+\bibitem{ANSI_TIA_568}
+American National Standards Institute / Telecommunications Industry Association. (2018). \textit{ANSI/TIA-568.0-D: Generic Telecommunications Cabling for Customer Premises}. Telecommunications Industry Association (TIA).
+
+\bibitem{ANSI_TIA_569}
+American National Standards Institute / Telecommunications Industry Association. (2019). \textit{ANSI/TIA-569-E: Telecommunications Pathways and Spaces}. Telecommunications Industry Association (TIA).
+
+\bibitem{IEEE_802}
+Institute of Electrical and Electronics Engineers. (2022). \textit{IEEE 802.3-2022: IEEE Standard for Ethernet}. IEEE Computer Society LAN/MAN Standards Committee.
+
+\bibitem{ISO_IEC_Guide2}
+Organización Internacional de Normalización / Comisión Electrotécnica Internacional. (2004). \textit{Guía ISO/IEC 2: Normalización y actividades relacionadas - Vocabulario general}. Secretaría Central de ISO/IEC.
+
+\bibitem{ISO_IEC_11801}
+Organización Internacional de Normalización / Comisión Electrotécnica Internacional. (2017). \textit{ISO/IEC 11801-1:2017 Information technology - Generic cabling for customer premises - Part 1: General requirements}. ISO/IEC JTC 1/SC 25.
+
+\bibitem{LIC_2020}
+Secretaría de Economía. (2020, 1 de julio). Ley de Infraestructura de la Calidad. \textit{Diario Oficial de la Federación}. Cámara de Diputados del H. Congreso de la Unión. Recuperado de \url{https://www.diputados.gob.mx/LeyesBiblio/pdf/LICal_010720.pdf}
+
+\bibitem{NOM_001_SCFI}
+Secretaría de Economía. (2019, 17 de septiembre). NORMA Oficial Mexicana NOM-001-SCFI-2018, Aparatos electrónicos-Requisitos de seguridad y métodos de prueba. \textit{Diario Oficial de la Federación}. Recuperado de \url{https://www.dof.gob.mx/normasOficiales/7880/seeco11_C/seeco11_C.html}
+
+\bibitem{NMX_I_27032}
+Normalización y Certificación NYCE, S.C. (2018, 26 de junio). \textit{NMX-I-27032-NYCE-2018: Tecnologías de la información - Técnicas de seguridad - Ciberseguridad - Orientación para la ciberseguridad}. Diario Oficial de la Federación.
+
+\bibitem{NMX_I_248}
+Normalización y Certificación NYCE, S.C. (2008). \textit{NMX-I-248-NYCE-2008: Telecomunicaciones - Cableado - Requisitos de etiquetado y administración para sistemas de cableado de telecomunicaciones para edificios comerciales}. NYCE.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Conceptos Básicos de Redes</title>
+    <!-- Importamos FontAwesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Importamos fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #06b6d4; /* Cyan */
+            --accent-secondary: #3b82f6; /* Blue */
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --line-color: #334155;
+            --gold: #fbbf24; /* Para la UNAM */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background-image: 
+                linear-gradient(rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.95)),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231e293b' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Contenedor principal estilo hoja A4 vertical */
+        .infographic-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: linear-gradient(180deg, #162032 0%, #0f172a 100%);
+            box-shadow: 0 0 50px rgba(6, 182, 212, 0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--line-color);
+            position: relative;
+        }
+
+        /* Encabezado Institucional */
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%);
+            padding: 40px;
+            text-align: center;
+            border-bottom: 4px solid var(--gold);
+            position: relative;
+        }
+
+        .university-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .faculty {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .student-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            text-align: left;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        .info-item {
+            border-left: 3px solid var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .info-item strong {
+            color: var(--accent-color);
+            display: block;
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Título Principal de la Infografía */
+        .main-title {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .main-title h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 3rem;
+            background: linear-gradient(to right, var(--accent-color), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* Línea de tiempo central (Backbone) */
+        .timeline {
+            position: relative;
+            padding: 40px 20px;
+        }
+
+        /* La línea vertical */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent-color), var(--accent-secondary));
+            top: 0;
+            border-radius: 2px;
+            box-shadow: 0 0 15px var(--accent-color);
+            z-index: 1;
+        }
+
+        /* Tarjetas de conceptos */
+        .concept-card {
+            width: 45%;
+            margin-bottom: 40px;
+            position: relative;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--line-color);
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border-color: var(--accent-color);
+        }
+
+        /* Alternancia izquierda/derecha */
+        .concept-card:nth-child(odd) {
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        .concept-card:nth-child(even) {
+            margin-left: auto;
+            margin-right: 0;
+            text-align: right;
+        }
+
+        /* Conectores (Puntos en la línea central) */
+        .concept-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--bg-color);
+            border: 4px solid var(--accent-color);
+            border-radius: 50%;
+            z-index: 3;
+            transition: background 0.3s;
+        }
+
+        .concept-card:hover::after {
+            background: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .concept-card:nth-child(odd)::after {
+            right: -11.5%; /* Ajuste para conectar con la línea central */
+        }
+
+        .concept-card:nth-child(even)::after {
+            left: -11.5%; /* Ajuste para conectar con la línea central */
+        }
+
+        /* Contenido de la tarjeta */
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 15px;
+        }
+
+        .concept-card:nth-child(even) .card-header {
+            flex-direction: row-reverse;
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .concept-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .concept-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bibliografía */
+        .references {
+            background: #0f172a;
+            padding: 40px;
+            border-top: 1px solid var(--line-color);
+        }
+
+        .references h2 {
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            border-left: 5px solid var(--gold);
+            padding-left: 15px;
+        }
+
+        .ref-list {
+            list-style: none;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .ref-list li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            text-indent: -20px; /* Sangría francesa para APA */
+            word-wrap: break-word;
+        }
+
+        .ref-list a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+        }
+        
+        .ref-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: black;
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .concept-card {
+                width: 100%;
+                padding-left: 50px; /* Espacio para la línea */
+                margin-left: 0 !important;
+                text-align: left !important;
+            }
+
+            .concept-card:nth-child(even) .card-header {
+                flex-direction: row;
+            }
+
+            .concept-card::after {
+                left: 10px !important;
+                right: auto !important;
+            }
+            
+            .student-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .university-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="infographic-container">
+        
+        <!-- Encabezado con Datos Personales -->
+        <header>
+            <div class="university-title">Universidad Nacional Autónoma de México</div>
+            <div class="faculty">Facultad de Ingeniería</div>
+            
+            <div class="student-info">
+                <div class="info-item">
+                    <strong>Materia</strong>
+                    Redes de datos seguras
+                </div>
+                <div class="info-item">
+                    <strong>Profesora</strong>
+                    Mtra. Maria Eugenia Bautista Gonzalez
+                </div>
+                <div class="info-item">
+                    <strong>Alumno</strong>
+                    Lara Hernandez Angel Husiel
+                </div>
+                <div class="info-item">
+                    <strong>Grupo / No. Cuenta</strong>
+                    Gpo: 2 | Cta: 32006082-9
+                </div>
+                <div class="info-item">
+                    <strong>Fecha</strong>
+                    Febrero 12, 2026
+                </div>
+            </div>
+        </header>
+
+        <div class="main-title">
+            <h1>Conceptos de Redes</h1>
+            <p style="color: var(--text-secondary);">Fundamentos esenciales de comunicación digital</p>
+        </div>
+
+        <!-- Cuerpo de la Infografía -->
+        <div class="timeline">
+
+            <!-- 1. Comunicación -->
+            <div class="concept-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fa-solid fa-comments"></i></div>
+                    <div class="concept-title">Comunicación</div>
+                </div>
+                <p class="concept-text">
+                    Transferencia de datos a través de un medio de transmisión (físico o inalámbrico). Para que exista, se requiere un mensaje, un emisor, un canal y un receptor.
+                </p>
+            </div>
+
+            <!-- 2. Redes de Comunicación -->
+            <div class="concept-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fa-solid fa-network-wired"></i></div>
+                    <div class="concept-title">Redes</div>
+                </div>
+                <p class="concept-text">
+                    Conjunto de equipos/dispositivos interconectados mediante conexiones físicas o inalámbricas con el propósito de permitir la transmisión y el intercambio de información y recursos, regidos por protocolos.
+                </p>
+            </div>
+
+            <!-- 3. Transmisión de Datos -->
+            <div class="concept-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fa-solid fa-tower-broadcast"></i></div>
+                    <div class="concept-title">Transmisión</div>
+                </div>
+                <p class="concept-text">
+                    Movimiento de información codificada de un dispositivo digital a otro a través de canales de red, ya sean cableados o inalámbricos.
+                </p>
+            </div>
+
+            <!-- 4. Datos -->
+            <div class="concept-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fa-solid fa-binary"></i></div>
+                    <div class="concept-title">Datos</div>
+                </div>
+                <p class="concept-text">
+                    Información traducida a un formato eficiente para el movimiento o procesamiento de la misma, la cual puede ser almacenada y transmitida.
+                </p>
+            </div>
+
+            <!-- 5. Nodo -->
+            <div class="concept-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fa-solid fa-circle-nodes"></i></div>
+                    <div class="concept-title">Nodo</div>
+                </div>
+                <p class="concept-text">
+                    Punto de conexión que puede recibir, enviar, crear o almacenar datos. Puede reconocer, procesar y transmitir información a otro nodo de la red.
+                </p>
+            </div>
+
+            <!-- 6. Ancho de Banda -->
+            <div class="concept-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fa-solid fa-gauge-high"></i></div>
+                    <div class="concept-title">Ancho de Banda</div>
+                </div>
+                <p class="concept-text">
+                    Cantidad de información que puede fluir a través de una conexión de red en un periodo determinado. Se mide en bits por segundo (bps).
+                </p>
+            </div>
+
+            <!-- 7. Dispositivo -->
+            <div class="concept-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fa-solid fa-laptop-code"></i></div>
+                    <div class="concept-title">Dispositivo</div>
+                </div>
+                <p class="concept-text">
+                    Componente de hardware capaz de enviar, recibir, crear o almacenar datos dentro de una infraestructura de red.
+                </p>
+            </div>
+
+            <!-- 8. Protocolos -->
+            <div class="concept-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fa-solid fa-file-shield"></i></div>
+                    <div class="concept-title">Protocolos</div>
+                </div>
+                <p class="concept-text">
+                    Conjuntos de reglas, normas y procedimientos estrictos que gobiernan la comunicación entre dispositivos.
+                </p>
+            </div>
+
+             <!-- 9. Medios de transmisión -->
+             <div class="concept-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fa-solid fa-ethernet"></i></div>
+                    <div class="concept-title">Medios TX</div>
+                </div>
+                <p class="concept-text">
+                    Canales físicos o inalámbricos a través de los cuales se transmiten los datos en una red de comunicación.
+                </p>
+            </div>
+
+            <!-- 10. Cliente / Servidor -->
+            <div class="concept-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fa-solid fa-server"></i></div>
+                    <div class="concept-title">Cliente/Servidor</div>
+                </div>
+                <p class="concept-text">
+                    <strong>Cliente:</strong> Solicita servicios. <br>
+                    <strong>Servidor:</strong> Proporciona servicios a las estaciones de trabajo conectadas (clientes).
+                </p>
+            </div>
+
+            <!-- 11. Dirección IP -->
+            <div class="concept-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fa-solid fa-fingerprint"></i></div>
+                    <div class="concept-title">Dirección IP</div>
+                </div>
+                <p class="concept-text">
+                    Número único asignado a cada dispositivo en una red IP. Identifica y localiza dispositivos para permitir la comunicación.
+                </p>
+            </div>
+
+            <!-- 12. Servicio de Red -->
+            <div class="concept-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fa-solid fa-cloud"></i></div>
+                    <div class="concept-title">Servicio de Red</div>
+                </div>
+                <p class="concept-text">
+                    Función o recurso proporcionado por un sistema que permite a los usuarios o aplicaciones acceder a información o funcionalidades.
+                </p>
+            </div>
+
+            <!-- 13. Topología -->
+            <div class="concept-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fa-solid fa-diagram-project"></i></div>
+                    <div class="concept-title">Topología</div>
+                </div>
+                <p class="concept-text">
+                    Estructura física de la red; la manera en que cada componente se conecta con los demás. Determina el rendimiento.
+                </p>
+            </div>
+
+             <!-- 14. Conexión -->
+             <div class="concept-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fa-solid fa-link"></i></div>
+                    <div class="concept-title">Conexión</div>
+                </div>
+                <p class="concept-text">
+                    Enlace establecido entre dos o más dispositivos (físico o inalámbrico) permitiendo la transferencia de datos.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Referencias en Formato APA -->
+        <div class="references">
+            <h2>Referencias Bibliográficas (APA 6)</h2>
+            <ul class="ref-list">
+                <li>
+                    Cisco Systems. (2011). <em>CCNA 1 Módulo 2: Fundamentos de redes</em>. Recuperado de <a href="https://sistemascolombosuiza.wordpress.com/wp-content/uploads/2011/03/ccna1_mod2.pdf" target="_blank">https://sistemascolombosuiza.wordpress.com/wp-content/uploads/2011/03/ccna1_mod2.pdf</a>
+                </li>
+                <li>
+                    Cisco. (s.f.). <em>What Are Network Services?</em>. Recuperado de <a href="https://www.cisco.com/site/us/en/learn/topics/networking/what-are-network-services.html" target="_blank">https://www.cisco.com/site/us/en/learn/topics/networking/what-are-network-services.html</a>
+                </li>
+                <li>
+                    GeeksforGeeks. (s.f.). <em>Data Communication: Definition, Components, Types & Channels</em>. Recuperado de <a href="https://www.geeksforgeeks.org/computer-networks/data-communication-definition-components-types-channels/" target="_blank">https://www.geeksforgeeks.org/computer-networks/data-communication-definition-components-types-channels/</a>
+                </li>
+                <li>
+                    IBM. (s.f.). <em>¿Qué es el networking?</em>. Recuperado de <a href="https://www.ibm.com/mx-es/think/topics/networking" target="_blank">https://www.ibm.com/mx-es/think/topics/networking</a>
+                </li>
+                <li>
+                    IBM. (s.f.). <em>Redes físicas</em>. IBM Documentation. Recuperado de <a href="https://www.ibm.com/docs/es/aix/7.2.0?topic=concepts-physical-networks" target="_blank">https://www.ibm.com/docs/es/aix/7.2.0?topic=concepts-physical-networks</a>
+                </li>
+                <li>
+                    Stallings, W. (2007). <em>Data and Computer Communications</em> (8.ª ed.). Upper Saddle River, NJ: Pearson Prentice Hall. Recuperado de <a href="https://ftp.utcluj.ro/pub/users/dadarlat/retele_an3/stuff/Data.And.Computer.Communications.8e.WilliamStallings.pdf" target="_blank">https://ftp.utcluj.ro/pub/users/dadarlat/retele_an3/stuff/Data.And.Computer.Communications.8e.WilliamStallings.pdf</a>
+                </li>
+                <li>
+                    TechTarget. (s.f.). <em>Data (Datos)</em>. SearchDataManagement. Recuperado de <a href="https://www.techtarget.com/searchdatamanagement/definition/data" target="_blank">https://www.techtarget.com/searchdatamanagement/definition/data</a>
+                </li>
+                <li>
+                    Universidad Nacional Autónoma de México (UNAM). (s.f.). <em>Fundamentos de redes de computadoras</em>. Recuperado de <a href="https://repositorio-uapa.cuaed.unam.mx/repositorio/moodle/pluginfile.php/2783/mod_resource/content/1/UAPA-Fundamentos-Redes-Computadoras/index.html" target="_blank">https://repositorio-uapa.cuaed.unam.mx/repositorio/moodle/pluginfile.php/2783/mod_resource/content/1/UAPA-Fundamentos-Redes-Computadoras/index.html</a>
+                </li>
+            </ul>
+        </div>
+        
+        <footer>
+            Tarea 2 - ACTIVIDAD 2 | Redes de datos seguras
+        </footer>
+
+    </div>
+
+</body>
+</html>

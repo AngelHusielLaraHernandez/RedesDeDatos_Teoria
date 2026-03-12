@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 6 Lara Hernandez</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .connector-line {
+            width: 4px;
+            background: linear-gradient(to bottom, #60a5fa, #f472b6);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            z-index: 5;
+        }
+
+        .node-icon {
+            z-index: 20;
+            position: relative;
+        }
+
+        /* Animación para los dibujos/imágenes de fondo */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(12deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes float-reverse {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(25px) rotate(-12deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* Animación suave para los carteles pegados */
+        @keyframes float-gentle {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating-element {
+            position: absolute;
+            opacity: 0.12; 
+            color: white;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-message-container {
+            position: absolute;
+            z-index: 40;
+            animation: float-gentle 6s ease-in-out infinite;
+            pointer-events: auto;
+        }
+
+        /* Variedad de tiempos para el flotado del fondo */
+        .float-1 { animation: float 6s ease-in-out infinite; }
+        .float-2 { animation: float-reverse 8s ease-in-out infinite; }
+        .float-3 { animation: float 7s ease-in-out infinite; animation-delay: 1s; }
+        .float-4 { animation: float-reverse 9s ease-in-out infinite; animation-delay: 2s; }
+        .float-5 { animation: float 10s ease-in-out infinite; animation-delay: 3s; }
+        .float-6 { animation: float-reverse 11s ease-in-out infinite; animation-delay: 1.5s; }
+        .float-7 { animation: float 12s ease-in-out infinite; animation-delay: 0.5s; }
+
+        /* Estilos para los bloques de imagen */
+        .image-placeholder {
+            transition: transform 0.3s ease;
+        }
+        .image-placeholder:hover {
+            transform: scale(1.05);
+        }
+
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* =========================================
+           REGLAS DE IMPRESIÓN PARA EXPORTAR A PDF 
+           ========================================= */
+        @media print {
+            html, body {
+                /* Fuerza la impresión de fondos (degradados y colores) */
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background-image: linear-gradient(to bottom right, #312e81, #6b21a8, #9d174d) !important;
+            }
+            
+            * {
+                /* Pausa todas las animaciones para que el PDF renderice correctamente */
+                animation: none !important;
+                transition: none !important;
+            }
+
+            /* Evita que una tarjeta o sección se corte a la mitad entre dos páginas */
+            .group, header, footer {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                margin-bottom: 2rem !important; /* Espacio extra seguro entre bloques */
+            }
+
+            /* Los fondos tipo "cristal" fallan a veces en PDF por el desenfoque. Lo ajustamos a color sólido transparente */
+            .bg-white\/10 {
+                background-color: rgba(255, 255, 255, 0.15) !important;
+            }
+            .backdrop-blur-md {
+                backdrop-filter: none !important;
+            }
+            
+            /* Ajuste para los carteles en PDF: mantener la rotación pero estáticos */
+            .floating-message-container {
+                position: absolute !important;
+                transform: none !important;
+            }
+
+            /* Bajar el cartel "Dato de redes" para que no quede cortado entre páginas */
+            .cartel-dato-redes {
+                top: 30px !important;
+            }
+            
+            /* Asegurar que la línea conectora se vea en el PDF */
+            .connector-line {
+                background-color: #60a5fa !important;
+                background-image: linear-gradient(to bottom, #60a5fa, #f472b6) !important;
+            }
+
+            /* Corregir el footer de referencias para PDF */
+            footer {
+                background-color: #111827 !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                border-color: #374151 !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            footer h3 {
+                color: #f472b6 !important;
+            }
+            footer ul li {
+                color: #d1d5db !important;
+            }
+            footer ul li em {
+                color: #d1d5db !important;
+            }
+            footer a {
+                color: #38bdf8 !important;
+            }
+            footer .bg-indigo-800\/70 {
+                background-color: #3730a3 !important;
+                border-color: #818cf8 !important;
+                color: #c7d2fe !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased pb-12 bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-800 min-h-screen relative">
+
+    <!-- Multitud de Dibujos / Iconos dinámicos aleatorios de fondo -->
+    <i class="fas fa-network-wired fa-5x floating-element float-1" style="top: 2%; left: 8%;"></i>
+    <i class="fas fa-globe fa-7x floating-element float-5" style="top: 8%; right: 25%;"></i>
+    <i class="fas fa-wifi fa-6x floating-element float-2" style="top: 15%; right: 6%;"></i>
+    <i class="fas fa-mobile-alt fa-4x floating-element float-6" style="top: 18%; left: 35%;"></i>
+    <i class="fas fa-broadcast-tower fa-6x floating-element float-3" style="top: 25%; left: 12%;"></i>
+    <i class="fas fa-laptop-code fa-5x floating-element float-7" style="top: 30%; right: 28%;"></i>
+    <i class="fas fa-plug fa-4x floating-element float-4" style="top: 38%; left: 5%;"></i>
+    <i class="fas fa-route fa-5x floating-element float-1" style="top: 45%; left: 22%;"></i>
+    <i class="fas fa-server fa-6x floating-element float-5" style="top: 50%; right: 8%;"></i>
+    <i class="fas fa-project-diagram fa-7x floating-element float-2" style="top: 55%; left: 35%;"></i>
+    <i class="fas fa-signal fa-4x floating-element float-6" style="top: 60%; right: 25%;"></i>
+    <i class="fas fa-desktop fa-5x floating-element float-3" style="top: 68%; left: 45%;"></i>
+    <i class="fas fa-satellite-dish fa-6x floating-element float-4" style="top: 72%; left: 6%;"></i>
+    <i class="fas fa-cloud fa-6x floating-element float-7" style="top: 78%; right: 35%;"></i>
+    <i class="fas fa-microchip fa-5x floating-element float-1" style="top: 85%; right: 10%;"></i>
+    <i class="fas fa-hdd fa-4x floating-element float-5" style="top: 88%; left: 30%;"></i>
+    <i class="fas fa-ethernet fa-5x floating-element float-2" style="top: 96%; left: 15%;"></i>
+    <i class="fas fa-database fa-6x floating-element float-6" style="top: 94%; right: 20%;"></i>
+
+
+    <!-- Encabezado de la Infografía -->
+    <header class="max-w-4xl mx-auto mt-10 mb-8 text-center px-4 relative z-10">
+        
+        <!-- Datos del alumno -->
+        <div class="mb-8 inline-flex flex-wrap justify-center gap-x-8 gap-y-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-8 py-4 text-white text-sm shadow-lg hover:bg-white/20 transition-all duration-300">
+            <p><i class="fas fa-user text-pink-300 mr-2"></i><strong>Nombre:</strong> Lara Hernandez Angel Husiel</p>
+            <p><i class="fas fa-id-card text-pink-300 mr-2"></i><strong>Número de Cuenta:</strong> 32006082-9</p>
+            <p><i class="fas fa-tasks text-pink-300 mr-2"></i><strong>Actividad:</strong> Actividad 6</p>
+        </div>
+
+        <h1 class="text-5xl font-extrabold tracking-tight mb-4 text-white drop-shadow-md font-playfair">
+            Medios de Transmisión <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-300 to-yellow-300">Guiados</span>
+        </h1>
+        <p class="text-lg text-gray-200 max-w-2xl mx-auto font-light drop-shadow-sm">
+           Los medios de transmision guiados son los que transmiten los bits de informacion a traves de medios fisicos, estos medios fisicos pueden ser de cobre o fibra optica, cada uno con sus propias caracteristicas, ventajas y desventajas.
+        </p>
+    </header>
+
+    <!-- Contenedor Principal de la Línea de Tiempo / Tarjetas -->
+    <div class="max-w-3xl mx-auto relative px-4 mt-12">
+        
+        <!-- Línea conectora central (Oculta en móviles, visible en md) -->
+        <div class="hidden md:block connector-line"></div>
+
+        <!-- 1. CABLE COAXIAL -->
+        <div class="relative flex flex-col md:flex-row items-center justify-between mb-20 group">
+            
+            <!-- CARTEL ROTADO 1 -->
+            <div class="floating-message-container top-[-30px] right-[5px] md:right-[-40px]" style="animation-delay: 0s;">
+                <div class="w-48 md:w-56 bg-gray-900/90 backdrop-blur-md border border-yellow-400/50 p-3 md:p-4 rounded-xl shadow-2xl text-white text-[11px] md:text-xs font-medium rotate-[6deg] hover:rotate-0 hover:scale-110 transition-all duration-300">
+                    <i class="fas fa-lightbulb text-yellow-400 mr-1 mb-1 text-lg"></i><br>
+                    <strong class="text-yellow-300">¿Sabías que?</strong> Para el cable coaxial su diseño, patentado en 1880, lleva más de 140 años prácticamente sin cambios.
+                </div>
+            </div>
+
+            <div class="md:w-5/12 order-2 md:order-1 transition-transform duration-300 group-hover:-translate-y-2">
+                <div class="bg-slate-100 p-6 rounded-2xl card-shadow border-t-4 border-gray-700">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2 font-playfair">Cable Coaxial</h2>
+                    <p class="text-sm text-gray-600 mb-4">Este tipo de cable esta compusto de un hilo conductor central de cobre rodeado por una malla de hilos de cobre.</p>
+                    
+                    <div class="grid grid-cols-2 gap-3 text-sm mb-4">
+                        <div class="bg-gray-50 p-2 rounded"><i class="fas fa-layer-group text-gray-500 mr-2"></i><strong>Material:</strong> Cobre y plástico</div>
+                        <div class="bg-gray-50 p-2 rounded"><i class="fas fa-tags text-gray-500 mr-2"></i><strong>Categorías:</strong> RG-58, RG-59, RG-6</div>
+                        <div class="bg-gray-50 p-2 rounded"><i class="fas fa-tachometer-alt text-gray-500 mr-2"></i><strong>Velocidad:</strong> 10 Mbps - 1 Gbps</div>
+                        <div class="bg-gray-50 p-2 rounded"><i class="fas fa-wave-square text-gray-500 mr-2"></i><strong>Frecuencia:</strong> Hasta 1 GHz</div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Mayor resistencia a interferencias electricas, el mejor ejemplo de esto es el cable coaxial de las televisiones .</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Cubre distancias mayores que el par trenzado como el caso de que llega a curbrir 500m en 10Base5.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Grueso, rígido y difícil de manipular en instalaciones de red locales.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Prácticamente obsoleto para LANs modernas.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="node-icon bg-gray-700 text-white w-16 h-16 rounded-full flex items-center justify-center border-4 border-[#f0f4f8] shadow-lg md:mb-0 mb-4 order-1 md:order-2 transition-transform duration-300 group-hover:scale-110 group-hover:bg-gray-800">
+                <i class="fas fa-circle-notch fa-2x"></i>
+            </div>
+            
+            <div class="md:w-5/12 order-3 hidden md:block text-center z-10 transition-transform duration-300 group-hover:scale-105">
+                <div class="bg-gray-100 rounded-xl h-48 flex items-center justify-center shadow-lg overflow-hidden border-2 border-gray-300 image-placeholder">
+                    <!-- Referencia local de imagen 1 -->
+                    <img src="image/image1.png" alt="[Image of Cable coaxial]" class="w-full h-full object-cover text-gray-500 italic flex items-center justify-center bg-gray-200">
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. PAR TRENZADO UTP -->
+        <div class="relative flex flex-col md:flex-row items-center justify-between mb-20 group">
+            
+            <!-- CARTEL ROTADO 2 -->
+            <div class="floating-message-container bottom-[-20px] left-[5px] md:left-[-40px]" style="animation-delay: 1.5s;">
+                <div class="w-48 md:w-56 bg-blue-900/90 backdrop-blur-md border border-blue-400/50 p-3 md:p-4 rounded-xl shadow-2xl text-white text-[11px] md:text-xs font-medium -rotate-[6deg] hover:rotate-0 hover:scale-110 transition-all duration-300">
+                    <i class="fas fa-tachometer-alt text-blue-300 mr-1 mb-1 text-lg"></i><br>
+                    <strong class="text-blue-300">Rendimiento:</strong> La atenuación (pérdida de señal) es el enemigo del cobre. El UTP requiere repetidores cada 90 metros con una holgura de 10 metros.
+                </div>
+            </div>
+
+            <div class="md:w-5/12 order-3 md:order-1 hidden md:block text-center z-10 transition-transform duration-300 group-hover:scale-105">
+                <div class="bg-blue-50 rounded-xl h-48 flex items-center justify-center shadow-lg overflow-hidden border-2 border-blue-300 image-placeholder">
+                    <!-- Referencia local de imagen 2 -->
+                    <img src="image/image2.png" alt="" class="w-full h-full object-cover text-blue-500 italic flex items-center justify-center bg-blue-100">
+                </div>
+            </div>
+            
+            <div class="node-icon bg-blue-500 text-white w-16 h-16 rounded-full flex items-center justify-center border-4 border-[#f0f4f8] shadow-lg md:mb-0 mb-4 order-1 md:order-2 transition-transform duration-300 group-hover:scale-110 group-hover:bg-blue-600">
+                <i class="fas fa-network-wired fa-2x"></i>
+            </div>
+            
+            <div class="md:w-5/12 order-2 md:order-3 transition-transform duration-300 group-hover:-translate-y-2">
+                <div class="bg-blue-100 p-6 rounded-2xl card-shadow border-t-4 border-blue-500">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2 font-playfair">Par Trenzado UTP</h2>
+                    <p class="text-sm text-gray-600 mb-4">Unshielded Twisted Pair (No Apantallado). Consiste en pares de hilos de cobre trenzados entre sí para cancelar interferencias mutuas.</p>
+                    
+                    <div class="grid grid-cols-2 gap-3 text-sm mb-4">
+                        <div class="bg-blue-50 p-2 rounded"><i class="fas fa-layer-group text-blue-500 mr-2"></i><strong>Material:</strong> Cobre y funda plástica</div>
+                        <div class="bg-blue-50 p-2 rounded"><i class="fas fa-tags text-blue-500 mr-2"></i><strong>Cat:</strong> 3, 5e, 6, 6a</div>
+                        <div class="bg-blue-50 p-2 rounded"><i class="fas fa-tachometer-alt text-blue-500 mr-2"></i><strong>Velocidad:</strong> 10 Mbps - 10 Gbps</div>
+                        <div class="bg-blue-50 p-2 rounded"><i class="fas fa-wave-square text-blue-500 mr-2"></i><strong>Freq:</strong> 16 MHz - 500 MHz</div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Tiene un numero de nodos maxima de 30 por segmento.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">LLegan a tener velocidades de hasta 100 Mbps en 10BASET por muy bajo costo y facil de instalar.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Altamente susceptible a Interferencias Electromagnéticas (baja inmunidad al ruido y la diafonia).</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Distancia máxima limitada donde se tiene que es de 100 metros antes de ser usado un repetidor.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. PAR TRENZADO STP y FTP -->
+        <div class="relative flex flex-col md:flex-row items-center justify-between mb-20 group">
+            
+            <!-- CARTEL ROTADO 3 -->
+            <div class="floating-message-container cartel-dato-redes top-[-30px] right-[10px] md:right-[-20px]" style="animation-delay: 0.5s;">
+                <div class="w-48 md:w-56 bg-indigo-900/90 backdrop-blur-md border border-indigo-400/50 p-3 md:p-4 rounded-xl shadow-2xl text-white text-[11px] md:text-xs font-medium rotate-[5deg] hover:rotate-0 hover:scale-110 transition-all duration-300">
+                    <i class="fas fa-layer-group text-indigo-300 mr-1 mb-1 text-lg"></i><br>
+                    <strong class="text-indigo-300">Dato de Redes:</strong> La Capa Física es la responsable de la transmision real de los bits de informacion a traves de un medio fisico.
+                </div>
+            </div>
+
+            <div class="md:w-5/12 order-2 md:order-1 transition-transform duration-300 group-hover:-translate-y-2">
+                <div class="bg-indigo-100 p-6 rounded-2xl card-shadow border-t-4 border-indigo-500">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2 font-playfair">Par Trenzado STP y FTP</h2>
+                    <p class="text-sm text-gray-600 mb-4">Shielded/Foiled Twisted Pair. Cuentan con blindaje de aluminio por cada par (STP) o un blindaje global (FTP) para repeler ruidos externos.</p>
+                    
+                    <div class="grid grid-cols-2 gap-3 text-sm mb-4">
+                        <div class="bg-indigo-50 p-2 rounded"><i class="fas fa-layer-group text-indigo-500 mr-2"></i><strong>Material:</strong> Cobre y Aluminio</div>
+                        <div class="bg-indigo-50 p-2 rounded"><i class="fas fa-tags text-indigo-500 mr-2"></i><strong>Cat:</strong> 6a, 7, 7a, 8</div>
+                        <div class="bg-indigo-50 p-2 rounded"><i class="fas fa-tachometer-alt text-indigo-500 mr-2"></i><strong>Velocidad:</strong> 1 Gbps - 40 Gbps</div>
+                        <div class="bg-indigo-50 p-2 rounded"><i class="fas fa-wave-square text-indigo-500 mr-2"></i><strong>Freq:</strong> 500 MHz - 2000 MHz</div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Excelente protección contra ruido e interferencias (EMI/RFI) gracias a los blindajes que tienen en su interior.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Mayor calidad de señal, tiene soporte para frecuencias y velocidades altas.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Más costoso y rígido que el UTP.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Instalación compleja: requiere conectores blindados y puesta a tierra.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="node-icon bg-indigo-500 text-white w-16 h-16 rounded-full flex items-center justify-center border-4 border-[#f0f4f8] shadow-lg md:mb-0 mb-4 order-1 md:order-2 transition-transform duration-300 group-hover:scale-110 group-hover:bg-indigo-600">
+                <i class="fas fa-shield-alt fa-2x"></i>
+            </div>
+            
+            <div class="md:w-5/12 order-3 hidden md:block text-center z-10 transition-transform duration-300 group-hover:scale-105">
+                <div class="bg-indigo-50 rounded-xl h-48 flex items-center justify-center shadow-lg overflow-hidden border-2 border-indigo-300 image-placeholder">
+                    <!-- Referencia local de imagen 3 -->
+                    <img src="image/image3.png" alt="" class="w-full h-full object-cover text-indigo-500 italic flex items-center justify-center bg-indigo-100">
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. FIBRA ÓPTICA -->
+        <div class="relative flex flex-col md:flex-row items-center justify-between mb-16 group">
+            
+            <!-- CARTEL ROTADO 4 -->
+            <div class="floating-message-container bottom-[-30px] left-[10px] md:left-[-20px]" style="animation-delay: 2s;">
+                <div class="w-48 md:w-56 bg-teal-900/90 backdrop-blur-md border border-teal-400/50 p-3 md:p-4 rounded-xl shadow-2xl text-white text-[11px] md:text-xs font-medium -rotate-[7deg] hover:rotate-0 hover:scale-110 transition-all duration-300">
+                    <i class="fas fa-shield-alt text-teal-300 mr-1 mb-1 text-lg"></i><br>
+                    <strong class="text-teal-300">Seguridad:</strong> En telecom, es el medio de transmisión más utilizado esto por la capacidad que tiene de enviar información, ya que a través de un hilo de fibra óptica se pueden enviar millones de bits por segundo.
+                </div>
+            </div>
+
+            <div class="md:w-5/12 order-3 md:order-1 hidden md:block text-center z-10 transition-transform duration-300 group-hover:scale-105">
+                <div class="bg-teal-50 rounded-xl h-48 flex items-center justify-center shadow-lg overflow-hidden border-2 border-teal-300 image-placeholder">
+                    <!-- Referencia local de imagen 4 -->
+                    <img src="image/image4.png" alt="[Image of Fibra óptica]" class="w-full h-full object-cover text-teal-500 italic flex items-center justify-center bg-teal-100">
+                </div>
+            </div>
+            
+            <div class="node-icon bg-teal-500 text-white w-16 h-16 rounded-full flex items-center justify-center border-4 border-[#f0f4f8] shadow-lg md:mb-0 mb-4 order-1 md:order-2 transition-transform duration-300 group-hover:scale-110 group-hover:bg-teal-600">
+                <i class="fas fa-bolt fa-2x"></i>
+            </div>
+            
+            <div class="md:w-5/12 order-2 md:order-3 transition-transform duration-300 group-hover:-translate-y-2">
+                <div class="bg-teal-100 p-6 rounded-2xl card-shadow border-t-4 border-teal-500">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2 font-playfair">Fibra Óptica</h2>
+                    <p class="text-sm text-gray-600 mb-4">Transmite información mediante pulsos de luz (fotones) a través de hilos muy delgados de vidrio transparente o plástico.</p>
+                    
+                    <div class="grid grid-cols-2 gap-3 text-sm mb-4">
+                        <div class="bg-teal-50 p-2 rounded"><i class="fas fa-layer-group text-teal-500 mr-2"></i><strong>Material:</strong> Vidrio (Sílice) / POF</div>
+                        <div class="bg-teal-50 p-2 rounded"><i class="fas fa-tags text-teal-500 mr-2"></i><strong>Tipos:</strong> Monomodo y Multimodo</div>
+                        <div class="bg-teal-50 p-2 rounded"><i class="fas fa-tachometer-alt text-teal-500 mr-2"></i><strong>Velocidad:</strong> Gbps hasta Tbps</div>
+                        <div class="bg-teal-50 p-2 rounded"><i class="fas fa-wave-square text-teal-500 mr-2"></i><strong>Freq:</strong> Cientos de THz (Luz)</div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Distancias demasiado superiores a las anteriores llegando a Km con la fibra optica. </span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Este llega a ser inmune al ruido electromagnético y es altamente segura para integridad de los datos.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Muy frágil. Difícil manipulación y delicada a las curvas de instalaciones.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-2"></i>
+                            <span class="text-xs text-gray-700">Costos de instalación elevados, para esto las herramientas de fusión, láseres caros, se usan para la correcta instlacion.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Pie de página / Referencias -->
+    <footer class="max-w-4xl mx-auto mt-12 bg-gray-900/90 backdrop-blur text-white p-8 rounded-2xl shadow-2xl border border-gray-700 relative z-10">
+        <div class="text-center mb-5">
+            <span class="inline-flex items-center gap-2 bg-indigo-800/70 border border-indigo-400/60 text-indigo-200 rounded-full px-5 py-2 text-sm font-semibold tracking-widest uppercase">
+                <i class="fas fa-shield-alt text-indigo-300 text-base"></i>
+                Redes de datos Seguras
+            </span>
+        </div>
+        <h3 class="font-bold text-2xl mb-6 text-center text-pink-400 tracking-wide">Referencias</h3>
+        <ul class="text-gray-300 font-light space-y-4 text-sm text-left pl-6" style="text-indent: -1.5rem;">
+            <li>Coordinación de Universidad Abierta y Educación a Distancia [CUAED UNAM]. (s.f.). <em>Medios de Transmisión Cobre</em>. Recuperado el 21 de febrero de 2026, de <a href="https://repositorio-uapa.cuaed.unam.mx/repositorio/moodle/pluginfile.php/2754/mod_resource/content/1/UAPA-Medios-Transmision-Cobre/index.html" class="text-sky-400 underline" target="_blank">https://repositorio-uapa.cuaed.unam.mx/repositorio/moodle/pluginfile.php/2754/mod_resource/content/1/UAPA-Medios-Transmision-Cobre/index.html</a></li>
+            <li>Facultad de Ingeniería, UNAM. (s.f.). <em>Medios de transmisión</em>. Recuperado el 21 de febrero de 2026, de <a href="https://aulavirtual.fio.unam.edu.ar/mod/book/view.php?id=78461&chapterid=6365" class="text-sky-400 underline" target="_blank">https://aulavirtual.fio.unam.edu.ar/mod/book/view.php?id=78461&chapterid=6365</a></li>
+            <li>GeeksforGeeks. (s.f.). <em>Types of Transmission Media</em>. Recuperado el 21 de febrero de 2026, de <a href="https://www.geeksforgeeks.org/computer-networks/types-transmission-media/" class="text-sky-400 underline" target="_blank">https://www.geeksforgeeks.org/computer-networks/types-transmission-media/</a></li>
+            <li>Macías Ríos, M. E., Rentería Anguiano, E., & Rangel Licea, V. (2009). <em>Apuntes de las Asignaturas de Redes de Datos I y Redes de Datos II</em>. Universidad Nacional Autónoma de México, Facultad de Ingeniería. Recuperado el 21 de febrero de 2026, de <a href="https://n9.cl/5szw4" class="text-sky-400 underline" target="_blank">https://n9.cl/5szw4</a></li>
+            <li>(s.f). <em>Ventajas y desventajas de los medios de transmision guiados</em>. Calameo.Recuperado el 21 de febrero de 2026, de <a href="https://www.calameo.com/read/0027839414e05334a1250" class="text-sky-400 underline" target="_blank">https://www.calameo.com/read/0027839414e05334a1250</a></li>
+        </ul>
+    </footer>
+
+</body>
+</html>

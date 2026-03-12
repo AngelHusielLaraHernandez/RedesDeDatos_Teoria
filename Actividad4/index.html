@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referencias Bibliográficas - Seguridad Informática</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-deep: #050a14;
+            --accent-gold: #FFD700;
+            --accent-cyan: #00f2ff;
+            --accent-magenta: #ff0055;
+            --text-white: #ffffff;
+            --glass: rgba(16, 24, 45, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-white);
+            width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Centra el contenido verticalmente */
+            padding: 20px;
+        }
+
+        .bibliography-page {
+            width: 100%;
+            max-width: 1200px; /* Limita el ancho para que no se estire demasiado en pantallas grandes */
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .biblio-title {
+            width: 100%;
+            text-align: left;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            color: var(--accent-magenta);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--accent-cyan);
+            padding-bottom: 15px;
+        }
+
+        .biblio-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            color: #bbb;
+        }
+
+        .biblio-item {
+            font-size: 1rem;
+            line-height: 1.6;
+            background: rgba(0,0,0,0.4);
+            padding: 20px;
+            border-left: 4px solid var(--accent-gold);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .biblio-item a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            transition: color 0.3s;
+            word-break: break-all;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .biblio-item a:hover {
+            color: var(--accent-gold);
+            text-decoration: underline;
+        }
+
+        /* =========================================
+           REGLAS ESTRICTAS PARA IMPRESIÓN / PDF
+           ========================================= */
+        @media print {
+            @page {
+                size: landscape; /* Mantiene la orientación horizontal */
+                margin: 0; 
+            }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            body {
+                background-color: var(--bg-deep) !important;
+                display: flex !important;
+                padding: 40px !important;
+                margin: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+            }
+
+            .bibliography-page {
+                width: 100%;
+                margin: 0 auto;
+                padding: 40px;
+                border: 1px solid rgba(255,255,255,0.1) !important;
+                box-shadow: none;
+                background-color: var(--glass) !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bibliography-page">
+        <h2 class="biblio-title"><i class="fa-solid fa-book-bookmark"></i> Referencias Bibliográficas</h2>
+        
+        <div class="biblio-container">
+            <div class="biblio-item">
+                CCNA desde Cero. (s.f.). <i>Tipos de Seguridad de Red: Guía Completa</i>. Recuperado el 17 de febrero de 2026 de <br>
+                <a href="https://ccnadesdecero.es/tipos-seguridad-red/" target="_blank">https://ccnadesdecero.es/tipos-seguridad-red/</a>
+            </div>
+            
+            <div class="biblio-item">
+                Delta Protect. (2026, 19 de enero). <i>Seguridad de la red: ¿Qué es, cómo funciona y qué tipos existen?</i>. Recuperado el 17 de febrero de 2026 de <br>
+                <a href="https://www.deltaprotect.com/blog/seguridad-de-la-red" target="_blank">https://www.deltaprotect.com/blog/seguridad-de-la-red</a>
+            </div>
+            
+            <div class="biblio-item">
+                Hewlett Packard Enterprise. (2025, 21 de octubre). <i>¿Qué es la seguridad de red? | Glosario</i>. Recuperado el 17 de febrero de 2026 de <br>
+                <a href="https://www.hpe.com/mx/es/what-is/network-security.html" target="_blank">https://www.hpe.com/mx/es/what-is/network-security.html</a>
+            </div>
+
+            <div class="biblio-item">
+                Ramos Pulido, A. (2012, 29 de octubre). <i>Arquitectura de seguridad del modelo OSI</i>. Prezi. Recuperado el 17 de febrero de 2026 de <br>
+                <a href="https://prezi.com/moreik_kbgpp/arquitectura-de-seguridad-del-modelo-osi/" target="_blank">https://prezi.com/moreik_kbgpp/arquitectura-de-seguridad-del-modelo-osi/</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

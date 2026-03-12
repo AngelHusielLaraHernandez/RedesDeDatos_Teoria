@@ -1,0 +1,30 @@
+# Sistema operativo
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Herramientas de edición
+.vscode/
+.idea/
+
+# Artefactos de LaTeX
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+
+# Archivos temporales
+*.tmp
+*.temp
+*.swp
+*.swo

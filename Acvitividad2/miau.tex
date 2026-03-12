@@ -1,0 +1,203 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{siunitx}
+\usepackage[utf8]{inputenc} 
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage[citecolor=blue]{hyperref}       % Para enlaces en el documento
+\usepackage{fancyhdr}
+\usepackage{circuitikz}
+\usepackage{amssymb}
+\usepackage{animate}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{gensymb}
+\usepackage{booktabs}
+\usepackage{listings}
+
+% Ajuste de la altura del encabezado
+\setlength{\headheight}{76.27646pt}
+\addtolength{\topmargin}{-34.27646pt}
+
+\lstdefinestyle{mystyle}{
+    language=Matlab,
+    inputencoding=utf8, % <-- AQUÍ ESTÁ LA CORRECCIÓN
+    backgroundcolor=\color{black!5},
+    commentstyle=\color{green!60!black},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{purple},
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showstringspaces=false,
+}
+\lstset{style=mystyle}
+
+\setlength{\parindent}{0pt}
+
+
+% Crear la portada manualmente
+\begin{document}
+
+% Desactivar la numeración de página para la portada
+\thispagestyle{empty}
+
+% Colocar las imágenes en las esquinas superiores
+\begin{minipage}[t]{0.4\textwidth}
+    \raggedright
+    \includegraphics[width=2cm]{image/der.png}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+    \raggedleft
+    \includegraphics[width=2cm]{image/izq.png}
+\end{minipage}
+
+\vspace{1cm}
+
+\begin{center}
+    \Huge{\textbf{Tarea 2 ACTIVIDAD 2.}} \\
+    \vspace{2cm}
+    \Large{\textbf{Universidad Nacional Autonoma de Mexico.}}\\
+    \Large{\textbf{Facultad de ingeniería.}}\\
+    \vspace{1cm}
+    %\Large{Departamento de Ing. en Control y Robotica.} \\
+    %\vspace{0.5cm}
+    \Large{Redes de datos seguras.} \\
+    \vspace{0.5cm}
+    \LARGE{\textbf{Profesora:}}
+    \LARGE{\textit{MTRA. MARIA EUGENIA BAUTISTA GONZALEZ.}}\\
+    \vspace{0.5cm}
+    \Large{\textbf{Grupo:} 2} \\
+    \vspace{0.5cm}
+    \LARGE{\textbf{Alumno:}}\\
+    \Large{Lara Hernandez Angel Husiel} \\
+    \vspace{0.5cm}
+    \Large{\textbf{No.Cuenta:}}
+    \Large{32006082-9} \\
+    \vspace{0.5cm}
+    \vspace{3cm}
+    \Large{\textbf{Fecha de Entrega:}}\\
+    \vspace{0.5cm}
+    \large{{Febrero 12, 2026}}
+\end{center} 
+
+
+\newpage
+
+% Configuración del encabezado y pie de página
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[width=1.5cm]{image/izq.png}}
+\fancyhead[R]{\includegraphics[width=1.5cm]{image/der.png}}
+\fancyfoot[C]{\thepage}  % Coloca el número de página en el centro del pie de página
+
+% Línea horizontal en el pie de página
+\renewcommand{\footrulewidth}{0.4pt}  % Define el grosor de la línea en el pie de página
+
+% Empezar numeración de páginas desde 1 en la segunda página
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+%\maketitle
+\tableofcontents
+
+\newpage
+
+\textbf{Conceptos basicos de las redes de comunicaciones.}
+
+Realizar una infografía sobre los conceptos básicos de las redes de comunicación. La creación debe ser original y no una copia textual de la información que hay en internet, incluir sus fuentes de información al final y como encabezado sus datos personales. El documento se debe entregar en PDF
+
+\section{Comunicacion}
+Se define como la transferencia de datos a traves de un medio de transmision entre dispositivos a traves de un medio de transmision este puede ser fisico o inalambrico, para exista la comunicacion se necesita de un mensaje, de emisior, el canal por el cual viaja el mensaje y el receptor.
+
+\section{Redes de comunicacion}
+
+Se define como un conjunto de equipos/dispositivos interconectados mediante conexiones físicas o inalámbricas con el proposito de permitir la transmisión y el intercambio de información y recursos, los cuales tienen que tienen protocolos.
+
+
+\section{Transmision de datos}
+
+Se entiende por transmision de datos al movimiento de infromacion codificada de un dispositivo digital a otro a través de canales de red, ya sean cableados o inalámbricos.
+ 
+\section{Datos}
+
+Los datos es informacion traducida a un formato eficiente para el movimiento o procesamiento de la misma, la cual puede ser almacenada y transmitida.
+
+\section{Nodo}
+
+Un nodo es un punto de conecion que peude recibir, enviar, crear o alamcenar datos, este mismo puede reconocer, procesar y transmitir informacion a otro nodo de la red.
+
+\section{Ancho de banda}
+
+Cantidad de informacion que puede fluir a traves de una conexion de red en un periodo determinado de tiempo, se mide en bits por segundo (bps) y es un factor clave para determinar la velocidad de una conexion de red.
+
+\section{Dispositivo}
+
+Es un componente de hardware que es capaz de enviar, recibir, crear o almacenar datos dentro de una infraestructura de red.
+
+\section{Protocolos}
+
+Los protocolos son conjuntos de reglas, normas y procedimientos estrictos que gobiernan la comunicación entre dispositivos
+
+\section{Medios de transmision}
+Los medios de transmisión son los canales físicos o inalámbricos a través de los cuales se transmiten los datos en una red de comunicación. 
+
+\section{Cliente/Servidor}
+Los clientes son dispositivos que solicitan servicios o recursos.
+
+El servidor se encargan de proporcionar los servicios a las estaciones de trabajo conectadas a la red (clientes). 
+
+\section{Direccion IP}
+
+Una dirección IP es un número único asignado a cada dispositivo de red en una red IP (Protocolo de Internet). 
+Esta dirección se utiliza para identificar y localizar dispositivos en la red, permitiendo la comunicación entre ellos. 
+
+
+\section{Servicio de red}
+Un servicio de red es una función o recurso proporcionado por un sistema en una red que permite a los usuarios o aplicaciones acceder a información o funcionalidades de una red.
+
+\section{Topologia}
+
+Las topologías hacen referencia a la forma como una red se estructura de forma física; es decir, la manera en que cada componente de una red se conecta con los demás. Hay diversas topologías, cada una con ventajas y desventajas determinantes para el rendimiento de la red.
+
+
+\section{Conexion}
+Una conexión se refiere al enlace establecido entre dos o más dispositivos en una red de comunicación, permitiendo la transferencia de datos y la comunicación entre ellos. Las conexiones pueden ser físicas, como cables Ethernet, o inalámbricas, como Wi-Fi o Bluetooth.
+
+
+\begin{thebibliography}{99}
+
+\bibitem{ibm_networking}
+IBM. (s.f.). \textit{¿Qué es el networking?}. Recuperado de \url{https://www.ibm.com/mx-es/think/topics/networking}
+
+\bibitem{ibm_fisica}
+IBM. (s.f.). \textit{Redes físicas}. IBM Documentation. Recuperado de \url{https://www.ibm.com/docs/es/aix/7.2.0?topic=concepts-physical-networks}
+
+\bibitem{unam_redes}
+Universidad Nacional Autónoma de México (UNAM). (s.f.). \textit{Fundamentos de redes de computadoras}. Recuperado de \url{https://repositorio-uapa.cuaed.unam.mx/repositorio/moodle/pluginfile.php/2783/mod_resource/content/1/UAPA-Fundamentos-Redes-Computadoras/index.html}
+
+\bibitem{cisco_ccna}
+Cisco Systems. (2011). \textit{CCNA 1 Módulo 2: Fundamentos de redes}. Recuperado de \url{https://sistemascolombosuiza.wordpress.com/wp-content/uploads/2011/03/ccna1_mod2.pdf}
+
+\bibitem{techtarget_data}
+TechTarget. (s.f.). \textit{Data (Datos)}. SearchDataManagement. Recuperado de \url{https://www.techtarget.com/searchdatamanagement/definition/data}
+
+\bibitem{stallings2007}
+Stallings, W. (2007). \textit{Data and Computer Communications} (8.ª ed.). Upper Saddle River, NJ: Pearson Prentice Hall. Recuperado de \url{https://ftp.utcluj.ro/pub/users/dadarlat/retele_an3/stuff/Data.And.Computer.Communications.8e.WilliamStallings.pdf}
+
+\bibitem{geeks_data}
+GeeksforGeeks. (s.f.). \textit{Data Communication: Definition, Components, Types \& Channels}. Recuperado de \url{https://www.geeksforgeeks.org/computer-networks/data-communication-definition-components-types-channels/}
+
+\bibitem{cisco_services}
+Cisco. (s.f.). \textit{What Are Network Services?}. Recuperado de \url{https://www.cisco.com/site/us/en/learn/topics/networking/what-are-network-services.html}
+
+\end{thebibliography}
+
+
+\end{document}
