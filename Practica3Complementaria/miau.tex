@@ -1,0 +1,276 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{siunitx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[citecolor=blue,breaklinks=true]{hyperref}        % Para enlaces en el documento
+\usepackage{fancyhdr}
+\usepackage{circuitikz}
+\usepackage{amssymb}
+\usepackage{animate}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{gensymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{microtype}      % Micro-tipografía: reduce overfull hbox automáticamente
+
+% Ajuste de la altura del encabezado
+\setlength{\headheight}{76.27646pt}
+\addtolength{\topmargin}{-34.27646pt}
+
+\lstdefinestyle{mystyle}{
+    language=Matlab,
+    inputencoding=utf8,
+    backgroundcolor=\color{black!5},
+    commentstyle=\color{green!60!black},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{purple},
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showstringspaces=false,
+}
+\lstset{style=mystyle}
+
+\setlength{\parindent}{0pt}
+\emergencystretch=3em          % Tolerancia extra para evitar overfull hbox residuales
+
+% Crear la portada manualmente
+\begin{document}
+
+% Desactivar la numeración de página para la portada
+\thispagestyle{empty}
+
+% Colocar las imágenes en las esquinas superiores
+\begin{minipage}[t]{0.4\textwidth}
+    \raggedright
+    \includegraphics[width=2cm]{image/der.png}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+    \raggedleft
+    \includegraphics[width=2cm]{image/izq.png}
+\end{minipage}
+
+\vspace{1cm}
+
+\begin{center}
+    \Huge{\textbf{Práctica Complementaria y Obligatoria 5. Políticas de seguridad en los puertos del Switch.}} \\
+    \vspace{0.5cm}
+    \Huge{\textbf{Cuestionario Previo.}} \\
+    \vspace{1.5cm}
+    \Large{\textbf{Universidad Nacional Autónoma de México.}}\\
+    \Large{\textbf{Facultad de Ingeniería.}}\\
+    \vspace{1cm}
+    \Large{Redes de Datos Seguras.} \\
+    \vspace{0.5cm}
+    \LARGE{\textbf{Profesora:}}
+    \LARGE{\textit{MTRA. MARIA EUGENIA BAUTISTA GONZALEZ.}}\\
+    \vspace{0.5cm}
+    \Large{\textbf{Grupo:} 2} \\
+    \vspace{0.5cm}
+    \LARGE{\textbf{Alumno:}}\\
+    \Large{320060829} \\
+    \vspace{3cm}
+    \Large{\textbf{Fecha de Entrega:}}\\
+    \vspace{0.5cm}
+    \large{{Marzo 27, 2026}}
+\end{center}
+
+\newpage
+
+% Configuración del encabezado y pie de página
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[width=1.5cm]{image/izq.png}}
+\fancyhead[R]{\includegraphics[width=1.5cm]{image/der.png}}
+\fancyfoot[C]{\thepage}  % Coloca el número de página en el centro del pie de página
+
+% Línea horizontal en el pie de página
+\renewcommand{\footrulewidth}{0.4pt}  % Define el grosor de la línea en el pie de página
+
+% Empezar numeración de páginas desde 1 en la segunda página
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\tableofcontents
+
+\newpage
+
+% ======================================================================
+\section{Realice una lista con al menos 3 ventajas y desventajas de adquirir un switch administrable en comparación con uno que no tenga dicha característica.}
+
+Un switch administrable proporciona un nivel muy alto de control sobre la red, lo que permite implementar configuraciones personalizadas y administrar remotamente la infraestructura \cite{cisco_business}.[1]
+
+\textbf{Ventajas:}
+\begin{itemize}
+    \item \textbf{Seguridad y control de acceso:} Mejoran significativamente la seguridad de la red aislando el tráfico y permitiendo características avanzadas de seguridad a nivel de puerto (como Port Security y listas de control de acceso o ACLs) \cite{cisco_business}.[2]
+    \item \textbf{Segmentación de red:} Soportan la configuración de Redes de Área Local Virtuales (VLANs), lo que permite agrupar lógicamente dispositivos y separar flujos de tráfico (como voz y datos) independientemente de su ubicación física \cite{cisco_business}.[1]
+    \item \textbf{Monitoreo y optimización:} Cuentan con herramientas avanzadas para priorizar tráfico (Calidad de Servicio - QoS) y gestionar ancho de banda, asegurando que aplicaciones críticas tengan la conectividad que necesitan \cite{cisco_business}.[1]
+\end{itemize}
+
+\textbf{Desventajas:}
+\begin{itemize}
+    \item \textbf{Costo de adquisición:} Tienen un precio significativamente más elevado en el mercado en comparación a los switches no administrables o los smart switches de menor categoría \cite{cisco_business}.[1]
+    \item \textbf{Complejidad de instalación:} A diferencia del modelo \textit{plug-and-play} de los no administrables, requieren un diseño meticuloso y mayor tiempo para ser configurados y puestos en marcha \cite{cisco_business}.[1]
+    \item \textbf{Personal especializado:} Su correcto mantenimiento y optimización exigen la intervención de ingenieros de red capacitados, lo que puede incrementar los costos operativos de la empresa \cite{cisco_business}.[1]
+\end{itemize}
+
+\newpage
+
+\section{Investigue en qué consiste el ataque conocido como inundación de direcciones MAC (MAC Flooding Attack) y realice un diagrama donde se muestre su funcionamiento.}
+
+El ataque de inundación de direcciones MAC es una técnica hostil empleada para comprometer la seguridad y el rendimiento de los switches de red \cite{jumpcloud_mac}.[3] El ataque funciona sobrecargando la tabla de direcciones MAC del switch (conocida como tabla CAM), la cual posee una capacidad de memoria limitada para mapear direcciones a puertos físicos específicos \cite{jumpcloud_mac}.[3]
+
+El atacante utiliza una herramienta de red (como \textit{macof}) para generar y enviar a gran velocidad miles de tramas Ethernet al switch, cada una configurada con una dirección MAC de origen falsa o generada aleatoriamente \cite{jumpcloud_mac}.[3] El switch, siguiendo su comportamiento predeterminado, intenta aprender cada una de estas nuevas direcciones y añadirlas a su tabla \cite{codespindle_mac}.[4] En cuestión de segundos, la memoria se llena (CAM table overflow), impidiendo que el dispositivo pueda almacenar información de clientes legítimos \cite{jumpcloud_mac}.[3] 
+
+A continuación se muestra un diagrama simplificado del ataque:
+
+\vspace{1cm}
+\begin{center}
+\begin{tikzpicture}[node distance=4.5cm, auto]
+    % Nodos
+    \node (attacker) [draw, rectangle, rounded corners, minimum width=3cm, minimum height=1.5cm, fill=red!20, text centered, text width=3cm] {\textbf{Atacante}\\Genera miles de tramas con MACs falsas};
+    
+    \node (switch) [draw, rectangle, rounded corners, minimum width=3cm, minimum height=1.5cm, fill=blue!20, right of=attacker, node distance=5cm, text centered, text width=2.5cm] {\textbf{Switch}\\Procesa tramas e intenta aprenderlas};
+    
+    \node (cam) [draw, rectangle, rounded corners, minimum width=3cm, minimum height=1.5cm, fill=yellow!20, right of=switch, node distance=5cm, text centered, text width=2.5cm] {\textbf{Tabla CAM}\\Se llena al 100\% (Overflow)};
+
+    % Flechas
+    \draw[->, thick, red] (attacker) -- node[above, text width=2.5cm, text centered] {Flujo masivo de tramas} (switch);
+    \draw[->, thick, dashed] (switch) -- node[above] {Registra MACs} (cam);
+\end{tikzpicture}
+\end{center}
+\vspace{1cm}
+
+\newpage
+
+\section{¿Cómo se puede utilizar el ataque de inundación de direcciones MAC para hacer que un switch se comporte como HUB y realizar una escucha de todo el tráfico de los nodos conectados?}
+
+Una vez que el ataque ha logrado agotar por completo el almacenamiento de la tabla CAM, el switch es incapaz de mapear direcciones MAC nuevas a puertos específicos \cite{jumpcloud_mac}.[3] En este punto crítico, la mayoría de los switches están diseñados para entrar en una condición de seguridad conocida como \textit{fail-open mode} (modo de fallo abierto) \cite{jumpcloud_mac}.[3]
+
+Para evitar la interrupción total de la red cuando no puede encontrar el destino exacto de un paquete, el switch abandona su comportamiento inteligente de conmutación unicast \cite{jumpcloud_mac}.[3] En su lugar, el equipo asume el comportamiento rudimentario de un concentrador (HUB) Ethernet tradicional: comienza a retransmitir y emitir mediante "flooding" o difusión cada trama entrante por todos sus puertos habilitados (excepto por el que la recibió) \cite{jumpcloud_mac}.[3] 
+
+Aprovechando esta avalancha de transmisión broadcast forzada, el atacante, que se encuentra conectado físicamente a uno de los puertos del switch, solo necesita habilitar una herramienta de monitoreo y análisis de paquetes (un sniffer, como Wireshark o tcpdump) \cite{huntress_mac}.[5] Al comportarse el switch como un HUB, el sniffer capturará todo el tráfico de la red dirigido a otras computadoras, permitiendo al delincuente interceptar datos confidenciales, contraseñas no cifradas y comunicaciones privadas que normalmente serían inaccesibles para él \cite{jumpcloud_mac}.[3]
+
+\newpage
+
+\section{Investigue la sintaxis del comando port security para un switch Cisco.}
+
+La configuración de Port Security en dispositivos de red Cisco requiere operar desde la interfaz de línea de comandos (CLI). Primeramente, es mandatorio asegurar que la interfaz del switch opere en modo de acceso estático y no de forma dinámica (DTP), para posteriormente habilitar la funcionalidad de seguridad y definir sus parámetros \cite{compnet_portsec}.[6] 
+
+La sintaxis paso a paso desde el modo de configuración global es la siguiente \cite{ccna_portsec} [7]:
+
+\begin{lstlisting}[language=bash]
+! Ingresar al modo de configuracion de la interfaz especifica
+Switch(config)# interface fastethernet 0/1
+
+! Establecer incondicionalmente el puerto como puerto de acceso
+Switch(config-if)# switchport mode access
+
+! Habilitar la caracteristica de Port Security en el puerto
+Switch(config-if)# switchport port-security
+
+! Definir la cantidad maxima de direcciones MAC que el puerto puede aprender (Por defecto es 1)
+Switch(config-if)# switchport port-security maximum <valor>
+
+! Especificar de forma manual una direccion MAC autorizada (Opcional si se usa aprendizaje dinamico)
+Switch(config-if)# switchport port-security mac-address <mac-address>
+
+! Configurar la accion a tomar en caso de que ocurra una violacion a la seguridad
+Switch(config-if)# switchport port-security violation {protect | restrict | shutdown}
+\end{lstlisting}
+
+\newpage
+
+\section{Investigue qué permite realizar la opción sticky de port security.}
+
+La opción \texttt{sticky} (pegajoso) es un método híbrido de aprendizaje de direcciones MAC que proporciona el protocolo de Port Security \cite{pluralsight_sticky}.[8] Esta característica instruye al puerto del switch para que aprenda dinámicamente y de forma automática las direcciones MAC de los dispositivos que transmiten datos por primera vez a través de dicho puerto \cite{cisco_9200}.[9]
+
+Lo que diferencia sustancialmente a la opción \texttt{sticky} del aprendizaje puramente dinámico, es que el switch toma automáticamente las direcciones aprendidas y las convierte en direcciones MAC seguras "pegajosas", inyectándolas como líneas de texto directamente en la configuración actual en ejecución (\texttt{running-config}) \cite{cisco_9200}.[9] 
+
+El beneficio clave que permite realizar esta opción es la retención de la memoria a través de reinicios: si el administrador de red guarda el \texttt{running-config} en la memoria no volátil (\texttt{startup-config}), las direcciones aprendidas se almacenan de manera permanente \cite{cisco_9200}.[9] Como resultado, ante una falla eléctrica o un reinicio intencional del equipo, el switch no tendrá que volver a aprender las MACs, previniendo que un dispositivo no autorizado suplante temporalmente el puesto de una terminal genuina \cite{cisco_9200}.[9]
+
+\newpage
+
+\section{Investigue cómo se podría utilizar la opción sticky de port security como una opción más flexible a MACs fijas.}
+
+La configuración tradicional de direcciones MAC estáticas exige que un ingeniero de redes extraiga físicamente el identificador hexadecimal de cada computadora y lo transcriba comando por comando en el switch. En despliegues masivos (ej. cientos de cubículos), este proceso manual no solo es engorroso y poco escalable, sino también altamente propenso a errores humanos \cite{reddit_sticky}.[10]
+
+La opción \texttt{sticky} se utiliza como la alternativa perfecta de flexibilización mediante el enfoque "conectar y memorizar" (plug-and-learn) \cite{reddit_sticky}.[10] En la práctica, se implementa habilitando la opción en todos los puertos de acceso de una red recientemente instalada. Una vez configurado, los empleados de la organización simplemente conectan sus equipos legítimos y comienzan a trabajar. El switch capturará dinámicamente las MACs de estos primeros dispositivos y las registrará en la configuración por sí solo \cite{reddit_sticky}.[10]
+
+Posteriormente, el personal de TI ejecuta un comando de guardado (\texttt{copy running-config startup-config}), endureciendo permanentemente esas direcciones como si hubieran sido fijadas estáticamente a mano \cite{reddit_sticky}.[10] De este modo, se obtiene el rigor de contención y restricción idéntico a las direcciones fijas (evitando la suplantación y los switches piratas), pero se elimina por completo la extenuante labor logística de captura de MACs previas al despliegue \cite{reddit_sticky}.[10]
+
+\newpage
+
+\section{¿Para qué se utiliza la opción aging de port security?}
+
+La opción de envejecimiento (\texttt{aging}) de Port Security se utiliza para definir un temporizador de caducidad para las direcciones MAC seguras almacenadas en el puerto \cite{cisco_9200}.[9] Su propósito fundamental es flexibilizar el uso de los puertos, permitiendo que el switch depure y elimine de forma automática direcciones MAC autorizadas sin necesidad de intervención manual por parte del administrador \cite{networklessons_aging}.[11]
+
+Este mecanismo es crucial en entornos donde existe una alta rotación de dispositivos legítimos (como salas de conferencias o laboratorios públicos), evitando que la tabla alcance su límite máximo permitiendo el recambio natural \cite{networklessons_aging}.[11]
+
+El comando permite configurar el temporizador (de 1 a 1440 minutos) y ofrece dos filosofías operativas mediante el parámetro \texttt{type} \cite{cisco_9200} [9]:
+\begin{enumerate}
+    \item \textbf{Absolute (Absoluto):} Utiliza un temporizador estricto. Las direcciones seguras se borrarán de la tabla exactamente al cumplirse el tiempo estipulado, sin importar si el dispositivo estuvo transmitiendo paquetes de red minutos antes \cite{cisco_9200}.[9]
+    \item \textbf{Inactivity (Inactividad):} Utiliza un temporizador relativo al silencio. Las direcciones se borran únicamente si la terminal del usuario no genera absolutamente ningún tráfico de red durante todo el periodo configurado. Si se detecta una transmisión antes de la caducidad, el cronómetro se resetea a cero \cite{cisco_9200}.[9]
+\end{enumerate}
+
+\newpage
+
+\begin{thebibliography}{99}
+
+\bibitem{cisco_business}
+Cisco Systems. (s.f.). \textit{Cisco Business Switching: Unmanaged, Smart, and Managed Switches}. Recuperado de \url{https://www.cisco.com/c/en/us/support/docs/smb/switches/Cisco-Business-Switching/kmgmt-3204-unmanaged-smart-managed-switches.pdf}
+
+\bibitem{jumpcloud_mac}
+JumpCloud. (s.f.). \textit{What is a MAC Flooding Attack}. Recuperado de \url{https://jumpcloud.com/it-index/what-is-a-mac-flooding-attack}
+
+\bibitem{expressvpn_mac}
+ExpressVPN. (2026). \textit{What is MAC flooding? How the attack works and why it's a security risk}. Recuperado de \url{https://www.expressvpn.com/blog/mac-flooding/}
+
+\bibitem{huntress_mac}
+Huntress. (s.f.). \textit{What is MAC Flooding?}. Recuperado de \url{https://www.huntress.com/cybersecurity-101/topic/what-is-mac-flooding}
+
+\bibitem{codespindle_mac}
+CodeSpindle. (s.f.). \textit{The Technique of a MAC Flooding Attack}. Recuperado de \url{https://codespindle.com/Ethical/mac_flooding.html}
+
+\bibitem{ccna_portsec}
+CCNA Desde Cero. (s.f.). \textit{Implementar Port Security}. Recuperado de \url{https://ccnadesdecero.es/implementar-port-security/}
+
+\bibitem{compnet_portsec}
+Computer Networking Notes. (s.f.). \textit{Switchport Port-Security Explained with Examples}. Recuperado de \url{https://www.computernetworkingnotes.com/ccna-study-guide/switchport-port-security-explained-with-examples.html}
+
+\bibitem{cisco_9200}
+Cisco Systems. (s.f.). \textit{Catalyst 9200 Series Switches Security Configuration Guide, Cisco IOS XE Release 17.13}. Recuperado de \url{https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9200/software/release/17-13/configuration_guide/sec/b_1713_sec_9200_cg/port_security.html}
+
+\bibitem{reddit_sticky}
+Usuarios de Reddit (Comunidad CCNA). (s.f.). \textit{Can someone ELI5 what sticky mac address means in regards to port security?}. Recuperado de \url{https://www.reddit.com/r/ccna/comments/kvtcxh/can_someone_eli5_what_sticky_mac_address_means_in/}
+
+\bibitem{pluralsight_sticky}
+Pluralsight. (s.f.). \textit{Switchport Security Concepts}. Recuperado de \url{https://www.pluralsight.com/resources/blog/tech-operations/switchport-security-concepts}
+
+\bibitem{conetrix_sticky}
+CoNetrix. (s.f.). \textit{Cisco Port Security and Sticky MAC Addresses}. Recuperado de \url{https://conetrix.com/blog/cisco-port-security-and-sticky-mac-addresses}
+
+\bibitem{reddit_aging}
+Usuarios de Reddit (Comunidad CCNA). (s.f.). \textit{How does aging in port security work?}. Recuperado de \url{https://www.reddit.com/r/ccna/comments/zj29kv/how_does_aging_in_port_security_work_and_what/}
+
+\bibitem{networklessons_aging}
+NetworkLessons. (2016). \textit{How to configure Port Security on Cisco Switch}. Recuperado de \url{https://forum.networklessons.com/t/how-to-configure-port-security-on-cisco-switch/866?page=2}
+
+\bibitem{cisco_aging}
+StackExchange Network Engineering. (s.f.). \textit{Is MAC address aging just for dynamic sticky MAC addresses?}. Recuperado de \url{https://networkengineering.stackexchange.com/questions/38811/is-mac-address-aging-just-for-dynamic-sticky-mac-addresses}
+
+\end{thebibliography}
+
+\end{document}
