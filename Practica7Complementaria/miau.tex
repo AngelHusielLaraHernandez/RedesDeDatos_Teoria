@@ -1,0 +1,329 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{siunitx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[citecolor=blue,breaklinks=true]{hyperref}        % Para enlaces en el documento
+\usepackage{fancyhdr}
+\usepackage{circuitikz}
+\usepackage{amssymb}
+\usepackage{animate}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{gensymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{microtype}      % Micro-tipografía: reduce overfull hbox automáticamente
+
+% Ajuste de la altura del encabezado
+\setlength{\headheight}{76.27646pt}
+\addtolength{\topmargin}{-34.27646pt}
+
+\lstdefinestyle{mystyle}{
+    language=Matlab,
+    inputencoding=utf8,
+    backgroundcolor=\color{black!5},
+    commentstyle=\color{green!60!black},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{purple},
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showstringspaces=false,
+}
+\lstset{style=mystyle}
+
+\setlength{\parindent}{0pt}
+\emergencystretch=3em          % Tolerancia extra para evitar overfull hbox residuales
+
+% Crear la portada manualmente
+\begin{document}
+
+% Desactivar la numeración de página para la portada
+\thispagestyle{empty}
+
+% Colocar las imágenes en las esquinas superiores
+\begin{minipage}[t]{0.4\textwidth}
+    \raggedright
+    \includegraphics[width=2cm]{image/der.png}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+    \raggedleft
+    \includegraphics[width=2cm]{image/izq.png}
+\end{minipage}
+
+\vspace{1cm}
+
+\begin{center}
+    \Huge{\textbf{Práctica Complementaria y Obligatoria 7.  Enrutamiento estático.}} \\
+    \vspace{0.5cm}
+    \Huge{\textbf{Cuestionario Previo.}} \\
+    \vspace{1.5cm}
+    \Large{\textbf{Universidad Nacional Autónoma de México.}}\\
+    \Large{\textbf{Facultad de Ingeniería.}}\\
+    \vspace{1cm}
+    \Large{Redes de Datos Seguras.} \\
+    \vspace{0.5cm}
+    \LARGE{\textbf{Profesora:}}
+    \LARGE{\textit{MTRA. MARIA EUGENIA BAUTISTA GONZALEZ.}}\\
+    \vspace{0.5cm}
+    \Large{\textbf{Grupo:} 02} \\
+    \vspace{0.5cm}
+    \LARGE{\textbf{Alumno:}}\\
+    \Large{320060829} \\
+    \vspace{3cm}
+    \Large{\textbf{Fecha de Entrega:}}\\
+    \vspace{0.5cm}
+    \large{{Abril 10, 2026}}
+\end{center}
+
+\newpage
+
+% Configuración del encabezado y pie de página
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[width=1.5cm]{image/izq.png}}
+\fancyhead[R]{\includegraphics[width=1.5cm]{image/der.png}}
+\fancyfoot[C]{\thepage}  % Coloca el número de página en el centro del pie de página
+
+% Línea horizontal en el pie de página
+\renewcommand{\footrulewidth}{0.4pt}  % Define el grosor de la línea en el pie de página
+
+% Empezar numeración de páginas desde 1 en la segunda página
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\tableofcontents
+
+\newpage
+
+% ======================================================================
+\section{Defina dirección IP.}
+
+Una dirección del Protocolo de Internet (IP) es un identificador numérico, lógico y jerárquico asignado de manera exclusiva a la interfaz de red de cualquier dispositivo tecnológico que participe en una red de telecomunicaciones basada en el conjunto de protocolos TCP/IP \cite{fortinet_ip}. Su propósito fundamental es bidimensional: por un lado, proporciona una identificación unívoca del host o dispositivo receptor dentro de un dominio y, por otro, determina la ubicación topológica exacta de dicho dispositivo, habilitando a los enrutadores intermedios para calcular la trayectoria óptima que deben seguir los paquetes de datos para alcanzar su destino final \cite{kaspersky_ip}.
+
+Históricamente, las direcciones IP operan predominantemente bajo la versión 4 (IPv4), la cual emplea una arquitectura de 32 bits estructurada en cuatro octetos separados por puntos, permitiendo un espacio teórico de aproximadamente 4.294 millones de direcciones únicas \cite{proofpoint_ip}. La anatomía de una dirección IP se divide lógicamente en dos segmentos primordiales: el identificador de la red (Network ID), que señala la red específica a la que pertenece el dispositivo, y el identificador del host (Host ID), que individualiza al nodo dentro de dicha red.
+
+Las direcciones IP pueden ser públicas (globalmente enrutables en Internet) o privadas (reservadas explícitamente para el tráfico interno en redes de área local, inalcanzables desde el exterior sin un proceso de traducción NAT) \cite{fortinet_ip}.
+
+\newpage
+
+\section{Defina qué es una subred.}
+
+Una subred (contracción de red subordinada) es una división lógica y matemática de un bloque primario de direcciones IP en fragmentos más pequeños, discretos e independientes dentro del ecosistema de la Capa 3 (Red) del modelo OSI \cite{lenovo_netmask}. El proceso de fragmentación, conocido como \textit{subnetting}, representa una estrategia crítica orientada a optimizar el rendimiento, conservar el espacio de direccionamiento y establecer perímetros primarios de seguridad.
+
+En una red carente de división en subredes, la totalidad de los dispositivos reside dentro de un único dominio de difusión (broadcast domain). Cuando un host emite una trama de difusión, esta debe ser procesada por todos los dispositivos en la red, lo que en redes masivas genera congestión \cite{tmobile_subnet}. Al fraccionar la red en múltiples subredes, el administrador segmenta los dominios de difusión. Dado que los enrutadores no reenvían el tráfico de difusión por defecto, estas transmisiones quedan contenidas exclusivamente en su subred de origen. 
+
+Matemáticamente, la creación de subredes exige la manipulación de la máscara de red mediante el ``préstamo'' de bits. El ingeniero de red toma bits que originalmente estaban designados para el identificador de host y los reasigna forzosamente al identificador de red \cite{lenovo_netmask}.
+
+\newpage
+
+\section{Investigue qué es un segmento de red.}
+
+Aunque los términos ``subred'' y ``segmento de red'' a menudo se emplean indistintamente en el argot general, desde una perspectiva académica representan constructos diferenciados. Mientras que una subred es puramente una fragmentación matemática del direccionamiento lógico IP, un segmento de red es un concepto arquitectónico integral que encapsula la división física o lógica de una red para propósitos de aislamiento operativo, control de tráfico y seguridad \cite{paloalto_segmentation}.
+
+El segmento de red puede manifestarse en múltiples estratos del modelo OSI:
+\begin{itemize}
+    \item \textbf{Capa 1 y 2:} En infraestructuras modernas, la segmentación de Capa 2 se logra primordialmente mediante Redes de Área Local Virtuales (VLAN), aislando topologías lógicamente en los puertos del switch \cite{paloalto_segmentation}.
+    \item \textbf{Capa 3 y superior:} Se amalgama con la creación de subredes, pero añade la integración de cortafuegos (firewalls), listas de control de acceso (ACLs) perimetrales y puertas de enlace que inspeccionan y restringen de forma proactiva el flujo de información entre los segmentos \cite{zscaler_segmentation}.
+\end{itemize}
+
+El propósito central de la segmentación es la ciberseguridad. Al confinar diferentes sistemas, departamentos o usuarios en segmentos autónomos (Zero Trust), se limita el radio de impacto de cualquier brecha de seguridad. Si un atacante compromete un segmento, no puede realizar movimientos laterales hacia servidores críticos sin franquear las políticas del firewall \cite{zscaler_segmentation}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{3.5cm}|p{5.5cm}|p{5.5cm}|}
+\hline
+\textbf{Característica} & \textbf{Subred (Subnet)} & \textbf{Segmento de Red} \\ \hline
+\textbf{Naturaleza} & Matemática / Lógica (IP) & Arquitectónica / Física / Lógica \\ \hline
+\textbf{Capa OSI} & Capa 3 (Red) & Capas 1, 2, 3 y 4 \\ \hline
+\textbf{Objetivo} & Conservar direcciones IP. & Aislar tráfico, mejorar seguridad. \\ \hline
+\textbf{Mecanismo} & Alteración de la Máscara de Red. & VLANs, Cortafuegos, ACLs. \\ \hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\section{Investigue qué es una máscara de red.}
+
+La máscara de red es un parámetro numérico de 32 bits que opera de manera indivisible junto a la dirección IP IPv4. Su función es la de un decodificador algorítmico: discrimina matemáticamente qué bits dentro de la secuencia de una dirección IP corresponden a la porción de red (Network ID) y qué bits corresponden a la porción del host (Host ID) \cite{lenovo_netmask}. Esencialmente, informa a la pila TCP/IP sobre el tamaño topológico exacto de la subred.
+
+En formato binario, una máscara de red válida es una secuencia ininterrumpida de unos (1) leídos de izquierda a derecha, seguida de una secuencia ininterrumpida de ceros (0). Los bits establecidos en 1 ``enmascaran'' la parte de la red común, mientras que los bits en 0 descubren la parte reservada para los hosts utilizables. 
+
+Por ejemplo, la máscara 255.255.255.0 se representa como \texttt{11111111.11111111.11111111.00000000}. Esto dictamina que los primeros 24 bits determinan el segmento de red. El procesador de cualquier dispositivo ejecuta una operación lógica AND entre su IP y la máscara para descubrir su propia red y determinar si un paquete va dirigido a una red local o remota \cite{tmobile_subnet}.
+
+\newpage
+
+\section{¿Qué es un rango de direcciones IP y qué es un rango de direcciones IP utilizables?}
+
+Al aplicar una máscara de red sobre una dirección IP fundacional, se delinea un bloque continuo de direcciones. Este espectro completo conforma el \textbf{rango total de direcciones IP} que matemáticamente pertenecen a una subred \cite{quia_ranges}. Sin embargo, es imperativo discernir que no todas las direcciones generadas pueden ser aprovisionadas a dispositivos finales, naciendo así el concepto de \textbf{rango de direcciones IP utilizables}.
+
+Esta distinción radica en la reserva incondicional de dos direcciones extremas en toda subred IPv4:
+\begin{enumerate}
+    \item \textbf{La Dirección de Red:} Constituye el límite inferior del rango total (todos los bits de host en 0). Es el identificador nominal del segmento y no puede asignarse a un host \cite{quia_ranges}.
+    \item \textbf{La Dirección de Difusión (Broadcast):} Constituye el límite superior del rango (todos los bits de host en 1). Se utiliza como baliza para transmitir un paquete simultáneamente a todos los nodos de la subred \cite{quia_ranges}.
+\end{enumerate}
+
+El rango de direcciones utilizables son estrictamente los números atrapados entre estos dos polos. Son las únicas direcciones que pueden configurarse en interfaces de host o puertos de enrutadores. Para calcular la cantidad de hosts utilizables, donde $h$ es la cantidad de bits de host, se utiliza la ecuación:
+
+\[
+\text{Hosts Utilizables} = 2^h - 2
+\]
+
+\newpage
+
+\section{Investigue cómo se configuran las tablas de ruteo de manera estática.}
+
+El enrutamiento estático requiere que el ingeniero tipifique explícitamente cada red remota en la Base de Información de Enrutamiento (RIB), dictando la compuerta o interfaz exacta que el dispositivo debe usar como vector de salida \cite{ccnadesdecero_static}. 
+
+El comando de infraestructura en plataformas Cisco IOS se despliega mediante el mandato de configuración global \texttt{ip route}. Para ensamblar la directiva, se requieren tres componentes:
+\begin{enumerate}
+    \item \textbf{Prefijo de Destino:} La dirección de la red objetivo lejana.
+    \item \textbf{Máscara Lógica:} La máscara de subred del destino.
+    \item \textbf{Vía de Resolución:} La dirección IP del router adyacente (Siguiente Salto) o la interfaz de salida local.
+\end{enumerate}
+
+Para configurar una ruta hacia la red 192.168.10.0/24 a través de un router vecino (IP 10.200.20.2), los comandos son \cite{ccnadesdecero_static}:
+
+\begin{lstlisting}
+Router> enable
+Router# configure terminal
+Router(config)# ip route 192.168.10.0 255.255.255.0 10.200.20.2
+\end{lstlisting}
+
+También se puede configurar apuntando a una interfaz de salida local (altamente recomendado en enlaces seriales):
+
+\begin{lstlisting}
+Router(config)# ip route 192.168.10.0 255.255.255.0 Serial0/0/1
+\end{lstlisting}
+
+Para englobar el tráfico desconocido hacia un proveedor de Internet, se utiliza una Ruta Estática Predeterminada:
+
+\begin{lstlisting}
+Router(config)# ip route 0.0.0.0 0.0.0.0 203.0.113.1
+\end{lstlisting}
+
+\newpage
+
+\section{Investigue el parámetro NEXT\_HOP\_ADDRESS y cómo se utiliza.}
+
+El parámetro del Siguiente Salto (\texttt{NEXT\_HOP\_ADDRESS}) es la dirección IP asignada a la interfaz del enrutador adyacente más próximo, hacia la cual un dispositivo local debe inyectar el paquete para que alcance su red terminal \cite{moreluznet_nexthop}.
+
+Cuando el ingeniero utiliza este parámetro (ej. \texttt{ip route 192.168.0.0 255.255.255.0 192.168.1.2}), impone al enrutador una \textbf{búsqueda recursiva} \cite{ccnadesdecero_static}. Dado que una ruta basada en una dirección IP no indica por qué hardware físico salir, el router debe:
+\begin{enumerate}
+    \item Encontrar que el destino requiere enviarse a la IP del next-hop (ej. 192.168.1.2).
+    \item Realizar una segunda búsqueda en la tabla de ruteo para averiguar qué interfaz local está conectada a la red de la IP 192.168.1.2.
+\end{enumerate}
+Para evitar este doble procesamiento en topologías complejas Ethernet, se recomienda emplear Rutas Completamente Especificadas, donde se declara tanto la interfaz de salida como la IP del próximo salto simultáneamente \cite{moreluznet_nexthop}.
+
+\newpage
+
+\section{Para qué sirve el comando \textit{show ip route}.}
+
+El comando \texttt{show ip route}, ejecutado desde el modo privilegiado en Cisco IOS, sirve para revelar el estado sincrónico actual de la Tabla de Enrutamiento (RIB) \cite{cisco_showiproute}. Es la herramienta de diagnóstico más trascendental, ya que despliega visualmente el compendio de vías resolutivas lógicas de las que dispone la unidad central del enrutador para conmutar flujos hacia destinos locales y remotos.
+
+El comando no muestra toda la configuración, sino únicamente las rutas óptimas y triunfantes que el router ha decidido instalar \cite{librosnetworking_showiproute}. Una lectura de cada entrada arroja parámetros vitales como:
+\begin{itemize}
+    \item \textbf{Código Fuente (Route Source):} Indica cómo se aprendió la ruta. Ejemplos: \textbf{C} (Directamente Conectada), \textbf{L} (Local), \textbf{S} (Estática), \textbf{O} (OSPF).
+    \item \textbf{Red de Destino:} El prefijo y máscara al que se dirige la ruta.
+    \item \textbf{Distancia Administrativa (AD):} El grado de confiabilidad de la ruta (Ej. Estática = 1, OSPF = 110).
+    \item \textbf{Métrica:} El costo calculado para alcanzar la red.
+    \item \textbf{Next Hop:} La IP del router intermediario.
+    \item \textbf{Interfaz de Salida:} El puerto físico por el cual se expulsará el paquete.
+\end{itemize}
+
+\newpage
+
+\section{Investigue cuáles son los comandos que se utilizan para poner contraseñas en el router.}
+
+Cisco IOS instrumenta una arquitectura jerárquica que requiere comandos progresivos para fortificar el plano de control. Existen tres áreas primordiales de protección: el modo privilegiado (Enable), la conexión física (Consola) y las conexiones remotas (VTY) \cite{cisco_passwords}.
+
+A continuación se muestra el bloque de comandos estructurado para la aplicación de contraseñas globales:
+
+\begin{lstlisting}
+Router> enable
+Router# configure terminal
+
+! 1. Proteger el Modo Privilegiado con encriptacion fuerte (MD5/SHA)
+Router(config)# enable secret CiberSegura2026!
+
+! 2. Proteger la conexion fisica de la Consola
+Router(config)# line console 0
+Router(config-line)# password AccesoBaseConsola
+Router(config-line)# login
+Router(config-line)# exit
+
+! 3. Proteger las conexiones remotas de red (Telnet/SSH)
+Router(config)# line vty 0 15
+Router(config-line)# password AccesoLANRemoto
+Router(config-line)# login
+Router(config-line)# exit
+
+! 4. Encriptar las contrasenas de texto plano (como la de consola)
+Router(config)# service password-encryption
+Router(config)# exit
+
+! 5. Guardar permanentemente en la NVRAM
+Router# copy running-config startup-config
+\end{lstlisting}
+Es imperativo usar \texttt{copy running-config startup-config} (o su equivalente clásico \texttt{write memory}) al finalizar, para que los bloqueos sobrevivan a un reinicio eléctrico \cite{netwrix_saverun}.
+
+\newpage
+
+\begin{thebibliography}{99}
+
+    \bibitem{fortinet_ip}
+    Fortinet. (s.f.). \textit{¿Qué es una dirección IP? ¿Cómo funciona?}. Recuperado de \url{https://www.fortinet.com/lat/resources/cyberglossary/what-is-ip-address}
+
+    \bibitem{kaspersky_ip}
+    Kaspersky. (s.f.). \textit{¿Qué es una dirección IP y qué significa?}. Recuperado de \url{https://latam.kaspersky.com/resource-center/definitions/what-is-an-ip-address}
+
+    \bibitem{proofpoint_ip}
+    Proofpoint. (s.f.). \textit{¿Qué es una dirección IP?}. Recuperado de \url{https://www.proofpoint.com/es/threat-reference/ip-address}
+
+    \bibitem{lenovo_netmask}
+    Lenovo. (s.f.). \textit{¿Qué es una máscara de red?}. Recuperado de \url{https://www.lenovo.com/es/es/glossary/netmask/}
+
+    \bibitem{tmobile_subnet}
+    T-Mobile. (s.f.). \textit{Guía 101 para comprender las mascaras de subred de wifi}. Recuperado de \url{https://es.t-mobile.com/home-internet/the-signal/internet-help/guide-to-wifi-subnet-masking-networks}
+
+    \bibitem{paloalto_segmentation}
+    Palo Alto Networks. (s.f.). \textit{¿Qué es la segmentación de red?}. Recuperado de \url{https://www.paloaltonetworks.lat/cyberpedia/what-is-network-segmentation}
+
+    \bibitem{zscaler_segmentation}
+    Zscaler. (s.f.). \textit{Definiciones de Seguridad: Segmentación de Red}. Recuperado de \url{https://www.zscaler.com/es/resources/security-terms-glossary/what-is-network-segmentation}
+
+    \bibitem{quia_ranges}
+    Direccionamiento IP y Subredes. (s.f.). \textit{Direcciones de red y broadcast}. Recuperado de \url{https://www.quia.com/files/quia/users/istomar/DIPS/direcciones_de_red_y_broadcast.html}
+
+    \bibitem{ccnadesdecero_static}
+    CCNA desde Cero. (s.f.). \textit{Configuración de Rutas Estáticas y Predeterminadas}. Recuperado de \url{https://ccnadesdecero.es/configuracion-rutas-estaticas-predeterminadas/}
+
+    \bibitem{moreluznet_nexthop}
+    Moreluznet. (s.f.). \textit{Próximo salto en la Tabla de Enrutamiento}. Recuperado de \url{https://moreluznet.com/conectividad-3/conectividad/proximo-salto/}
+
+    \bibitem{cisco_showiproute}
+    Cisco Systems. (s.f.). \textit{Command Reference: show ip route}. Recuperado de \url{https://www.cisco.com/E-Learning/bulk/public/tac/cim/cib/using_cisco_ios_software/cmdrefs/show_ip_route.htm}
+    
+    \bibitem{librosnetworking_showiproute}
+    Mis Libros de Networking. (2017). \textit{Comandos: show ip route}. Recuperado de \url{http://librosnetworking.blogspot.com/2017/12/comandos-show-ip-route.html}
+
+    \bibitem{cisco_passwords}
+    Cisco Systems. (s.f.). \textit{Controlling Switch Access with Passwords and Privilege Levels}. Recuperado de \url{https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9200/software/release/16-10/configuration_guide/sec/b_1610_sec_9200_cg/controlling_switch_access_with_passwords_and_privilege_levels.pdf}
+
+    \bibitem{netwrix_saverun}
+    Netwrix. (s.f.). \textit{How to Save the Running Config to Startup Config in Cisco Devices}. Recuperado de \url{https://netwrix.com/es/resources/blog/save-running-config-cisco-guide/}
+
+\end{thebibliography}
+
+\end{document}
