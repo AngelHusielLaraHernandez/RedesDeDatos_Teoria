@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infografía: Redes Seguras TCP vs UDP</title>
+    <title>Actividad 9 Lara Hernandez</title>
     
     <!-- Tailwind CSS para diseño estructurado -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -359,7 +359,7 @@
                     <svg class="absolute -right-4 -bottom-4 w-32 h-32 text-cyan-500/10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5zm0 18.9c-4.1-1.16-7-5.4-7-9.9V8.3l7-3.9 7 3.9v5.8c0 4.5-2.9 8.74-7 9.9z"/></svg>
                     <h4 class="text-xl font-subtitle text-white mb-2 relative z-10">TLS / SSL</h4>
                     <p class="text-slate-300 text-sm relative z-10">
-                        TCP utiliza comúnmente <strong>TLS (Transport Layer Security)</strong>, la evolución de SSL. Funciona como un túnel blindado. Antes de enviar tu contraseña o número de tarjeta, TCP se asegura de que el túnel esté cifrado y verifica la identidad del servidor (mediante certificados digitales). ¡Es lo que forma el candadito verde en tu navegador!
+                        TCP utiliza el TLS (Transport Layer Security) y su anterior que fue el SSL. La funcion de este, es que al momento de enviar la informacion, TCP se asegura de que el tunel o medio este cifrado y verifica la identidad del servidor esto mediante certificados digitales. Además, su tráfico puede protegerse a nivel de red mediante IPsec, encapsulando los paquetes completos para un tránsito seguro.
                     </p>
                 </div>
             </div>
@@ -386,45 +386,48 @@
         </div>
 
         <!-- SECCIÓN 3: Puertos Conocidos -->
-        <div class="print-row my-20 text-center reveal">
-            <!-- Dibujo Destacado de Puertos/Servidores -->
-            <div class="flex justify-center mb-6">
-                <div class="p-5 bg-fuchsia-900/30 rounded-full border border-fuchsia-500/30 shadow-[0_0_25px_rgba(217,70,239,0.2)] sticker" style="animation-duration: 5s;">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#d946ef" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line><path d="M22 6h-4"></path><path d="M22 18h-4"></path></svg>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-6 text-left">
-                <!-- Puertos TCP -->
-                <div class="bg-slate-800/80 p-6 rounded-2xl border border-cyan-500/30 hover:border-cyan-400 transition-colors">
-                    <h4 class="text-xl font-subtitle text-tcp mb-4 flex items-center">
-                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
-                        Puertos Conocidos de TCP
-                    </h4>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="px-4 py-2 bg-cyan-900/50 rounded-lg border border-cyan-700 font-title text-sm"><span class="text-white">80</span> HTTP (Web)</span>
-                        <span class="px-4 py-2 bg-cyan-900/50 rounded-lg border border-cyan-700 font-title text-sm"><span class="text-emerald-400">443</span> HTTPS (Web Segura)</span>
-                        <span class="px-4 py-2 bg-cyan-900/50 rounded-lg border border-cyan-700 font-title text-sm"><span class="text-white">21</span> FTP (Archivos)</span>
-                        <span class="px-4 py-2 bg-cyan-900/50 rounded-lg border border-cyan-700 font-title text-sm"><span class="text-white">22</span> SSH (Control Remoto)</span>
-                        <span class="px-4 py-2 bg-cyan-900/50 rounded-lg border border-cyan-700 font-title text-sm"><span class="text-white">25</span> SMTP (Correos)</span>
+    <div class="print-row my-20 text-center reveal">
+                <div class="flex justify-center mb-6">
+                    <div class="p-5 bg-fuchsia-900/30 rounded-full border border-fuchsia-500/30 shadow-[0_0_25px_rgba(217,70,239,0.2)] sticker" style="animation-duration: 5s;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#d946ef" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line><path d="M22 6h-4"></path><path d="M22 18h-4"></path></svg>
                     </div>
                 </div>
 
-                <!-- Puertos UDP -->
-                <div class="bg-slate-800/80 p-6 rounded-2xl border border-orange-500/30 hover:border-orange-400 transition-colors">
-                    <h4 class="text-xl font-subtitle text-udp mb-4 flex items-center">
-                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
-                        Puertos Conocidos de UDP
-                    </h4>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="px-4 py-2 bg-orange-900/50 rounded-lg border border-orange-700 font-title text-sm"><span class="text-white">53</span> DNS (Traductor de nombres web)</span>
-                        <span class="px-4 py-2 bg-orange-900/50 rounded-lg border border-orange-700 font-title text-sm"><span class="text-white">67/68</span> DHCP (Asigna tu IP)</span>
-                        <span class="px-4 py-2 bg-orange-900/50 rounded-lg border border-orange-700 font-title text-sm"><span class="text-white">123</span> NTP (Sincroniza el reloj)</span>
-                        <span class="px-4 py-2 bg-orange-900/50 rounded-lg border border-orange-700 font-title text-sm"><span class="text-white">161</span> SNMP (Monitoreo de red)</span>
+                <div class="grid md:grid-cols-2 gap-6 text-left">
+                    <div class="bg-slate-800/80 p-6 rounded-2xl border border-cyan-500/30 hover:border-cyan-400 transition-colors">
+                        <h4 class="text-xl font-subtitle text-tcp mb-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
+                            Puertos Conocidos de TCP
+                        </h4>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-4 py-2 bg-cyan-900/50 rounded-lg border border-cyan-700 font-title text-sm"><span class="text-white">20/21</span> FTP (Archivos)</span>
+                            <span class="px-4 py-2 bg-cyan-900/50 rounded-lg border border-cyan-700 font-title text-sm"><span class="text-white">22</span> SSH (Acceso Seguro)</span>
+                            <span class="px-4 py-2 bg-cyan-900/50 rounded-lg border border-cyan-700 font-title text-sm"><span class="text-white">23</span> Telnet (Consola)</span>
+                            <span class="px-4 py-2 bg-cyan-900/50 rounded-lg border border-cyan-700 font-title text-sm"><span class="text-white">25</span> SMTP (Envío Correo)</span>
+                            <span class="px-4 py-2 bg-cyan-900/50 rounded-lg border border-cyan-700 font-title text-sm"><span class="text-white">53</span> DNS (Transferencias)</span>
+                            <span class="px-4 py-2 bg-cyan-900/50 rounded-lg border border-cyan-700 font-title text-sm"><span class="text-white">80</span> HTTP (Web)</span>
+                            <span class="px-4 py-2 bg-cyan-900/50 rounded-lg border border-cyan-700 font-title text-sm"><span class="text-white">110</span> POP3 (Recibir Correo)</span>
+                            <span class="px-4 py-2 bg-cyan-900/50 rounded-lg border border-cyan-700 font-title text-sm"><span class="text-emerald-400">443</span> HTTPS (Web Segura)</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/80 p-6 rounded-2xl border border-orange-500/30 hover:border-orange-400 transition-colors">
+                        <h4 class="text-xl font-subtitle text-udp mb-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                            Puertos Conocidos de UDP
+                        </h4>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-4 py-2 bg-orange-900/50 rounded-lg border border-orange-700 font-title text-sm"><span class="text-white">53</span> DNS (Consultas Web)</span>
+                            <span class="px-4 py-2 bg-orange-900/50 rounded-lg border border-orange-700 font-title text-sm"><span class="text-white">67/68</span> DHCP (Asigna IP)</span>
+                            <span class="px-4 py-2 bg-orange-900/50 rounded-lg border border-orange-700 font-title text-sm"><span class="text-white">69</span> TFTP (Transf. rapida)</span>
+                            <span class="px-4 py-2 bg-orange-900/50 rounded-lg border border-orange-700 font-title text-sm"><span class="text-white">123</span> NTP (Reloj de Red)</span>
+                            <span class="px-4 py-2 bg-orange-900/50 rounded-lg border border-orange-700 font-title text-sm"><span class="text-white">161/162</span> SNMP (Monitoreo)</span>
+                            <span class="px-4 py-2 bg-orange-900/50 rounded-lg border border-orange-700 font-title text-sm"><span class="text-white">500</span> IPsec (Seguridad Red)</span>
+                            <span class="px-4 py-2 bg-orange-900/50 rounded-lg border border-orange-700 font-title text-sm"><span class="text-white">514</span> Syslog (Registros)</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
         <!-- SECCIÓN 4: Aplicaciones en la vida real -->
         <div class="print-row mb-10 relative z-10">
@@ -435,9 +438,9 @@
                     <svg class="absolute right-4 top-4 w-32 h-32 text-cyan-500/5 rotate-12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                     
                     <div class="accent-bar bg-tcp mb-4 relative z-10"></div>
-                    <h3 class="text-3xl text-cyan-300 mb-6 font-subtitle drop-shadow-md relative z-10">Aplicaciones Asociadas a TCP</h3>
+                    <h3 class="text-3xl text-cyan-300 mb-6 font-subtitle drop-shadow-md relative z-10">Aplicaciones Utilizadas por TCP</h3>
                     <p class="text-slate-400 text-sm mb-6 relative z-10">
-                        Se usa cuando la precisión de la información es <strong>absolutamente crítica</strong> y el tiempo no es el factor más estricto. Si falta un solo byte, el archivo se corrompe.
+                        Hecho para transmisiones donde la integridad de los datos es prioritaria sobre la velocidad. Garantiza una entrega perfecta, esto por que la perdida de un byte cambiara la informacion de todo el contenido, entonces prioriza correctamente la fiabilidad de la informacion.
                     </p>
                     <div class="grid grid-cols-2 gap-4 relative z-10">
                         <div class="flex flex-col items-center p-4 bg-black/40 rounded-xl text-center hover:bg-cyan-900/40 transition-colors">
@@ -479,7 +482,7 @@
                     <div class="accent-bar bg-udp mb-4 relative z-10"></div>
                     <h3 class="text-3xl text-orange-300 mb-6 font-subtitle drop-shadow-md relative z-10">Aplicaciones Asociadas a UDP</h3>
                     <p class="text-slate-400 text-sm mb-6 relative z-10">
-                        Se usa cuando la <strong>velocidad y el tiempo real</strong> son la prioridad. Si se pierde un pixel en un video, no importa, prefieres que el video siga avanzando sin pausas de carga.
+                        Hecho para transmisiones donde la velocidad es lo importante, este protocolo elimina la cualidad de una entrega perfecta, esto para evitar retrasos, tenemos el caso en streaming o videollamadas, es preferible perder un pequeño fragmento de datos antes que pausar o detener la transmisión.
                     </p>
                     <div class="grid grid-cols-2 gap-4 relative z-10">
                         <div class="flex flex-col items-center p-4 bg-black/40 rounded-xl text-center hover:bg-orange-900/40 transition-colors">
@@ -519,16 +522,21 @@
         <div class="print-row mt-20 glass-card p-8 reveal border-t-4 border-t-fuchsia-500 relative z-10">
             <h3 class="text-2xl text-port mb-6 font-subtitle flex items-center">
                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                Referencias Bibliográficas
+                Bibliografias:
             </h3>
             <!-- Estilo APA: Sangría francesa (hanging indent) y ajuste de enlaces largos -->
             <div class="space-y-4 text-slate-300 text-sm leading-relaxed break-words" style="text-indent: -1.5rem; padding-left: 1.5rem;">
-                <p>Amazon Web Services. (s.f.). ¿Cuál es la diferencia entre rendimiento y latencia? AWS. Recuperado de https://aws.amazon.com/es/compare/the-difference-between-throughput-and-latency/</p>
-                <p>Cisco. (2023). Configuración de los cifrados TLS y DTLS modernos para RAVPN. Cisco Support. Recuperado de https://www.cisco.com/c/es_mx/support/docs/security/secure-client-5/220609-configure-modern-tls-and-dtls-ciphers-fo.html</p>
-                <p>Cloudflare. (s.f.). ¿Qué es TCP/IP? Cloudflare. Recuperado de https://www.cloudflare.com/es-es/learning/ddos/glossary/tcp-ip/</p>
-                <p>Cloudflare. (s.f.). ¿Qué es el Protocolo de Internet (IP)? Cloudflare. Recuperado de https://www.cloudflare.com/es-es/learning/network-layer/internet-protocol/</p>
-                <p>IBM. (s.f.). Transmission Control Protocol. IBM Documentation. Recuperado de https://www.ibm.com/docs/en/aix/7.2.0?topic=protocols-transmission-control-protocol</p>
-                <p>RedesZone. (2024). Qué son los puertos TCP y UDP y para qué sirven cada uno de ellos. RedesZone. Recuperado de https://www.redeszone.net/tutoriales/configuracion-puertos/puertos-tcp-udp/</p>
+                <p>Amazon Web Services.   ¿Cuál es la diferencia entre rendimiento y latencia? AWS. Recuperado el 8 de abril del 2026  de <a href="https://aws.amazon.com/es/compare/the-difference-between-throughput-and-latency/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 hover:underline transition-colors">https://aws.amazon.com/es/compare/the-difference-between-throughput-and-latency/</a></p>
+                
+                <p>Cisco. (2023). Configuración de los cifrados TLS y DTLS modernos para RAVPN. Cisco Support. Recuperado el 8 de abril del 2026  de <a href="https://www.cisco.com/c/es_mx/support/docs/security/secure-client-5/220609-configure-modern-tls-and-dtls-ciphers-fo.html" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 hover:underline transition-colors">https://www.cisco.com/c/es_mx/support/docs/security/secure-client-5/220609-configure-modern-tls-and-dtls-ciphers-fo.html</a></p>
+                
+                <p>Cloudflare.   ¿Qué es TCP/IP? Cloudflare. Recuperado el 8 de abril del 2026  de <a href="https://www.cloudflare.com/es-es/learning/ddos/glossary/tcp-ip/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 hover:underline transition-colors">https://www.cloudflare.com/es-es/learning/ddos/glossary/tcp-ip/</a></p>
+                
+                <p>Cloudflare.   ¿Qué es el Protocolo de Internet (IP)? Cloudflare. Recuperado el 8 de abril del 2026  de <a href="https://www.cloudflare.com/es-es/learning/network-layer/internet-protocol/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 hover:underline transition-colors">https://www.cloudflare.com/es-es/learning/network-layer/internet-protocol/</a></p>
+                
+                <p>IBM.   Transmission Control Protocol. IBM Documentation. Recuperado el 8 de abril del 2026  de <a href="https://www.ibm.com/docs/en/aix/7.2.0?topic=protocols-transmission-control-protocol" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 hover:underline transition-colors">https://www.ibm.com/docs/en/aix/7.2.0?topic=protocols-transmission-control-protocol</a></p>
+                
+                <p>RedesZone. (2024). Qué son los puertos TCP y UDP y para qué sirven cada uno de ellos. RedesZone. Recuperado el 8 de abril del 2026 de <a href="https://www.redeszone.net/tutoriales/configuracion-puertos/puertos-tcp-udp/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 hover:underline transition-colors">https://www.redeszone.net/tutoriales/configuracion-puertos/puertos-tcp-udp/</a></p>
             </div>
         </div>
 
