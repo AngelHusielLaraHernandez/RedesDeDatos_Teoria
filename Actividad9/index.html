@@ -303,11 +303,12 @@
                         </div>
                     </div>
                     <div class="mt-6 space-y-4 text-slate-300">
-                        <p><strong>Personalidad:</strong> Es como un mensajero meticuloso que te hace firmar de recibido. Si un paquete se pierde en el camino, él lo vuelve a enviar automáticamente.</p>
+                        <p><strong>Caracteristica:</strong> Este funciona como el metodo para tener mejor fiabilidad en en enviar el mensaje, es decir, si un paquete se pierde en el camino, él lo vuelve a enviar automáticamente.</p>
                         <ul class="list-none space-y-3">
-                            <li class="flex items-start"><span class="text-tcp mr-2 mt-1">✦</span> <span>Orientado a conexión (establece un saludo previo).</span></li>
-                            <li class="flex items-start"><span class="text-tcp mr-2 mt-1">✦</span> <span>Entrega totalmente garantizada y ordenada.</span></li>
-                            <li class="flex items-start"><span class="text-tcp mr-2 mt-1">✦</span> <span>Control de flujo (evita saturar la red).</span></li>
+                            <li class="flex items-start"><span class="text-tcp mr-2 mt-1">✦</span> <span><strong>Orientado a conexión:</strong> Establece comunicación previa entre emisor y receptor mediante el <em>Three-Way Handshake</em>.</span></li>
+                            <li class="flex items-start"><span class="text-tcp mr-2 mt-1">✦</span> <span><strong>Entrega garantizada:</strong> Asegura datos en orden y sin errores mediante confirmaciones (ACK) y retransmisiones automáticas en caso de pérdida.</span></li>
+                            <li class="flex items-start"><span class="text-tcp mr-2 mt-1">✦</span> <span><strong>Control de flujo:</strong> Evita que un emisor rapido sature a un receptor más lento, aqui se utiliza el mecanismo de ventana deslizante.</span></li>
+                            <li class="flex items-start"><span class="text-tcp mr-2 mt-1">✦</span> <span><strong>Control de congestión:</strong> Maneja la sobrecarga de la red para evitar el colapso del sistema.</span></li>
                             <li class="flex items-start"><span class="text-tcp mr-2 mt-1">✦</span> <span><em class="font-bold">Velocidad:</em> Más lento debido a sus constantes verificaciones.</span></li>
                         </ul>
                     </div>
@@ -329,12 +330,12 @@
                         </div>
                     </div>
                     <div class="mt-6 space-y-4 text-slate-300">
-                        <p><strong>Personalidad:</strong> Es como un lanzador de periódicos que pasa a toda velocidad en bicicleta. Arroja la información rápidamente, ¡pero no se detiene a comprobar si la atrapaste!</p>
+                        <p><strong>Caracteristica:</strong> Este protocolo solo envia la informacion sin veritificar si el receptor la recibe correctamente.</p>
                         <ul class="list-none space-y-3">
-                            <li class="flex items-start"><span class="text-udp mr-2 mt-1">✦</span> <span>Sin conexión previa (envía datos directamente).</span></li>
-                            <li class="flex items-start"><span class="text-udp mr-2 mt-1">✦</span> <span>No hay garantía de entrega ni orden.</span></li>
-                            <li class="flex items-start"><span class="text-udp mr-2 mt-1">✦</span> <span>Muy ligero, menos consumo de recursos.</span></li>
-                            <li class="flex items-start"><span class="text-udp mr-2 mt-1">✦</span> <span><em class="font-bold">Velocidad:</em> Extremadamente rápido e inmediato.</span></li>
+                            <li class="flex items-start"><span class="text-udp mr-2 mt-1">✦</span> <span><strong>No orientado a conexion:</strong> Envía datos directamente sin handshake.</span></li>
+                            <li class="flex items-start"><span class="text-udp mr-2 mt-1">✦</span> <span><strong>Sin garantia de entrega:</strong> No hay garantía de entrega ni orden, asume que el destinatario los procesará como lleguen.</span></li>
+                            <li class="flex items-start"><span class="text-udp mr-2 mt-1">✦</span> <span><strong>Eficiente:</strong> Muy ligero, menos consumo de recursos.</span></li>
+                            <li class="flex items-start"><span class="text-udp mr-2 mt-1">✦</span> <span><strong>Baja latencia (Velocidad):</strong> Extremadamente rápido e inmediato.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -351,7 +352,6 @@
                     </div>
                     <div class="text-center md:text-left">
                         <h3 class="text-3xl text-cyan-300 font-bold drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]">Tipo de Seguridad en TCP</h3>
-                        <p class="text-sm text-slate-400 mt-1">¿Cómo evitamos a los espías?</p>
                     </div>
                 </div>
                 <div class="bg-black/30 p-5 rounded-lg relative overflow-hidden">
@@ -372,7 +372,6 @@
                     </div>
                     <div>
                         <h3 class="text-3xl text-orange-300 font-bold drop-shadow-[0_0_8px_rgba(251,146,60,0.4)]">Tipo de Seguridad en UDP</h3>
-                        <p class="text-sm text-slate-400 mt-1">Protección en movimiento rápido</p>
                     </div>
                 </div>
                 <div class="bg-black/30 p-5 rounded-lg text-center md:text-right relative overflow-hidden">
@@ -380,7 +379,7 @@
                     <svg class="absolute -left-4 -bottom-4 w-32 h-32 text-orange-500/10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
                     <h4 class="text-xl font-subtitle text-white mb-2 relative z-10">DTLS e IPsec</h4>
                     <p class="text-slate-300 text-sm relative z-10">
-                        Como UDP es rápido y sin estructura, usar el TLS normal no funcionaría bien. En su lugar, usa <strong>DTLS (Datagram Transport Layer Security)</strong>, diseñado específicamente para no retrasar el flujo de datos. También se protege fuertemente a nivel de red utilizando <strong>IPsec</strong> (como en las conexiones VPN), encriptando cada pequeño datagrama que viaja.
+                        UDP no posee seguridad ni cifrado nativo. Para proteger sus datos, depende de protocolos externos como <strong>DTLS</strong> (para cifrado de extremo a extremo) o <strong>IPsec</strong> (que encapsula y cifra el paquete en la capa de red).
                     </p>
                 </div>
             </div>
