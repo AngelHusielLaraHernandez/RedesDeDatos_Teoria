@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -129,7 +128,7 @@
         
         /* Enlaces web de fuentes */
         .source-link {
-            color: #3b82f6; /* Azul brillante que pediste */
+            color: #3b82f6; 
             text-decoration: none;
             word-break: break-all;
             transition: color 0.2s ease;
@@ -137,6 +136,39 @@
         .source-link:hover {
             color: #60a5fa;
             text-decoration: underline;
+        }
+
+        /* AJUSTES ESPECÍFICOS PARA IMPRESIÓN Y PDF - CORRECCIÓN DEFINITIVA */
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background-color: #0B0C10 !important;
+            }
+            
+            /* Esta clase fuerza a que la sección empiece en una página nueva siempre (Solo para Con Pérdidas) */
+            .force-page-break {
+                page-break-before: always !important;
+                break-before: page !important;
+                margin-top: 2rem !important; 
+            }
+
+            /* Evitar cortes a la mitad de los elementos individuales */
+            .glass-post-it, header, .tape {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            /* Quitar los márgenes enormes que desajustan el PDF */
+            main {
+                padding-top: 0.5rem !important;
+            }
+            .mb-40, .mb-32, .mb-24 {
+                margin-bottom: 2rem !important;
+            }
+            .mt-40 {
+                margin-top: 2rem !important;
+            }
         }
     </style>
 </head>
@@ -234,43 +266,43 @@
 
                 <!-- Columna Derecha: Tarjetas de Ejemplos -->
                 <div class="w-full lg:w-1/2">
-                    <h3 class="font-display text-2xl text-tech-cyan mb-6 pl-4 border-l-4 border-tech-cyan transform rotate-1">Ejemplos Diferentes</h3>
+                    <h3 class="font-display text-2xl text-tech-cyan mb-6 pl-4 border-l-4 border-tech-cyan transform rotate-1">Ejemplos</h3>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 relative">
                         <!-- Ejemplo 1 -->
-                        <div class="glass-post-it p-5 rounded-lg transform rotate-4 border-tech-cyan/40">
-                            <i data-lucide="file-archive" class="text-tech-cyan mb-3 w-8 h-8"></i>
-                            <h4 class="font-display text-xl text-white mb-1">7Z</h4>
-                            <p class="text-xs text-gray-400">Arquitectura abierta con un ratio de compresión extremadamente alto.</p>
+                        <div class="glass-post-it p-6 rounded-lg transform rotate-4 border-tech-cyan/40">
+                            <i data-lucide="file-archive" class="text-tech-cyan mb-3 w-10 h-10"></i>
+                            <h4 class="font-display text-2xl text-white mb-2">7Z</h4>
+                            <p class="text-sm md:text-base text-gray-200 leading-relaxed font-medium">Arquitectura abierta con un ratio de compresión extremadamente alto.</p>
                         </div>
                         
                         <!-- Ejemplo 2 -->
-                        <div class="glass-post-it p-5 rounded-lg transform -rotate-4 border-tech-cyan/40 sm:mt-6">
-                            <i data-lucide="image" class="text-tech-cyan mb-3 w-8 h-8"></i>
-                            <h4 class="font-display text-xl text-white mb-1">TIFF</h4>
-                            <p class="text-xs text-gray-400">Imagen de altísima calidad usada en fotografía e impresión profesional.</p>
+                        <div class="glass-post-it p-6 rounded-lg transform -rotate-4 border-tech-cyan/40 sm:mt-6">
+                            <i data-lucide="image" class="text-tech-cyan mb-3 w-10 h-10"></i>
+                            <h4 class="font-display text-2xl text-white mb-2">TIFF</h4>
+                            <p class="text-sm md:text-base text-gray-200 leading-relaxed font-medium">Imagen de altísima calidad usada en fotografía e impresión profesional.</p>
                         </div>
 
                         <!-- Ejemplo 3 -->
-                        <div class="glass-post-it p-5 rounded-lg transform rotate-2 border-tech-cyan/40">
-                            <i data-lucide="server" class="text-tech-cyan mb-3 w-8 h-8"></i>
-                            <h4 class="font-display text-xl text-white mb-1">GZIP</h4>
-                            <p class="text-xs text-gray-400">Estándar mundial para acelerar la transferencia de páginas web.</p>
+                        <div class="glass-post-it p-6 rounded-lg transform rotate-2 border-tech-cyan/40">
+                            <i data-lucide="server" class="text-tech-cyan mb-3 w-10 h-10"></i>
+                            <h4 class="font-display text-2xl text-white mb-2">GZIP</h4>
+                            <p class="text-sm md:text-base text-gray-200 leading-relaxed font-medium">Estándar mundial para acelerar la transferencia de páginas web.</p>
                         </div>
 
                         <!-- Ejemplo 4 -->
-                        <div class="glass-post-it p-5 rounded-lg transform -rotate-6 border-tech-cyan/40 sm:mt-4">
-                            <i data-lucide="audio-lines" class="text-tech-cyan mb-3 w-8 h-8"></i>
-                            <h4 class="font-display text-xl text-white mb-1">ALAC</h4>
-                            <p class="text-xs text-gray-400">Códec de Apple. Audio comprimido preservando fidelidad de CD.</p>
+                        <div class="glass-post-it p-6 rounded-lg transform -rotate-6 border-tech-cyan/40 sm:mt-4">
+                            <i data-lucide="audio-lines" class="text-tech-cyan mb-3 w-10 h-10"></i>
+                            <h4 class="font-display text-2xl text-white mb-2">ALAC</h4>
+                            <p class="text-sm md:text-base text-gray-200 leading-relaxed font-medium">Códec de Apple. Audio comprimido preservando fidelidad de CD.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 2: CON PÉRDIDAS -->
-        <section class="mb-32 relative">
+        <!-- SECCIÓN 2: CON PÉRDIDAS (Con forzado de página para PDF para que empiece limpia en la hoja 2) -->
+        <section class="mb-32 relative force-page-break">
             <!-- Forma abstracta 60 grados -->
             <div class="deco-shape w-[500px] h-[500px] top-0 -left-60 border-tech-magenta/20" style="transform: rotate(60deg);"></div>
 
@@ -317,35 +349,35 @@
 
                 <!-- Columna Izquierda: Tarjetas de Ejemplos -->
                 <div class="w-full lg:w-1/2">
-                    <h3 class="font-display text-2xl text-tech-magenta mb-6 pr-4 border-r-4 border-tech-magenta text-right transform -rotate-2">Ejemplos Diferentes</h3>
+                    <h3 class="font-display text-2xl text-tech-magenta mb-6 pr-4 border-r-4 border-tech-magenta text-right transform -rotate-2">Ejemplos</h3>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 relative">
                         <!-- Ejemplo 1 -->
-                        <div class="glass-post-it p-5 rounded-lg transform -rotate-8 border-tech-magenta/40 sm:mt-6 hover:border-tech-magenta/80">
-                            <i data-lucide="globe" class="text-tech-magenta mb-3 w-8 h-8"></i>
-                            <h4 class="font-display text-xl text-white mb-1">WebP</h4>
-                            <p class="text-xs text-gray-400">Formato de Google que reduce drásticamente el peso de imágenes web.</p>
+                        <div class="glass-post-it p-6 rounded-lg transform -rotate-8 border-tech-magenta/40 sm:mt-6 hover:border-tech-magenta/80">
+                            <i data-lucide="globe" class="text-tech-magenta mb-3 w-10 h-10"></i>
+                            <h4 class="font-display text-2xl text-white mb-2">WebP</h4>
+                            <p class="text-sm md:text-base text-gray-200 leading-relaxed font-medium">Formato de Google que reduce drásticamente el peso de imágenes web.</p>
                         </div>
                         
                         <!-- Ejemplo 2 -->
-                        <div class="glass-post-it p-5 rounded-lg transform rotate-4 border-tech-magenta/40 hover:border-tech-magenta/80">
-                            <i data-lucide="music-4" class="text-tech-magenta mb-3 w-8 h-8"></i>
-                            <h4 class="font-display text-xl text-white mb-1">AAC</h4>
-                            <p class="text-xs text-gray-400">Sucesor del MP3, audio estándar en las plataformas de streaming.</p>
+                        <div class="glass-post-it p-6 rounded-lg transform rotate-4 border-tech-magenta/40 hover:border-tech-magenta/80">
+                            <i data-lucide="music-4" class="text-tech-magenta mb-3 w-10 h-10"></i>
+                            <h4 class="font-display text-2xl text-white mb-2">AAC</h4>
+                            <p class="text-sm md:text-base text-gray-200 leading-relaxed font-medium">Sucesor del MP3, audio estándar en las plataformas de streaming.</p>
                         </div>
 
                         <!-- Ejemplo 3 -->
-                        <div class="glass-post-it p-5 rounded-lg transform -rotate-4 border-tech-magenta/40 hover:border-tech-magenta/80">
-                            <i data-lucide="film" class="text-tech-magenta mb-3 w-8 h-8"></i>
-                            <h4 class="font-display text-xl text-white mb-1">HEVC</h4>
-                            <p class="text-xs text-gray-400">Estándar avanzado (H.265) vital para transmitir video en resoluciones 4K.</p>
+                        <div class="glass-post-it p-6 rounded-lg transform -rotate-4 border-tech-magenta/40 hover:border-tech-magenta/80">
+                            <i data-lucide="film" class="text-tech-magenta mb-3 w-10 h-10"></i>
+                            <h4 class="font-display text-2xl text-white mb-2">HEVC</h4>
+                            <p class="text-sm md:text-base text-gray-200 leading-relaxed font-medium">Estándar avanzado (H.265) vital para transmitir video en resoluciones 4K.</p>
                         </div>
 
                         <!-- Ejemplo 4 -->
-                        <div class="glass-post-it p-5 rounded-lg transform rotate-8 border-tech-magenta/40 sm:mt-6 hover:border-tech-magenta/80">
-                            <i data-lucide="radio" class="text-tech-magenta mb-3 w-8 h-8"></i>
-                            <h4 class="font-display text-xl text-white mb-1">Vorbis</h4>
-                            <p class="text-xs text-gray-400">Formato de código abierto muy utilizado en la industria de videojuegos.</p>
+                        <div class="glass-post-it p-6 rounded-lg transform rotate-8 border-tech-magenta/40 sm:mt-6 hover:border-tech-magenta/80">
+                            <i data-lucide="radio" class="text-tech-magenta mb-3 w-10 h-10"></i>
+                            <h4 class="font-display text-2xl text-white mb-2">Vorbis</h4>
+                            <p class="text-sm md:text-base text-gray-200 leading-relaxed font-medium">Formato de código abierto muy utilizado en la industria de videojuegos.</p>
                         </div>
                     </div>
                 </div>
@@ -353,18 +385,18 @@
         </section>
 
         <!-- SECCIÓN 3: FUENTES DE INFORMACIÓN -->
-        <footer class="mt-40 relative z-10">
+        <footer class="mt-40 relative z-10 print:mt-10 print:break-inside-avoid">
             <!-- Bloque decorativo estilo canva -->
             <div class="absolute -top-10 left-1/2 transform -translate-x-1/2 rotate-[60deg] w-32 h-32 bg-tech-purple/20 border border-tech-purple/50 rounded-3xl z-[-1]"></div>
             
-            <div class="glass-post-it rounded-2xl p-10 max-w-5xl mx-auto transform -rotate-1 hover:border-tech-purple/80">
+            <div class="glass-post-it rounded-2xl p-10 print:p-6 max-w-5xl mx-auto transform -rotate-1 hover:border-tech-purple/80">
                 <div class="tape bg-tech-purple/40"></div>
-                <div class="flex items-center justify-center mb-8">
+                <div class="flex items-center justify-center mb-8 print:mb-4">
                     <i data-lucide="library" class="text-tech-purple mr-4 w-8 h-8"></i>
                     <h3 class="font-display text-3xl font-bold text-white tracking-widest text-center">Fuentes de Información</h3>
                 </div>
                 
-                <ul class="space-y-4 text-gray-300 font-light text-xs md:text-sm">
+                <ul class="space-y-4 print:space-y-2 text-gray-300 font-light text-xs md:text-sm">
                     <li class="flex items-start p-3 hover:bg-white/5 rounded-lg transition-colors">
                         <i data-lucide="link" class="w-4 h-4 text-tech-purple mr-3 flex-shrink-0 mt-0.5"></i>
                         <span>
