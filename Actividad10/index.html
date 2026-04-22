@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Compresión de Datos - Angel Husiel</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Righteous (Títulos) y Montserrat (Texto formal) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,500&family=Righteous&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        display: ['Righteous', 'cursive'],
+                    },
+                    colors: {
+                        tech: {
+                            dark: '#0B0C10',
+                            gray: '#1F2833',
+                            cyan: '#66FCF1',
+                            teal: '#45A29E',
+                            magenta: '#F02D3A',
+                            purple: '#4B0082'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Fondo con Pokémon Legendarios y efecto de mezcla */
+        body {
+            background-color: #0B0C10;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .pokemon-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-image: 
+                url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png'), /* Mewtwo */
+                url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png'), /* Rayquaza */
+                url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/483.png'), /* Dialga */
+                url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/484.png'); /* Palkia */
+            background-position: 
+                -10% 5%, 
+                110% 40%, 
+                -5% 80%, 
+                105% 95%;
+            background-repeat: no-repeat;
+            background-size: 500px, 600px, 450px, 500px;
+            opacity: 0.15; 
+            background-attachment: fixed;
+            pointer-events: none;
+        }
+
+        /* Efecto Canva: Tarjetas estilo Post-it de cristal */
+        .glass-post-it {
+            background: rgba(31, 40, 51, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(102, 252, 241, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .glass-post-it:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            z-index: 50;
+            border-color: rgba(102, 252, 241, 0.8);
+            box-shadow: 0 30px 60px rgba(102, 252, 241, 0.2);
+        }
+
+        /* "Cinta adhesiva" decorativa */
+        .tape {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-5deg);
+            width: 80px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        /* Elementos decorativos girados a 60 grados (Estilo Canva abstracto) */
+        .deco-shape {
+            position: absolute;
+            background: linear-gradient(135deg, rgba(102, 252, 241, 0.1), rgba(240, 45, 58, 0.05));
+            border: 2px dashed rgba(255,255,255,0.1);
+            border-radius: 20px;
+            z-index: -1;
+            transform: rotate(60deg);
+        }
+
+        /* Degradados */
+        .text-gradient-cyan {
+            background: linear-gradient(to right, #66FCF1, #45A29E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-purple {
+            background: linear-gradient(to right, #A78BFA, #4B0082);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Enlaces web de fuentes */
+        .source-link {
+            color: #3b82f6; /* Azul brillante que pediste */
+            text-decoration: none;
+            word-break: break-all;
+            transition: color 0.2s ease;
+        }
+        .source-link:hover {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="antialiased font-sans pb-24">
+
+    <!-- Capa de Fondo Pokémon -->
+    <div class="pokemon-bg"></div>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 relative">
+
+        <!-- Forma abstracta decorativa a 60 grados -->
+        <div class="deco-shape w-96 h-96 -top-20 -left-20"></div>
+
+        <!-- ENCABEZADO Y DATOS DEL ESTUDIANTE -->
+        <header class="text-center mb-24 relative z-10">
+            
+            <!-- Etiqueta de Datos Estilo Post-it -->
+            <div class="glass-post-it max-w-lg mx-auto p-4 mb-12 rounded-xl transform rotate-1 border-tech-purple/50 shadow-[0_0_20px_rgba(75,0,130,0.4)]">
+                <div class="tape bg-tech-purple/40 transform rotate-[3deg]"></div>
+                <div class="flex flex-col items-center justify-center space-y-2">
+                    <p class="font-display text-xl text-tech-cyan tracking-wide">
+                        Nombre: <span class="text-white font-sans font-bold tracking-normal">Lara Hernandez Angel Husiel</span>
+                    </p>
+                    <div class="flex items-center space-x-6 text-sm md:text-base">
+                        <p class="text-tech-magenta font-display tracking-wider">Actividad: <span class="text-white font-sans font-semibold">10</span></p>
+                        <span class="text-gray-500">|</span>
+                        <p class="text-tech-magenta font-display tracking-wider">No. Cuenta: <span class="text-white font-sans font-semibold">320060829</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Título Principal -->
+            <div class="inline-block p-5 rounded-2xl bg-tech-gray/50 border border-tech-cyan/30 mb-8 transform -rotate-3 hover:rotate-0 transition-transform shadow-[0_0_40px_rgba(102,252,241,0.2)]">
+                <i data-lucide="layers" class="w-16 h-16 text-tech-cyan"></i>
+            </div>
+            <h1 class="font-display text-6xl md:text-8xl tracking-wider mb-8 uppercase drop-shadow-lg text-white transform -rotate-2">
+                Compresión <br> 
+                <span class="text-gradient-cyan">De Datos</span>
+            </h1>
+            
+            <!-- Definición General -->
+            <div class="glass-post-it max-w-3xl mx-auto p-8 rounded-xl transform rotate-2">
+                <div class="tape bg-tech-cyan/40"></div>
+                <p class="text-xl md:text-2xl leading-relaxed text-gray-200 font-light font-display">
+                    "Proceso de reducir el tamaño de un archivo de datos para ahorrar espacio de almacenamiento o reducir el tiempo de transmisión."
+                </p>
+            </div>
+        </header>
+
+        <!-- SECCIÓN 1: SIN PÉRDIDAS -->
+        <section class="mb-40 relative">
+            <!-- Forma abstracta 60 grados -->
+            <div class="deco-shape w-[600px] h-[300px] top-20 -right-40 border-tech-cyan/20"></div>
+
+            <div class="flex flex-col lg:flex-row items-start gap-12">
+                
+                <!-- Columna Izquierda: Concepto + Características -->
+                <div class="w-full lg:w-1/2 flex flex-col gap-8">
+                    
+                    <!-- Definición -->
+                    <div class="glass-post-it p-8 rounded-2xl border-l-8 border-l-tech-cyan transform -rotate-2">
+                        <div class="tape"></div>
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="check-circle" class="w-8 h-8 text-tech-cyan mr-4"></i>
+                            <h2 class="font-display text-3xl text-white uppercase tracking-widest">Sin Pérdidas</h2>
+                        </div>
+                        <div class="w-full h-px bg-tech-cyan/30 mb-4"></div>
+                        <p class="text-lg text-gray-300 leading-relaxed font-light">
+                            Permiten reducir el tamaño de un archivo sin desechar ninguna información. Al descomprimirse, los datos son idénticos a los originales.
+                        </p>
+                    </div>
+
+                    <!-- Características -->
+                    <div class="glass-post-it p-6 rounded-xl border-t-4 border-t-tech-cyan transform rotate-3 bg-[#131d26]/80">
+                        <div class="tape bg-tech-cyan/30 transform -rotate-[4deg]"></div>
+                        <h3 class="font-display text-xl text-tech-cyan mb-4 flex items-center">
+                            <i data-lucide="list-checks" class="w-5 h-5 mr-2"></i> Características Principales
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i data-lucide="shield-check" class="w-5 h-5 text-tech-cyan mr-3 flex-shrink-0 mt-0.5"></i>
+                                <span class="text-sm text-gray-300"><strong class="text-white">Recuperación exacta:</strong> Los datos restaurados son bit a bit iguales al original.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="arrow-down-to-line" class="w-5 h-5 text-tech-cyan mr-3 flex-shrink-0 mt-0.5"></i>
+                                <span class="text-sm text-gray-300"><strong class="text-white">Tasa de compresión menor:</strong> El archivo final es más pesado en comparación a los formatos con pérdida.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="file-code" class="w-5 h-5 text-tech-cyan mr-3 flex-shrink-0 mt-0.5"></i>
+                                <span class="text-sm text-gray-300"><strong class="text-white">Ideal para textos y código:</strong> Fundamental donde no se puede tolerar la más mínima alteración (bases de datos, documentos).</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Tarjetas de Ejemplos -->
+                <div class="w-full lg:w-1/2">
+                    <h3 class="font-display text-2xl text-tech-cyan mb-6 pl-4 border-l-4 border-tech-cyan transform rotate-1">Ejemplos Diferentes</h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 relative">
+                        <!-- Ejemplo 1 -->
+                        <div class="glass-post-it p-5 rounded-lg transform rotate-4 border-tech-cyan/40">
+                            <i data-lucide="file-archive" class="text-tech-cyan mb-3 w-8 h-8"></i>
+                            <h4 class="font-display text-xl text-white mb-1">7Z</h4>
+                            <p class="text-xs text-gray-400">Arquitectura abierta con un ratio de compresión extremadamente alto.</p>
+                        </div>
+                        
+                        <!-- Ejemplo 2 -->
+                        <div class="glass-post-it p-5 rounded-lg transform -rotate-4 border-tech-cyan/40 sm:mt-6">
+                            <i data-lucide="image" class="text-tech-cyan mb-3 w-8 h-8"></i>
+                            <h4 class="font-display text-xl text-white mb-1">TIFF</h4>
+                            <p class="text-xs text-gray-400">Imagen de altísima calidad usada en fotografía e impresión profesional.</p>
+                        </div>
+
+                        <!-- Ejemplo 3 -->
+                        <div class="glass-post-it p-5 rounded-lg transform rotate-2 border-tech-cyan/40">
+                            <i data-lucide="server" class="text-tech-cyan mb-3 w-8 h-8"></i>
+                            <h4 class="font-display text-xl text-white mb-1">GZIP</h4>
+                            <p class="text-xs text-gray-400">Estándar mundial para acelerar la transferencia de páginas web.</p>
+                        </div>
+
+                        <!-- Ejemplo 4 -->
+                        <div class="glass-post-it p-5 rounded-lg transform -rotate-6 border-tech-cyan/40 sm:mt-4">
+                            <i data-lucide="audio-lines" class="text-tech-cyan mb-3 w-8 h-8"></i>
+                            <h4 class="font-display text-xl text-white mb-1">ALAC</h4>
+                            <p class="text-xs text-gray-400">Códec de Apple. Audio comprimido preservando fidelidad de CD.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: CON PÉRDIDAS -->
+        <section class="mb-32 relative">
+            <!-- Forma abstracta 60 grados -->
+            <div class="deco-shape w-[500px] h-[500px] top-0 -left-60 border-tech-magenta/20" style="transform: rotate(60deg);"></div>
+
+            <div class="flex flex-col lg:flex-row-reverse items-start gap-12">
+                
+                <!-- Columna Derecha: Concepto + Características -->
+                <div class="w-full lg:w-1/2 flex flex-col gap-8">
+                    
+                    <!-- Definición -->
+                    <div class="glass-post-it p-8 rounded-2xl border-r-8 border-r-tech-magenta transform rotate-2 hover:border-tech-magenta/80">
+                        <div class="tape bg-tech-magenta/40"></div>
+                        <div class="flex items-center justify-end mb-4">
+                            <h2 class="font-display text-3xl text-white uppercase tracking-widest mr-4 text-right">Con Pérdidas</h2>
+                            <i data-lucide="scissors" class="w-8 h-8 text-tech-magenta"></i>
+                        </div>
+                        <div class="w-full h-px bg-tech-magenta/30 mb-4"></div>
+                        <p class="text-lg text-gray-300 leading-relaxed font-light text-right">
+                            Reducen el tamaño del archivo eliminando permanentemente parte de la información original que los sentidos apenas perciben.
+                        </p>
+                    </div>
+
+                    <!-- Características -->
+                    <div class="glass-post-it p-6 rounded-xl border-t-4 border-t-tech-magenta transform -rotate-3 bg-[#131d26]/80">
+                        <div class="tape bg-tech-magenta/30 transform rotate-[4deg]"></div>
+                        <h3 class="font-display text-xl text-tech-magenta mb-4 flex items-center md:justify-end">
+                            <i data-lucide="list-checks" class="w-5 h-5 mr-2 md:hidden"></i> Características Principales <i data-lucide="list-checks" class="w-5 h-5 ml-2 hidden md:block"></i>
+                        </h3>
+                        <ul class="space-y-3 md:text-right">
+                            <li class="flex items-start md:flex-row-reverse">
+                                <i data-lucide="trash-2" class="w-5 h-5 text-tech-magenta mr-3 md:mr-0 md:ml-3 flex-shrink-0 mt-0.5"></i>
+                                <span class="text-sm text-gray-300"><strong class="text-white">Pérdida irreversible:</strong> La información descartada durante la compresión nunca se puede recuperar.</span>
+                            </li>
+                            <li class="flex items-start md:flex-row-reverse">
+                                <i data-lucide="minimize" class="w-5 h-5 text-tech-magenta mr-3 md:mr-0 md:ml-3 flex-shrink-0 mt-0.5"></i>
+                                <span class="text-sm text-gray-300"><strong class="text-white">Tasa de compresión alta:</strong> Archivos extremadamente ligeros, ahorrando mucho almacenamiento.</span>
+                            </li>
+                            <li class="flex items-start md:flex-row-reverse">
+                                <i data-lucide="sliders-horizontal" class="w-5 h-5 text-tech-magenta mr-3 md:mr-0 md:ml-3 flex-shrink-0 mt-0.5"></i>
+                                <span class="text-sm text-gray-300"><strong class="text-white">Uso en multimedia:</strong> Perfecto para streaming, audio y video web, ajustando calidad vs. peso.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Columna Izquierda: Tarjetas de Ejemplos -->
+                <div class="w-full lg:w-1/2">
+                    <h3 class="font-display text-2xl text-tech-magenta mb-6 pr-4 border-r-4 border-tech-magenta text-right transform -rotate-2">Ejemplos Diferentes</h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 relative">
+                        <!-- Ejemplo 1 -->
+                        <div class="glass-post-it p-5 rounded-lg transform -rotate-8 border-tech-magenta/40 sm:mt-6 hover:border-tech-magenta/80">
+                            <i data-lucide="globe" class="text-tech-magenta mb-3 w-8 h-8"></i>
+                            <h4 class="font-display text-xl text-white mb-1">WebP</h4>
+                            <p class="text-xs text-gray-400">Formato de Google que reduce drásticamente el peso de imágenes web.</p>
+                        </div>
+                        
+                        <!-- Ejemplo 2 -->
+                        <div class="glass-post-it p-5 rounded-lg transform rotate-4 border-tech-magenta/40 hover:border-tech-magenta/80">
+                            <i data-lucide="music-4" class="text-tech-magenta mb-3 w-8 h-8"></i>
+                            <h4 class="font-display text-xl text-white mb-1">AAC</h4>
+                            <p class="text-xs text-gray-400">Sucesor del MP3, audio estándar en las plataformas de streaming.</p>
+                        </div>
+
+                        <!-- Ejemplo 3 -->
+                        <div class="glass-post-it p-5 rounded-lg transform -rotate-4 border-tech-magenta/40 hover:border-tech-magenta/80">
+                            <i data-lucide="film" class="text-tech-magenta mb-3 w-8 h-8"></i>
+                            <h4 class="font-display text-xl text-white mb-1">HEVC</h4>
+                            <p class="text-xs text-gray-400">Estándar avanzado (H.265) vital para transmitir video en resoluciones 4K.</p>
+                        </div>
+
+                        <!-- Ejemplo 4 -->
+                        <div class="glass-post-it p-5 rounded-lg transform rotate-8 border-tech-magenta/40 sm:mt-6 hover:border-tech-magenta/80">
+                            <i data-lucide="radio" class="text-tech-magenta mb-3 w-8 h-8"></i>
+                            <h4 class="font-display text-xl text-white mb-1">Vorbis</h4>
+                            <p class="text-xs text-gray-400">Formato de código abierto muy utilizado en la industria de videojuegos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: FUENTES DE INFORMACIÓN -->
+        <footer class="mt-40 relative z-10">
+            <!-- Bloque decorativo estilo canva -->
+            <div class="absolute -top-10 left-1/2 transform -translate-x-1/2 rotate-[60deg] w-32 h-32 bg-tech-purple/20 border border-tech-purple/50 rounded-3xl z-[-1]"></div>
+            
+            <div class="glass-post-it rounded-2xl p-10 max-w-5xl mx-auto transform -rotate-1 hover:border-tech-purple/80">
+                <div class="tape bg-tech-purple/40"></div>
+                <div class="flex items-center justify-center mb-8">
+                    <i data-lucide="library" class="text-tech-purple mr-4 w-8 h-8"></i>
+                    <h3 class="font-display text-3xl font-bold text-white tracking-widest text-center">Fuentes de Información</h3>
+                </div>
+                
+                <ul class="space-y-4 text-gray-300 font-light text-xs md:text-sm">
+                    <li class="flex items-start p-3 hover:bg-white/5 rounded-lg transition-colors">
+                        <i data-lucide="link" class="w-4 h-4 text-tech-purple mr-3 flex-shrink-0 mt-0.5"></i>
+                        <span>
+                            <strong class="text-tech-cyan">1- Kinsta. (s.f.).</strong> Compresión con o sin pérdidas: Guía para principiantes sobre ambos formatos. Recuperado el 21 de abril de 2026, de 
+                            <a href="https://kinsta.com/es/blog/con-perdidas-o-sin-perdidas/" target="_blank" class="source-link">https://kinsta.com/es/blog/con-perdidas-o-sin-perdidas/</a>
+                        </span>
+                    </li>
+                    <li class="flex items-start p-3 hover:bg-white/5 rounded-lg transition-colors">
+                        <i data-lucide="link" class="w-4 h-4 text-tech-purple mr-3 flex-shrink-0 mt-0.5"></i>
+                        <span>
+                            <strong class="text-tech-cyan">2- Google for Developers. (s.f.).</strong> Compression Techniques | WebP. Recuperado el 21 de abril de 2026, de 
+                            <a href="https://developers.google.com/speed/webp/docs/compression" target="_blank" class="source-link">https://developers.google.com/speed/webp/docs/compression</a>
+                        </span>
+                    </li>
+                    <li class="flex items-start p-3 hover:bg-white/5 rounded-lg transition-colors">
+                        <i data-lucide="link" class="w-4 h-4 text-tech-purple mr-3 flex-shrink-0 mt-0.5"></i>
+                        <span>
+                            <strong class="text-tech-cyan">3- Genbeta. (2013).</strong> Cómo funcionan los formatos de imagen y en qué los mejora WebP. Recuperado el 21 de abril de 2026, de 
+                            <a href="https://www.genbeta.com/imagen-digital/como-funcionan-los-formatos-de-imagen-y-en-que-los-mejora-webp" target="_blank" class="source-link">https://www.genbeta.com/imagen-digital/como-funcionan-los-formatos-de-imagen-y-en-que-los-mejora-webp</a>
+                        </span>
+                    </li>
+                    <li class="flex items-start p-3 hover:bg-white/5 rounded-lg transition-colors">
+                        <i data-lucide="link" class="w-4 h-4 text-tech-purple mr-3 flex-shrink-0 mt-0.5"></i>
+                        <span>
+                            <strong class="text-tech-cyan">4- Adobe. (s.f.).</strong> PNG vs. TIFF: ¿cuál es mejor?. Recuperado el 21 de abril de 2026, de 
+                            <a href="https://www.adobe.com/es/creativecloud/file-types/image/comparison/tiff-vs-png.html" target="_blank" class="source-link">https://www.adobe.com/es/creativecloud/file-types/image/comparison/tiff-vs-png.html</a>
+                        </span>
+                    </li>
+                    <li class="flex items-start p-3 hover:bg-white/5 rounded-lg transition-colors">
+                        <i data-lucide="link" class="w-4 h-4 text-tech-purple mr-3 flex-shrink-0 mt-0.5"></i>
+                        <span>
+                            <strong class="text-tech-cyan">5- Cloudflare. (s.f.).</strong> What is image compression? | Algorithms & techniques. Recuperado el 21 de abril de 2026, de 
+                            <a href="https://www.cloudflare.com/learning/performance/glossary/what-is-image-compression/" target="_blank" class="source-link">https://www.cloudflare.com/learning/performance/glossary/what-is-image-compression/</a>
+                        </span>
+                    </li>
+                    <li class="flex items-start p-3 hover:bg-white/5 rounded-lg transition-colors">
+                        <i data-lucide="link" class="w-4 h-4 text-tech-purple mr-3 flex-shrink-0 mt-0.5"></i>
+                        <span>
+                            <strong class="text-tech-cyan">6- IBM. (s.f.).</strong> ¿Qué es la reducción de datos?. Recuperado el 21 de abril de 2026, de 
+                            <a href="https://www.ibm.com/mx-es/think/topics/data-reduction" target="_blank" class="source-link">https://www.ibm.com/mx-es/think/topics/data-reduction</a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Inicialización de Iconos Lucide -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
