@@ -203,9 +203,9 @@
                 
                 <div class="space-y-10 text-gray-200">
                     <div>
-                        <h3 class="text-zapdos-main font-bold uppercase tracking-widest text-xl mb-4 border-b-2 border-zapdos-dark/40 pb-2 inline-block">Fundamento Técnico</h3>
+                        <h3 class="text-zapdos-main font-bold uppercase tracking-widest text-xl mb-4 border-b-2 border-zapdos-dark/40 pb-2 inline-block">Concepto</h3>
                         <p class="leading-relaxed text-xl md:text-2xl font-medium">
-                            Estos algoritmos operan bajo un principio sencillo: se utiliza <strong>la misma clave tanto para cifrar como para descifrar</strong> la información. Es como tener una caja fuerte donde la misma llave que la cierra es la única que puede abrirla.
+                            Emplean una única clave compartida. La misma clave que se utiliza para cifrar la información, es requerida obligatoriamente en el destino para descifrarla. Las partes deben acordar esta clave previamente. 
                         </p>
                     </div>
                     
@@ -236,42 +236,47 @@
                     <div class="pin pin-zapdos"></div>
                     <h4 class="font-marker text-3xl text-zapdos-main mb-6 text-center mt-2 border-b-2 border-zapdos-dark/30 pb-3">Usos Comunes</h4>
                     <ul class="space-y-5 text-lg text-gray-100 leading-relaxed font-semibold">
-                        <li class="bullet-zapdos">Son el motor de trabajo principal para asegurar <strong>cargas útiles (payloads)</strong> en la red.</li>
+                        <li class="bullet-zapdos">Asegurar <strong>cargas útiles (payloads)</strong> en la red.</li>
                         <li class="bullet-zapdos">Cifrado del tráfico de información dentro de un <strong>túnel VPN</strong>.</li>
-                        <li class="bullet-zapdos">Protección de <strong>datos en reposo</strong>, por ejemplo, cifrando todo el contenido de un disco duro.</li>
+                        <li class="bullet-zapdos"><strong>Sistemas EMV:</strong> Tarjetas con chip.</li>
+                        <li class="bullet-zapdos"><strong>Cifrado de discos:</strong> BitLocker y FileVault.</li>
                     </ul>
                 </div>
 
                 <!-- Nota Seguridad (Con margen negativo para encimarse) -->
                 <div class="post-it-extreme rotate-n-5 border-4 border-gray-600 bg-[#161f30] p-6 md:p-8 w-[90%] max-w-[380px] shadow-2xl relative lg:-ml-12 lg:-mt-10">
                     <div class="washi-tape"></div>
-                    <h4 class="font-heading font-black text-2xl text-white mb-6 border-l-8 border-zapdos-main pl-4">Seguridad que trabajan</h4>
+                    <h4 class="font-heading font-black text-2xl text-white mb-6 border-l-8 border-zapdos-main pl-4">Seguridad en la que trabajan</h4>
                     
                     <div class="space-y-5 text-base md:text-lg text-gray-300 leading-relaxed">
                         <div>
                             <strong class="text-white block text-lg mb-1 flex items-center">
                                 <span class="text-zapdos-main mr-2">▸</span> Confidencialidad:
                             </strong>
-                            Garantizan que la información sea ilegible para cualquier persona que intercepte el tráfico de red sin la clave secreta original.
+                            Garantizan que los datos sean ilegibles ante intercepciones de red (<em>sniffing</em>). Al usar <strong>la misma clave secreta</strong> para cifrar y descifrar, es matemáticamente inviable revelar el texto original sin ella.
                         </div>
                         
                         <div>
                             <strong class="text-white block text-lg mb-1 flex items-center">
                                 <span class="text-zapdos-main mr-2">▸</span> Fortalezas:
                             </strong>
-                            Computacionalmente rápidos y eficientes. Ideales para cifrar volúmenes de datos sosteniendo velocidades sin latencia.
+                            Computacionalmente rápidos y eficientes. Ideales para cifrar grandes volúmenes de datos sosteniendo velocidades sin latencia.
+                        </div>
+
+                        <strong class="text-white block text-lg mb-1 flex items-center">
+                            <span class="text-zapdos-main mr-2">▸</span> Altamente seguro contra ataques de fuerza bruta (ej. AES-256).
+                            </strong>
                         </div>
 
                         <div class="bg-red-900/20 p-4 rounded-lg border border-red-500/50 mt-4 relative overflow-hidden">
                             <div class="absolute top-0 left-0 w-1.5 h-full bg-red-500"></div>
                             <strong class="text-red-400 block text-lg mb-1 pl-3">El Reto (Vulnerabilidad):</strong>
                             <p class="pl-3 text-sm md:text-base">
-                                La distribución de claves. ¿Cómo le envías la clave secreta inicial al destinatario de forma segura? Si alguien la intercepta en el camino, la seguridad colapsa.
+                                El problema de distribución y escalabilidad. Al requerir que los participantes posean la clave compartida antes de la comunicación, se exige un canal seguro previo para su intercambio, volviendo insostenible la administración de claves en redes con múltiples usuarios.
                             </p>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -294,9 +299,9 @@
                 
                 <div class="space-y-10 text-gray-200 lg:text-right">
                     <div>
-                        <h3 class="text-moltres-main font-bold uppercase tracking-widest text-xl mb-4 border-b-2 border-moltres-dark/40 pb-2 inline-block">Fundamento Técnico</h3>
+                        <h3 class="text-moltres-main font-bold uppercase tracking-widest text-xl mb-4 border-b-2 border-moltres-dark/40 pb-2 inline-block">Concepto</h3>
                         <p class="leading-relaxed text-xl md:text-2xl font-medium">
-                            Estos algoritmos utilizan un <strong>par de claves matemáticamente vinculadas</strong>: una Clave Pública (que puede compartirse con todo el mundo) y una Clave Privada (que el propietario debe guardar celosamente y nunca compartir).
+                            Este algoritmo utiliza un par de claves matemáticamente vinculadas: una Clave Pública (que se comparte con todos) y una Clave Privada (que nunca se debe de compartir).
                         </p>
                     </div>
 
@@ -331,37 +336,38 @@
                     <div class="pin pin-moltres"></div>
                     <h4 class="font-marker text-3xl text-moltres-main mb-6 text-center mt-2 border-b-2 border-moltres-dark/30 pb-3">Usos Comunes</h4>
                     <ul class="space-y-5 text-lg text-gray-100 leading-relaxed font-semibold">
-                        <li class="bullet-moltres">Establecer <strong>canales seguros</strong> e intercambiar claves (por ejemplo, al iniciar una conexión SSH hacia un router).</li>
-                        <li class="bullet-moltres">Verificar identidades digitales mediante el uso de <strong>certificados digitales</strong>.</li>
-                        <li class="bullet-moltres">Base tecnológica fundamental de las criptomonedas y sus firmas (Blockchain).</li>
+                        <li class="bullet-moltres">Establecer <strong>canales seguros</strong> e intercambiar claves (una conexión SSH).</li>
+                        <li class="bullet-moltres"><strong>Navegación TLS/SSL</strong>: Conexiones HTTPS.</li>
+                        <li class="bullet-moltres">Verificar identidades digitales mediante el uso de <strong>certificados digitales</strong> (Infraestructura PKI).</li>
+                        <li class="bullet-moltres"><strong>Blockchain</strong>: Billeteras de criptomonedas (Bitcoin, Ethereum).</li>
                     </ul>
                 </div>
 
                 <!-- Nota Seguridad -->
-                <div class="post-it-extreme rotate-p-5 border-4 border-gray-600 bg-[#161f30] p-6 md:p-8 w-[90%] max-w-[380px] shadow-2xl relative lg:ml-12 lg:-mt-10">
+<div class="post-it-extreme rotate-p-5 border-4 border-gray-600 bg-[#161f30] p-6 md:p-8 w-[90%] max-w-[380px] shadow-2xl relative lg:ml-12 lg:-mt-10">
                     <div class="washi-tape washi-moltres"></div>
-                    <h4 class="font-heading font-black text-2xl text-white mb-6 border-l-8 border-moltres-main pl-4">Seguridad que trabajan</h4>
+                    <h4 class="font-heading font-black text-2xl text-white mb-6 border-l-8 border-moltres-main pl-4">Seguridad en la que trabajan</h4>
                     
                     <div class="space-y-5 text-base md:text-lg text-gray-300 leading-relaxed">
                         <div>
                             <strong class="text-white block text-lg mb-1 flex items-center">
-                                <span class="text-moltres-main mr-2">▸</span> Confidencialidad y No Repudio:
+                                <span class="text-moltres-main mr-2">▸</span> Confidencialidad y Autoría:
                             </strong>
-                            Si alguien cifra con tu pública, solo tú descifras. Si tú firmas con tu privada, se garantiza indudablemente tu autoría.
+                            Cifrar con la <strong>pública</strong> asegura que solo el dueño lea el dato. Firmar con la <strong>privada</strong> garantiza autenticación y el <em>no repudio</em>.
                         </div>
                         
                         <div>
                             <strong class="text-white block text-lg mb-1 flex items-center">
                                 <span class="text-moltres-main mr-2">▸</span> Fortalezas:
                             </strong>
-                            Resuelven el problema de distribución. La clave pública puede viajar por canales inseguros sin riesgo.
+                            Resuelven el problema de distribución. La clave pública puede viajar libremente por canales inseguros sin riesgo alguno.
                         </div>
 
                         <div class="bg-red-900/20 p-4 rounded-lg border border-red-500/50 mt-4 relative overflow-hidden">
                             <div class="absolute top-0 left-0 w-1.5 h-full bg-red-500"></div>
                             <strong class="text-red-400 block text-lg mb-1 pl-3">El Reto (Vulnerabilidad):</strong>
                             <p class="pl-3 text-sm md:text-base">
-                                Matemáticamente tan complejos que resultan miles de veces más lentos. No son viables para flujos de datos en tiempo real.
+                                Alto costo computacional. Las operaciones matemáticas que los respaldan son muy pesadas, provocando un cuello de botella que los vuelve ineficientes para encriptar tráfico masivo o de alta velocidad.
                             </p>
                         </div>
                     </div>
