@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actividad 11 LaraHernandez</title>
+    <title>Infografía: Algoritmos Simétricos y Asimétricos - Actividad 11</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Nunito:wght@400;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Nunito:wght@400;600;700;800&family=Permanent+Marker&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -19,7 +19,7 @@
                         marker: ['Permanent Marker', 'cursive'],
                     },
                     colors: {
-                        bgDark: '#121826',
+                        bgDark: '#0f1420',
                         articuno: {
                             light: '#a0e4fb',
                             main: '#4b98d9',
@@ -42,382 +42,456 @@
     </script>
     <style>
         body {
-            background-color: #121826;
-            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+            background-color: #0f1420;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(75, 152, 217, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(242, 205, 45, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(230, 78, 28, 0.08) 0%, transparent 50%);
             overflow-x: hidden;
             position: relative;
         }
 
         /* Imágenes de fondo (Aves Legendarias) */
-        .bg-articuno {
-            position: fixed;
-            top: 5%;
-            left: -10%;
-            width: 50vw;
-            height: 50vw;
-            background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/144.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.15;
-            z-index: -1;
-            filter: drop-shadow(0 0 20px rgba(75, 152, 217, 0.5));
-            pointer-events: none;
-        }
-
-        .bg-zapdos {
-            position: fixed;
-            top: 40%;
-            right: -10%;
-            width: 45vw;
-            height: 45vw;
-            background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/145.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.15;
-            z-index: -1;
-            filter: drop-shadow(0 0 20px rgba(242, 205, 45, 0.5));
-            pointer-events: none;
-        }
-
-        .bg-moltres {
-            position: fixed;
-            bottom: 5%;
-            left: -5%;
-            width: 45vw;
-            height: 45vw;
-            background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/146.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.15;
-            z-index: -1;
-            filter: drop-shadow(0 0 20px rgba(230, 78, 28, 0.5));
-            pointer-events: none;
-        }
+        .bg-articuno { position: fixed; top: 10%; right: -15%; width: 55vw; height: 55vw; background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/144.png'); background-size: contain; background-repeat: no-repeat; opacity: 0.12; z-index: -1; filter: drop-shadow(0 0 30px rgba(75, 152, 217, 0.6)); pointer-events: none; }
+        .bg-zapdos { position: fixed; top: -5%; left: -15%; width: 50vw; height: 50vw; background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/145.png'); background-size: contain; background-repeat: no-repeat; opacity: 0.12; z-index: -1; filter: drop-shadow(0 0 30px rgba(242, 205, 45, 0.6)); pointer-events: none; }
+        .bg-moltres { position: fixed; bottom: -5%; left: -5%; width: 50vw; height: 50vw; background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/146.png'); background-size: contain; background-repeat: no-repeat; opacity: 0.12; z-index: -1; filter: drop-shadow(0 0 30px rgba(230, 78, 28, 0.6)); pointer-events: none; }
 
         /* Estilo Canva para paneles principales */
         .canva-panel {
-            background: rgba(30, 41, 59, 0.85);
-            backdrop-filter: blur(12px);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            background: rgba(18, 26, 40, 0.9);
+            backdrop-filter: blur(16px);
+            border-radius: 28px;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.7);
             position: relative;
         }
 
+        /* Estilo Polaroid */
+        .polaroid {
+            background-color: white;
+            padding: 12px 12px 40px 12px;
+            border-radius: 4px;
+            box-shadow: 8px 12px 25px rgba(0,0,0,0.6);
+            position: relative;
+        }
+        .polaroid img { width: 100%; height: auto; object-fit: cover; border-radius: 2px; }
+        .polaroid-caption { position: absolute; bottom: 8px; left: 0; width: 100%; text-align: center; font-family: 'Permanent Marker', cursive; color: #333; font-size: 1.1rem; }
+
         /* Efecto de cinta adhesiva ("Washi Tape") */
         .washi-tape {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%) rotate(-3deg);
-            width: 120px;
-            height: 35px;
-            background-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            backdrop-filter: blur(2px);
-            z-index: 10;
-            border: 1px dashed rgba(0,0,0,0.1);
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%) rotate(-3deg);
+            width: 140px; height: 35px; background-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); backdrop-filter: blur(4px); z-index: 10; border: 1px dashed rgba(0,0,0,0.1);
         }
-
         .washi-zapdos { background-color: rgba(242, 205, 45, 0.4); transform: translateX(-50%) rotate(4deg); }
         .washi-moltres { background-color: rgba(230, 78, 28, 0.4); transform: translateX(-50%) rotate(-5deg); }
+        .washi-articuno { background-color: rgba(75, 152, 217, 0.4); transform: translateX(-50%) rotate(2deg); width: 100px;}
 
         /* Estilos de las notas extremas (Post-its con mucha rotación) */
         .post-it-extreme {
-            box-shadow: 10px 15px 25px rgba(0, 0, 0, 0.6);
+            box-shadow: 12px 18px 30px rgba(0, 0, 0, 0.7);
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             background-color: #1e293b;
         }
-        
-        /* Efecto hover: endereza la nota para leerla */
-        .post-it-extreme:hover {
-            transform: rotate(0deg) scale(1.08) !important;
-            z-index: 50 !important;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
-        }
+        .post-it-extreme:hover, .polaroid:hover { transform: rotate(0deg) scale(1.05) !important; z-index: 50 !important; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9); }
 
-        /* Rotaciones exageradas tipo Canva */
-        .rotate-p-30 { transform: rotate(25deg); }
-        .rotate-n-30 { transform: rotate(-25deg); }
-        .rotate-p-15 { transform: rotate(15deg); }
-        .rotate-n-15 { transform: rotate(-15deg); }
+        /* Rotaciones exageradas (Se mantienen en impresión) */
+        .rotate-p-10 { transform: rotate(8deg); }
+        .rotate-n-10 { transform: rotate(-8deg); }
+        .rotate-p-5 { transform: rotate(4deg); }
+        .rotate-n-5 { transform: rotate(-4deg); }
         
-        /* Viñetas personalizadas */
-        .bullet-zapdos::before { 
-            content: "▸"; 
-            color: #f2cd2d; 
-            margin-right: 8px; 
-            font-size: 1.2em; 
-            vertical-align: middle; 
-            display: inline-block; 
-        }
-        .bullet-moltres::before { 
-            content: "▸"; 
-            color: #e64e1c; 
-            margin-right: 8px; 
-            font-size: 1.2em; 
-            vertical-align: middle; 
-            display: inline-block; 
-        }
+        /* Viñetas limpias sin emojis */
+        .bullet-zapdos::before { content: "▸"; color: #f2cd2d; margin-right: 12px; font-size: 1.4em; vertical-align: middle; display: inline-block; }
+        .bullet-moltres::before { content: "▸"; color: #e64e1c; margin-right: 12px; font-size: 1.4em; vertical-align: middle; display: inline-block; }
+        .bullet-articuno::before { content: "▸"; color: #4b98d9; margin-right: 12px; font-size: 1.4em; vertical-align: middle; display: inline-block; }
 
-        .pin {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #fff, #555);
-            box-shadow: inset 0 -2px 4px rgba(0,0,0,0.5), 0 5px 10px rgba(0,0,0,0.5);
-            z-index: 20;
-        }
+        /* Pines */
+        .pin { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 18px; height: 18px; border-radius: 50%; box-shadow: inset 0 -3px 5px rgba(0,0,0,0.5), 0 6px 12px rgba(0,0,0,0.6); z-index: 20; }
         .pin-zapdos { background: radial-gradient(circle at 30% 30%, #fff, #b39211); }
         .pin-moltres { background: radial-gradient(circle at 30% 30%, #fff, #992205); }
+        .pin-articuno { background: radial-gradient(circle at 30% 30%, #fff, #1e5f99); }
 
         /* =========================================
            REGLAS DE IMPRESIÓN (PDF EXPORT FIX)
            ========================================= */
         @media print {
-            @page {
-                size: portrait; /* Forza el modo vertical */
-                margin: 1.5cm;
+            @page { 
+                margin: 1cm; 
             }
-            body {
-                background-color: #121826 !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
+            html {
+                font-size: 85%; /* Reduce el tamaño general un poco para que encaje mejor sin tanta escala manual */
             }
-            /* Reglas vitales para evitar cortes a la mitad de los cuadros */
-            .canva-panel, .post-it-extreme, header, .ficha-datos {
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
+            body { 
+                background-color: #0f1420 !important; 
+                -webkit-print-color-adjust: exact !important; 
+                print-color-adjust: exact !important; 
             }
-            /* Secciones pueden romper entre ellas, pero no internamente */
-            section {
-                page-break-inside: auto;
-                break-inside: auto;
+            
+            /* Solución al espacio en blanco gigante: permitimos que el panel se corte fluidamente si es necesario */
+            .canva-panel { 
+                page-break-inside: auto !important; 
+                break-inside: auto !important; 
             }
-            /* Reducir márgenes gigantes para que quepa mejor en papel */
-            .mb-40, .mb-32 {
-                margin-bottom: 4rem !important;
+            
+            /* Mantenemos unidas las notas pequeñas para que no se corten por la mitad */
+            .post-it-extreme, .polaroid, header, .ficha-datos { 
+                page-break-inside: avoid !important; 
+                break-inside: avoid !important; 
             }
-            .mt-40 {
-                margin-top: 2rem !important;
+            
+            section { 
+                page-break-inside: auto; 
+                break-inside: auto; 
             }
-            /* Atenuar fondos en impresión para no sobresaturar el render */
-            .bg-articuno, .bg-zapdos, .bg-moltres {
-                opacity: 0.1 !important;
+            
+            .bg-articuno, .bg-zapdos, .bg-moltres { 
+                opacity: 0.08 !important; 
             }
+            /* Eliminamos la regla de transform que borraba la rotación */
         }
     </style>
 </head>
-<body class="text-gray-200 font-sans antialiased min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+<body class="text-gray-200 font-sans antialiased min-h-screen py-10 px-4 sm:px-6 lg:px-8 text-lg">
 
-    <!-- Fondos de Pokémon Legendarios -->
+    <!-- Fondos de Aves -->
     <div class="bg-articuno"></div>
     <div class="bg-zapdos"></div>
     <div class="bg-moltres"></div>
 
-    <div class="max-w-6xl mx-auto relative z-10">
+    <div class="max-w-[1400px] mx-auto relative z-10">
         
-        <!-- Ficha de Datos del Alumno -->
-        <div class="flex justify-center mb-8 ficha-datos">
-            <div class="bg-bgDark/80 backdrop-blur-sm border border-articuno-main/40 rounded-lg py-2 px-6 shadow-md flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm md:text-base font-semibold">
-                <span class="text-gray-300">Nombre: <span class="text-white font-bold">Lara Hernandez Angel Husiel</span></span>
-                <span class="text-articuno-main hidden md:inline">|</span>
-                <span class="text-gray-300">Actividad: <span class="text-articuno-light font-bold">11</span></span>
-                <span class="text-articuno-main hidden md:inline">|</span>
-                <span class="text-gray-300">No. Cuenta: <span class="text-white font-bold">320060829</span></span>
+        <!-- Ficha de Datos -->
+        <div class="flex justify-center mb-10 ficha-datos">
+            <div class="bg-bgDark/90 backdrop-blur-md border border-gray-700/50 rounded-xl py-3 px-8 shadow-2xl flex flex-wrap justify-center gap-x-8 gap-y-3 text-base md:text-lg font-bold tracking-wide">
+                <span class="text-gray-400">Nombre: <span class="text-white">Lara Hernandez Angel Husiel</span></span>
+                <span class="text-gray-600 hidden md:inline">|</span>
+                <span class="text-gray-400">Actividad: <span class="text-articuno-light">11</span></span>
+                <span class="text-gray-600 hidden md:inline">|</span>
+                <span class="text-gray-400">No. Cuenta: <span class="text-white">320060829</span></span>
             </div>
         </div>
 
         <!-- Header -->
-        <header class="text-center mb-24 relative mt-8">
-            <h1 class="font-heading font-black text-6xl md:text-8xl mb-4 text-white uppercase tracking-tighter drop-shadow-lg">
-                Criptografía
+        <header class="text-center mb-32 print:mb-12 relative mt-12">
+            <h1 class="font-heading font-black text-5xl md:text-6xl lg:text-7xl mb-6 text-white uppercase tracking-tighter drop-shadow-2xl">
+                Algoritmos Simétricos <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-zapdos-main via-articuno-main to-moltres-main">y Algoritmos Asimétricos</span>
             </h1>
-            <h2 class="font-marker text-4xl md:text-5xl text-articuno-main mb-8 transform -rotate-2 drop-shadow-md">
-                Simétrica vs Asimétrica
-            </h2>
-            <div class="w-32 h-1 bg-gradient-to-r from-transparent via-articuno-light to-transparent mx-auto mb-6"></div>
+            <p class="max-w-4xl mx-auto text-xl md:text-2xl text-gray-300 font-medium leading-relaxed mb-8 mt-8">
+                Según <span class="text-white font-bold">AWS</span> e <span class="text-white font-bold">IBM</span>, la criptografía transforma datos legibles en un formato ininteligible mediante algoritmos matemáticos. Es el pilar fundamental de la privacidad digital moderna.
+            </p>
+            <div class="w-48 h-2 rounded-full bg-gradient-to-r from-zapdos-main via-articuno-main to-moltres-main mx-auto shadow-[0_0_15px_rgba(255,255,255,0.3)]"></div>
         </header>
 
-        <!-- SECCIÓN: Algoritmos Simétricos (ZAPDOS - Amarillo/Eléctrico) -->
-        <!-- Cambiado para que en PDF (print) apile todo en vertical y centrado -->
-        <section class="mb-40 relative flex flex-col lg:flex-row items-center lg:items-start gap-12 print:flex-col print:items-center print:gap-16">
+        <!-- ==========================================
+             SECCIÓN 1: SIMÉTRICOS (ZAPDOS)
+             ========================================== -->
+        <!-- Estructura Grid: Panel principal (7 columnas) | Post-its (5 columnas) -->
+        <section class="mb-48 print:mb-16 relative grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
-            <div class="canva-panel p-8 md:p-12 border-t-8 border-zapdos-main relative w-full lg:w-7/12 print:w-full print:max-w-4xl print:mx-auto">
-                <div class="absolute -top-12 -right-8 opacity-40 mix-blend-screen pointer-events-none">
-                    <!-- Icono decorativo -->
-                     <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#f2cd2d" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            <!-- Panel Principal Textos -->
+            <div class="canva-panel p-10 md:p-14 border-l-8 border-zapdos-main lg:col-span-7">
+                <div class="absolute -top-16 -left-8 bg-bgDark p-4 rounded-full border-2 border-zapdos-main shadow-[0_0_30px_rgba(242,205,45,0.4)]">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#f2cd2d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
                 </div>
 
-                <h2 class="font-heading font-bold text-4xl md:text-5xl text-white mb-2 flex items-center">
-                    Algoritmos <span class="text-zapdos-main ml-3">Simétricos</span>
+                <h2 class="font-heading font-black text-5xl md:text-6xl text-white mb-4 mt-4">
+                    Algoritmos <span class="text-zapdos-main">Simétricos</span>
                 </h2>
-                <p class="font-marker text-zapdos-light text-xl md:text-2xl mb-8 opacity-80">Rápidos y directos como un rayo.</p>
+                <p class="font-marker text-zapdos-light text-2xl md:text-3xl mb-10 opacity-90">Criptografía de Clave Secreta.</p>
                 
-                <div class="space-y-8 text-gray-300">
+                <div class="space-y-10 text-gray-200">
                     <div>
-                        <h3 class="text-zapdos-main font-bold uppercase tracking-wider text-base md:text-lg mb-3 border-b border-gray-700 pb-1">Fundamento Principal</h3>
-                        <p class="leading-relaxed text-base md:text-lg">
-                            Emplean una <strong>única clave compartida</strong>. La misma clave que se utiliza para cifrar la información, es requerida obligatoriamente en el destino para descifrarla. Las partes deben acordar esta clave previamente.
+                        <h3 class="text-zapdos-main font-bold uppercase tracking-widest text-xl mb-4 border-b-2 border-zapdos-dark/40 pb-2 inline-block">Fundamento Técnico</h3>
+                        <p class="leading-relaxed text-xl md:text-2xl font-medium">
+                            Estos algoritmos operan bajo un principio sencillo: se utiliza <strong>la misma clave tanto para cifrar como para descifrar</strong> la información. Es como tener una caja fuerte donde la misma llave que la cierra es la única que puede abrirla.
                         </p>
                     </div>
+                    
+                    <!-- Características -->
                     <div>
-                        <h3 class="text-zapdos-main font-bold uppercase tracking-wider text-base md:text-lg mb-3 border-b border-gray-700 pb-1">Características</h3>
-                        <ul class="space-y-4 text-base md:text-lg">
+                        <h3 class="text-zapdos-main font-bold uppercase tracking-widest text-xl mb-4 border-b-2 border-zapdos-dark/40 pb-2 inline-block">Características Principales</h3>
+                        <ul class="space-y-5 text-xl md:text-2xl">
                             <li class="flex items-start">
-                                <span class="text-zapdos-main mr-3 font-bold text-xl">›</span>
-                                <span><strong>Rendimiento superior:</strong> Ejecución muy rápida y bajo costo computacional.</span>
+                                <svg class="w-6 h-6 text-zapdos-main mr-4 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                <span><strong>Rendimiento superior:</strong> Ejecución muy rápida y bajo costo computacional, ideal para procesamiento masivo sin latencia.</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-zapdos-main mr-3 font-bold text-xl">›</span>
-                                <span><strong>Estándares:</strong> AES (Advanced Encryption Standard), ChaCha20, DES.</span>
+                                <svg class="w-6 h-6 text-zapdos-main mr-4 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                <span><strong>Estándares:</strong> AES (Advanced Encryption Standard), ChaCha20, DES, 3DES.</span>
                             </li>
                         </ul>
+                        
                     </div>
                 </div>
             </div>
 
-            <!-- Notas "Post-its" giradas tipo Canva (ZAPDOS) -->
-            <!-- Configurado para colocarse uno junto al otro en la versión de impresión -->
-            <div class="flex flex-col md:flex-row lg:flex-col flex-wrap gap-12 md:gap-16 lg:gap-24 mt-16 lg:mt-8 w-full lg:w-5/12 items-center justify-center print:w-full print:flex-row print:mt-8">
+            <!-- Columna Derecha: Carteles -->
+            <div class="flex flex-col items-center justify-center gap-8 mt-12 lg:mt-0 lg:col-span-5 w-full">
                 
                 <!-- Nota Usos -->
-                <div class="post-it-extreme rotate-p-15 border-4 border-zapdos-dark p-6 w-80 md:w-96 shadow-2xl relative print:m-4">
+                <div class="post-it-extreme rotate-p-5 border-4 border-zapdos-dark p-6 md:p-8 w-[90%] max-w-[380px] shadow-2xl relative lg:ml-8">
                     <div class="washi-tape washi-zapdos"></div>
                     <div class="pin pin-zapdos"></div>
-                    <h4 class="font-marker text-2xl md:text-3xl text-zapdos-main mb-4 text-center mt-2 border-b border-zapdos-dark/50 pb-2">Usos Comunes</h4>
-                    <ul class="space-y-4 text-base md:text-lg text-gray-200 leading-relaxed">
-                        <li class="bullet-zapdos"><strong>Cifrado de discos:</strong> BitLocker y FileVault.</li>
-                        <li class="bullet-zapdos"><strong>Bases de datos:</strong> Protección local masiva.</li>
-                        <li class="bullet-zapdos"><strong>Redes VPN:</strong> Aseguramiento de payloads en túneles (IPsec).</li>
-                        <li class="bullet-zapdos"><strong>Sistemas EMV:</strong> Tarjetas con chip.</li>
+                    <h4 class="font-marker text-3xl text-zapdos-main mb-6 text-center mt-2 border-b-2 border-zapdos-dark/30 pb-3">Usos Comunes</h4>
+                    <ul class="space-y-5 text-lg text-gray-100 leading-relaxed font-semibold">
+                        <li class="bullet-zapdos">Son el motor de trabajo principal para asegurar <strong>cargas útiles (payloads)</strong> en la red.</li>
+                        <li class="bullet-zapdos">Cifrado del tráfico de información dentro de un <strong>túnel VPN</strong>.</li>
+                        <li class="bullet-zapdos">Protección de <strong>datos en reposo</strong>, por ejemplo, cifrando todo el contenido de un disco duro.</li>
                     </ul>
                 </div>
 
-                <!-- Nota Seguridad -->
-                <div class="post-it-extreme rotate-n-15 border-4 border-gray-600 bg-gray-800 p-6 w-80 md:w-96 shadow-2xl relative lg:-ml-12 print:ml-0 print:m-4">
+                <!-- Nota Seguridad (Con margen negativo para encimarse) -->
+                <div class="post-it-extreme rotate-n-5 border-4 border-gray-600 bg-[#161f30] p-6 md:p-8 w-[90%] max-w-[380px] shadow-2xl relative lg:-ml-12 lg:-mt-10">
                     <div class="washi-tape"></div>
-                    <h4 class="font-heading font-bold text-xl md:text-2xl text-white mb-4 border-l-4 border-zapdos-main pl-3">Seguridad</h4>
-                    <ul class="space-y-4 text-base md:text-lg text-gray-300 leading-relaxed">
-                        <li class="bullet-zapdos">Altamente seguro contra ataques de fuerza bruta (ej. AES-256).</li>
-                        <li class="bullet-zapdos"><strong>Gran vulnerabilidad:</strong> El desafío de intercambiar la clave secreta inicial sin ser interceptada.</li>
-                        <li class="bullet-zapdos">Requiere rotación periódica de claves.</li>
-                    </ul>
-                </div>
-            </div>
+                    <h4 class="font-heading font-black text-2xl text-white mb-6 border-l-8 border-zapdos-main pl-4">Seguridad que trabajan</h4>
+                    
+                    <div class="space-y-5 text-base md:text-lg text-gray-300 leading-relaxed">
+                        <div>
+                            <strong class="text-white block text-lg mb-1 flex items-center">
+                                <span class="text-zapdos-main mr-2">▸</span> Confidencialidad:
+                            </strong>
+                            Garantizan que la información sea ilegible para cualquier persona que intercepte el tráfico de red sin la clave secreta original.
+                        </div>
+                        
+                        <div>
+                            <strong class="text-white block text-lg mb-1 flex items-center">
+                                <span class="text-zapdos-main mr-2">▸</span> Fortalezas:
+                            </strong>
+                            Computacionalmente rápidos y eficientes. Ideales para cifrar volúmenes de datos sosteniendo velocidades sin latencia.
+                        </div>
 
+                        <div class="bg-red-900/20 p-4 rounded-lg border border-red-500/50 mt-4 relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-1.5 h-full bg-red-500"></div>
+                            <strong class="text-red-400 block text-lg mb-1 pl-3">El Reto (Vulnerabilidad):</strong>
+                            <p class="pl-3 text-sm md:text-base">
+                                La distribución de claves. ¿Cómo le envías la clave secreta inicial al destinatario de forma segura? Si alguien la intercepta en el camino, la seguridad colapsa.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </section>
 
-        <!-- SECCIÓN: Algoritmos Asimétricos (MOLTRES - Rojo/Fuego) -->
-        <!-- Cambiado para que en PDF (print) apile todo en vertical y centrado -->
-        <section class="mb-32 relative flex flex-col lg:flex-row-reverse items-center lg:items-start gap-12 print:flex-col print:items-center print:gap-16">
+        <!-- ==========================================
+             SECCIÓN 2: ASIMÉTRICOS (MOLTRES)
+             ========================================== -->
+        <!-- Estructura Grid: Post-its (5 columnas) | Panel principal (7 columnas) -->
+        <section class="mb-48 print:mb-16 relative grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
-            <div class="canva-panel p-8 md:p-12 border-t-8 border-moltres-main relative w-full lg:w-7/12 print:w-full print:max-w-4xl print:mx-auto">
-                <div class="absolute -top-12 -left-8 opacity-40 mix-blend-screen pointer-events-none">
-                    <!-- Icono decorativo -->
-                    <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#e64e1c" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-3.3 0-6 2.7-6 6 0 1.9.9 3.6 2.3 4.7l-4.3 8.3 4.9-2.5 3.1 5.5 3.1-5.5 4.9 2.5-4.3-8.3C17.1 11.6 18 9.9 18 8c0-3.3-2.7-6-6-6z"></path></svg>
+            <!-- Panel Principal Textos (Alineado a la derecha en web) -->
+            <div class="canva-panel p-10 md:p-14 border-r-8 border-moltres-main lg:col-span-7 lg:order-last">
+                <div class="absolute -top-16 -right-8 bg-bgDark p-4 rounded-full border-2 border-moltres-main shadow-[0_0_30px_rgba(230,78,28,0.4)]">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#e64e1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-3.3 0-6 2.7-6 6 0 1.9.9 3.6 2.3 4.7l-4.3 8.3 4.9-2.5 3.1 5.5 3.1-5.5 4.9 2.5-4.3-8.3C17.1 11.6 18 9.9 18 8c0-3.3-2.7-6-6-6z"></path></svg>
                 </div>
 
-                <h2 class="font-heading font-bold text-4xl md:text-5xl text-white mb-2 flex items-center justify-end">
-                    Algoritmos <span class="text-moltres-main ml-3">Asimétricos</span>
+                <h2 class="font-heading font-black text-5xl md:text-6xl text-white mb-4 mt-4 lg:text-right">
+                    Algoritmos <span class="text-moltres-main">Asimétricos</span>
                 </h2>
-                <p class="font-marker text-moltres-light text-xl md:text-2xl mb-8 opacity-80 text-right">Complejos y poderosos como el fuego.</p>
+                <p class="font-marker text-moltres-light text-2xl md:text-3xl mb-10 opacity-90 lg:text-right">Criptografía de Clave Pública.</p>
                 
-                <div class="space-y-8 text-gray-300 text-right">
+                <div class="space-y-10 text-gray-200 lg:text-right">
                     <div>
-                        <h3 class="text-moltres-main font-bold uppercase tracking-wider text-base md:text-lg mb-3 border-b border-gray-700 pb-1">Fundamento Principal</h3>
-                        <p class="leading-relaxed text-base md:text-lg">
-                            Utiliza un <strong>par de claves matemáticamente vinculadas</strong>: una Pública (que todos pueden conocer) y una Privada (que el dueño mantiene en secreto). Lo cifrado por una, solo lo descifra su contraparte.
+                        <h3 class="text-moltres-main font-bold uppercase tracking-widest text-xl mb-4 border-b-2 border-moltres-dark/40 pb-2 inline-block">Fundamento Técnico</h3>
+                        <p class="leading-relaxed text-xl md:text-2xl font-medium">
+                            Estos algoritmos utilizan un <strong>par de claves matemáticamente vinculadas</strong>: una Clave Pública (que puede compartirse con todo el mundo) y una Clave Privada (que el propietario debe guardar celosamente y nunca compartir).
                         </p>
                     </div>
+
+                    <!-- Características -->
                     <div>
-                        <h3 class="text-moltres-main font-bold uppercase tracking-wider text-base md:text-lg mb-3 border-b border-gray-700 pb-1">Características</h3>
-                        <ul class="space-y-4 flex flex-col items-end text-base md:text-lg">
-                            <li class="flex items-start flex-row-reverse text-right">
-                                <span class="text-moltres-main ml-3 font-bold text-xl">‹</span>
-                                <span><strong>Soluciona la distribución:</strong> Elimina la necesidad de intercambiar claves secretas por internet.</span>
+                        <h3 class="text-moltres-main font-bold uppercase tracking-widest text-xl mb-4 border-b-2 border-moltres-dark/40 pb-2 inline-block">Características Principales</h3>
+                        <ul class="space-y-5 text-xl md:text-2xl flex flex-col lg:items-end">
+                            <li class="flex items-start lg:flex-row-reverse lg:text-right">
+                                <svg class="w-6 h-6 text-moltres-main lg:ml-4 mr-4 lg:mr-0 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                <span><strong>Direccionalidad:</strong> Lo que se cifra con la pública, solo se puede descifrar con la privada, y viceversa.</span>
                             </li>
-                            <li class="flex items-start flex-row-reverse text-right">
-                                <span class="text-moltres-main ml-3 font-bold text-xl">‹</span>
-                                <span><strong>Estándares:</strong> RSA, Criptografía de Curva Elíptica (ECC), DSA.</span>
+                            <li class="flex items-start lg:flex-row-reverse lg:text-right">
+                                <svg class="w-6 h-6 text-moltres-main lg:ml-4 mr-4 lg:mr-0 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                <span><strong>Solución a la Distribución:</strong> Resuelven el problema de intercambiar claves en canales inseguros.</span>
+                            </li>
+                            <li class="flex items-start lg:flex-row-reverse lg:text-right">
+                                <svg class="w-6 h-6 text-moltres-main lg:ml-4 mr-4 lg:mr-0 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                <span><strong>Estándares:</strong> RSA, ECC (Criptografía de Curva Elíptica), DSA.</span>
                             </li>
                         </ul>
                     </div>
                 </div>
+                
             </div>
 
-            <!-- Notas "Post-its" giradas tipo Canva (MOLTRES) -->
-            <!-- Configurado para colocarse uno junto al otro en la versión de impresión -->
-            <div class="flex flex-col md:flex-row lg:flex-col flex-wrap gap-12 md:gap-16 lg:gap-24 mt-16 lg:mt-8 w-full lg:w-5/12 items-center justify-center print:w-full print:flex-row print:mt-8">
-                
+            <!-- Columna Izquierda: Carteles (Ajustados para encimarse) -->
+            <div class="flex flex-col items-center justify-center gap-8 mt-12 lg:mt-0 lg:col-span-5 w-full lg:order-first">
+
                 <!-- Nota Usos -->
-                <div class="post-it-extreme rotate-n-30 border-4 border-moltres-dark p-6 w-80 md:w-96 shadow-2xl relative lg:ml-8 print:ml-0 print:m-4">
-                    <div class="washi-tape washi-moltres"></div>
+                <div class="post-it-extreme rotate-n-5 border-4 border-moltres-dark p-6 md:p-8 w-[90%] max-w-[380px] shadow-2xl relative lg:-ml-8">
+                    <div class="washi-tape"></div>
                     <div class="pin pin-moltres"></div>
-                    <h4 class="font-marker text-2xl md:text-3xl text-moltres-main mb-4 text-center mt-2 border-b border-moltres-dark/50 pb-2">Usos Comunes</h4>
-                    <ul class="space-y-4 text-base md:text-lg text-gray-200 leading-relaxed">
-                        <li class="bullet-moltres"><strong>Navegación TLS/SSL:</strong> Conexiones HTTPS.</li>
-                        <li class="bullet-moltres"><strong>Firmas Digitales:</strong> Garantiza autoría e integridad de documentos.</li>
-                        <li class="bullet-moltres"><strong>Infraestructura PKI:</strong> Gestión de Certificados Digitales.</li>
-                        <li class="bullet-moltres"><strong>Blockchain:</strong> Billeteras de criptomonedas (Bitcoin, Ethereum).</li>
+                    <h4 class="font-marker text-3xl text-moltres-main mb-6 text-center mt-2 border-b-2 border-moltres-dark/30 pb-3">Usos Comunes</h4>
+                    <ul class="space-y-5 text-lg text-gray-100 leading-relaxed font-semibold">
+                        <li class="bullet-moltres">Establecer <strong>canales seguros</strong> e intercambiar claves (por ejemplo, al iniciar una conexión SSH hacia un router).</li>
+                        <li class="bullet-moltres">Verificar identidades digitales mediante el uso de <strong>certificados digitales</strong>.</li>
+                        <li class="bullet-moltres">Base tecnológica fundamental de las criptomonedas y sus firmas (Blockchain).</li>
                     </ul>
                 </div>
 
                 <!-- Nota Seguridad -->
-                <div class="post-it-extreme rotate-p-15 border-4 border-gray-600 bg-gray-800 p-6 w-80 md:w-96 shadow-2xl relative print:m-4">
-                    <div class="washi-tape"></div>
-                    <h4 class="font-heading font-bold text-xl md:text-2xl text-white mb-4 border-l-4 border-moltres-main pl-3">Seguridad</h4>
-                    <ul class="space-y-4 text-base md:text-lg text-gray-300 leading-relaxed">
-                        <li class="bullet-moltres">Resguardado por la extrema dificultad de problemas matemáticos.</li>
-                        <li class="bullet-moltres"><strong>Garantía de No Repudio:</strong> Imposible negar la autoría de un documento firmado.</li>
-                        <li class="bullet-moltres">Amenaza futura: Computación cuántica (Algoritmo de Shor).</li>
-                    </ul>
-                </div>
-            </div>
+                <div class="post-it-extreme rotate-p-5 border-4 border-gray-600 bg-[#161f30] p-6 md:p-8 w-[90%] max-w-[380px] shadow-2xl relative lg:ml-12 lg:-mt-10">
+                    <div class="washi-tape washi-moltres"></div>
+                    <h4 class="font-heading font-black text-2xl text-white mb-6 border-l-8 border-moltres-main pl-4">Seguridad que trabajan</h4>
+                    
+                    <div class="space-y-5 text-base md:text-lg text-gray-300 leading-relaxed">
+                        <div>
+                            <strong class="text-white block text-lg mb-1 flex items-center">
+                                <span class="text-moltres-main mr-2">▸</span> Confidencialidad y No Repudio:
+                            </strong>
+                            Si alguien cifra con tu pública, solo tú descifras. Si tú firmas con tu privada, se garantiza indudablemente tu autoría.
+                        </div>
+                        
+                        <div>
+                            <strong class="text-white block text-lg mb-1 flex items-center">
+                                <span class="text-moltres-main mr-2">▸</span> Fortalezas:
+                            </strong>
+                            Resuelven el problema de distribución. La clave pública puede viajar por canales inseguros sin riesgo.
+                        </div>
 
+                        <div class="bg-red-900/20 p-4 rounded-lg border border-red-500/50 mt-4 relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-1.5 h-full bg-red-500"></div>
+                            <strong class="text-red-400 block text-lg mb-1 pl-3">El Reto (Vulnerabilidad):</strong>
+                            <p class="pl-3 text-sm md:text-base">
+                                Matemáticamente tan complejos que resultan miles de veces más lentos. No son viables para flujos de datos en tiempo real.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
         </section>
 
-        <!-- SECCIÓN: Bibliografías Unificadas -->
-        <section class="mt-40 mb-12 canva-panel p-8 md:p-12 border-t-8 border-articuno-main print:w-full print:max-w-4xl print:mx-auto">
+        <!-- ==========================================
+             SECCIÓN 3: EL MODELO HÍBRIDO (ARTICUNO)
+             ========================================== -->
+        <section class="mb-40 print:mb-16 relative flex flex-col items-center">
             
-            <h2 class="font-heading font-black text-3xl text-white mb-10 text-center flex items-center justify-center">
-                <svg class="w-8 h-8 text-articuno-main mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477-4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            <div class="canva-panel p-10 md:p-16 border-t-8 border-b-8 border-articuno-main w-full max-w-6xl text-center relative shadow-[0_0_50px_rgba(75,152,217,0.2)]">
+                <div class="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-bgDark p-3 rounded-full border-2 border-articuno-main">
+                    <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#4b98d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+
+                <h2 class="font-heading font-black text-4xl md:text-5xl text-white mb-4 mt-4">
+                    El Sistema Híbrido: <span class="text-articuno-main">Lo Mejor de Ambos Mundos</span>
+                </h2>
+                <p class="font-marker text-articuno-light text-2xl md:text-3xl mb-10 opacity-90">Trabajando en equipo en la red real.</p>
+
+                <p class="text-xl md:text-2xl text-gray-200 leading-relaxed mb-10 max-w-4xl mx-auto font-medium">
+                    En los protocolos de seguridad de red reales (como HTTPS/TLS o IPsec), rara vez se usa uno solo. Se combinan para aprovechar los puntos fuertes de cada uno:
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-10 text-left mb-16">
+                    <div class="bg-black/30 p-8 rounded-2xl border border-articuno-dark/50">
+                        <h4 class="text-articuno-main font-bold text-2xl mb-4 border-b border-gray-600 pb-2">Fase Asimétrica</h4>
+                        <p class="text-lg md:text-xl text-gray-300">
+                            Se utiliza criptografía asimétrica (como Diffie-Hellman o RSA) para <strong>autenticar a las partes</strong> y negociar de forma completamente segura una clave secreta a través de la red abierta de internet.
+                        </p>
+                    </div>
+                    <div class="bg-black/30 p-8 rounded-2xl border border-articuno-dark/50">
+                        <h4 class="text-zapdos-main font-bold text-2xl mb-4 border-b border-gray-600 pb-2">Fase Simétrica</h4>
+                        <p class="text-lg md:text-xl text-gray-300">
+                            Una vez que ambos extremos tienen la misma clave secreta compartida, descartan el canal asimétrico y usan criptografía simétrica (como AES) para <strong>cifrar el resto de la comunicación</strong> a muy alta velocidad.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tabla Comparativa -->
+                <div class="overflow-x-auto w-full mt-8 border border-gray-700/50 rounded-xl bg-black/40">
+                    <table class="w-full text-left border-collapse min-w-[700px]">
+                        <thead>
+                            <tr class="bg-bgDark text-white font-bold text-xl md:text-2xl border-b-4 border-gray-600">
+                                <th class="p-5">Característica</th>
+                                <th class="p-5 text-zapdos-main">Algoritmos Simétricos</th>
+                                <th class="p-5 text-moltres-main">Algoritmos Asimétricos</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300 text-lg md:text-xl">
+                            <tr class="border-b border-gray-700/50 hover:bg-white/5 transition-colors">
+                                <td class="p-5 font-bold text-white">Claves</td>
+                                <td class="p-5">1 (Compartida)</td>
+                                <td class="p-5">2 (Pública y Privada)</td>
+                            </tr>
+                            <tr class="border-b border-gray-700/50 bg-black/20 hover:bg-white/5 transition-colors">
+                                <td class="p-5 font-bold text-white">Velocidad</td>
+                                <td class="p-5">Muy alta</td>
+                                <td class="p-5">Muy baja</td>
+                            </tr>
+                            <tr class="border-b border-gray-700/50 hover:bg-white/5 transition-colors">
+                                <td class="p-5 font-bold text-white">Pilar de Seguridad</td>
+                                <td class="p-5">Confidencialidad</td>
+                                <td class="p-5">Confidencialidad, Autenticación, No repudio</td>
+                            </tr>
+                            <tr class="bg-black/20 hover:bg-white/5 transition-colors">
+                                <td class="p-5 font-bold text-white">Caso de uso típico</td>
+                                <td class="p-5">Cifrado masivo de datos</td>
+                                <td class="p-5">Intercambio de claves y Firmas digitales</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <!-- Polaroid Imagen TLS -->
+            <div class="polaroid rotate-p-10 w-[80%] sm:w-[60%] lg:w-[400px] shadow-2xl relative mt-[-40px] z-20">
+                <div class="washi-tape washi-articuno"></div>
+                <img src="image/image1.png" alt="TLS Handshake" class="h-56">
+                <div class="polaroid-caption flex items-center justify-center gap-2">
+                    El Handshake TLS 
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                </div>
+            </div>
+            
+        </section>
+
+        <!-- ==========================================
+             SECCIÓN 4: BIBLIOGRAFÍAS UNIFICADAS
+             ========================================== -->
+        <section class="mt-32 print:mt-16 mb-16 canva-panel p-10 md:p-14 border-t-8 border-gray-500">
+            
+            <h2 class="font-heading font-black text-4xl md:text-5xl text-white mb-12 text-center flex items-center justify-center">
+                <svg class="w-10 h-10 text-gray-400 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477-4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                 Bibliografías
             </h2>
             
-            <div class="bg-bgDark/50 p-8 rounded-xl border border-articuno-dark/30 w-full">
-                <ul class="space-y-6 text-sm text-gray-300">
-                    <li>
-                        <span class="text-articuno-main font-bold">1.</span> <strong>Amazon Web Services.</strong> (s.f.). <em>¿Qué es el cifrado de datos?</em> Recuperado el 23 de abril de 2026, de <br>
-                        <a href="https://aws.amazon.com/es/what-is/data-encryption/" target="_blank" class="text-blue-400 font-semibold underline hover:text-blue-300 transition-colors break-words mt-1 block pl-4">https://aws.amazon.com/es/what-is/data-encryption/</a>
+            <div class="bg-black/40 p-10 rounded-2xl border border-gray-700/50 w-full shadow-inner">
+                <ul class="space-y-8 text-base md:text-lg text-gray-300">
+                    <li class="pl-6 border-l-4 border-gray-600 hover:border-articuno-main transition-colors">
+                        <span class="text-white font-bold">1.</span> <strong>Amazon Web Services.</strong> (s.f.). <em>¿Qué es el cifrado de datos?</em> Recuperado el 23 de abril de 2026, de <br>
+                        <a href="https://aws.amazon.com/es/what-is/data-encryption/" target="_blank" class="text-blue-400 font-semibold underline hover:text-blue-300 transition-colors break-words mt-1 block">https://aws.amazon.com/es/what-is/data-encryption/</a>
                     </li>
-                    <li>
-                        <span class="text-articuno-main font-bold">2.</span> <strong>Amazon Web Services.</strong> (s.f.). <em>¿Qué es la criptografía?</em> Recuperado el 23 de abril de 2026, de <br>
-                        <a href="https://aws.amazon.com/es/what-is/cryptography/" target="_blank" class="text-blue-400 font-semibold underline hover:text-blue-300 transition-colors break-words mt-1 block pl-4">https://aws.amazon.com/es/what-is/cryptography/</a>
+                    <li class="pl-6 border-l-4 border-gray-600 hover:border-articuno-main transition-colors">
+                        <span class="text-white font-bold">2.</span> <strong>Amazon Web Services.</strong> (s.f.). <em>¿Qué es la criptografía?</em> Recuperado el 23 de abril de 2026, de <br>
+                        <a href="https://aws.amazon.com/es/what-is/cryptography/" target="_blank" class="text-blue-400 font-semibold underline hover:text-blue-300 transition-colors break-words mt-1 block">https://aws.amazon.com/es/what-is/cryptography/</a>
                     </li>
-                    <li>
-                        <span class="text-articuno-main font-bold">3.</span> <strong>Cloudflare.</strong> (s.f.). <em>¿Qué ocurre durante un protocolo de enlace de datos TLS?</em> Recuperado el 23 de abril de 2026, de <br>
-                        <a href="https://www.cloudflare.com/es-es/learning/ssl/what-happens-in-a-tls-handshake/" target="_blank" class="text-blue-400 font-semibold underline hover:text-blue-300 transition-colors break-words mt-1 block pl-4">https://www.cloudflare.com/es-es/learning/ssl/what-happens-in-a-tls-handshake/</a>
+                    <li class="pl-6 border-l-4 border-gray-600 hover:border-articuno-main transition-colors">
+                        <span class="text-white font-bold">3.</span> <strong>Cloudflare.</strong> (s.f.). <em>¿Qué ocurre durante un protocolo de enlace de datos TLS?</em> Recuperado el 23 de abril de 2026, de <br>
+                        <a href="https://www.cloudflare.com/es-es/learning/ssl/what-happens-in-a-tls-handshake/" target="_blank" class="text-blue-400 font-semibold underline hover:text-blue-300 transition-colors break-words mt-1 block">https://www.cloudflare.com/es-es/learning/ssl/what-happens-in-a-tls-handshake/</a>
                     </li>
-                    <li>
-                        <span class="text-articuno-main font-bold">4.</span> <strong>IBM.</strong> (s.f.). <em>¿Qué es el cifrado asimétrico?</em> Recuperado el 23 de abril de 2026, de <br>
-                        <a href="https://www.ibm.com/mx-es/think/topics/asymmetric-encryption" target="_blank" class="text-blue-400 font-semibold underline hover:text-blue-300 transition-colors break-words mt-1 block pl-4">https://www.ibm.com/mx-es/think/topics/asymmetric-encryption</a>
+                    <li class="pl-6 border-l-4 border-gray-600 hover:border-articuno-main transition-colors">
+                        <span class="text-white font-bold">4.</span> <strong>IBM.</strong> (s.f.). <em>¿Qué es el cifrado asimétrico?</em> Recuperado el 23 de abril de 2026, de <br>
+                        <a href="https://www.ibm.com/mx-es/think/topics/asymmetric-encryption" target="_blank" class="text-blue-400 font-semibold underline hover:text-blue-300 transition-colors break-words mt-1 block">https://www.ibm.com/mx-es/think/topics/asymmetric-encryption</a>
                     </li>
-                    <li>
-                        <span class="text-articuno-main font-bold">5.</span> <strong>IBM.</strong> (s.f.). <em>¿Qué es el cifrado de extremo a extremo (E2EE)?</em> Recuperado el 23 de abril de 2026, de <br>
-                        <a href="https://www.ibm.com/mx-es/think/topics/end-to-end-encryption" target="_blank" class="text-blue-400 font-semibold underline hover:text-blue-300 transition-colors break-words mt-1 block pl-4">https://www.ibm.com/mx-es/think/topics/end-to-end-encryption</a>
+                    <li class="pl-6 border-l-4 border-gray-600 hover:border-articuno-main transition-colors">
+                        <span class="text-white font-bold">5.</span> <strong>IBM.</strong> (s.f.). <em>¿Qué es el cifrado de extremo a extremo (E2EE)?</em> Recuperado el 23 de abril de 2026, de <br>
+                        <a href="https://www.ibm.com/mx-es/think/topics/end-to-end-encryption" target="_blank" class="text-blue-400 font-semibold underline hover:text-blue-300 transition-colors break-words mt-1 block">https://www.ibm.com/mx-es/think/topics/end-to-end-encryption</a>
                     </li>
-                    <li>
-                        <span class="text-articuno-main font-bold">6.</span> <strong>IBM.</strong> (s.f.). <em>¿Qué es el cifrado simétrico?</em> Recuperado el 23 de abril de 2026, de <br>
-                        <a href="https://www.ibm.com/mx-es/think/topics/symmetric-encryption" target="_blank" class="text-blue-400 font-semibold underline hover:text-blue-300 transition-colors break-words mt-1 block pl-4">https://www.ibm.com/mx-es/think/topics/symmetric-encryption</a>
+                    <li class="pl-6 border-l-4 border-gray-600 hover:border-articuno-main transition-colors">
+                        <span class="text-white font-bold">6.</span> <strong>IBM.</strong> (s.f.). <em>¿Qué es el cifrado simétrico?</em> Recuperado el 23 de abril de 2026, de <br>
+                        <a href="https://www.ibm.com/mx-es/think/topics/symmetric-encryption" target="_blank" class="text-blue-400 font-semibold underline hover:text-blue-300 transition-colors break-words mt-1 block">https://www.ibm.com/mx-es/think/topics/symmetric-encryption</a>
                     </li>
-                    <li>
-                        <span class="text-articuno-main font-bold">7.</span> <strong>testRigor.</strong> (s.f.). <em>Algoritmos criptográficos: simétricos vs asimétricos</em>. Recuperado el 23 de abril de 2026, de <br>
-                        <a href="https://testrigor-com.translate.goog/blog/cryptographic-algorithms-symmetric-vs-asymmetric/?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc" target="_blank" class="text-blue-400 font-semibold underline hover:text-blue-300 transition-colors break-words mt-1 block pl-4">https://testrigor-com.translate.goog/blog/cryptographic-algorithms-symmetric-vs-asymmetric/?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc</a>
+                    <li class="pl-6 border-l-4 border-gray-600 hover:border-articuno-main transition-colors">
+                        <span class="text-white font-bold">7.</span> <strong>testRigor.</strong> (s.f.). <em>Algoritmos criptográficos: simétricos vs asimétricos</em>. Recuperado el 23 de abril de 2026, de <br>
+                        <a href="https://testrigor-com.translate.goog/blog/cryptographic-algorithms-symmetric-vs-asymmetric/?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc" target="_blank" class="text-blue-400 font-semibold underline hover:text-blue-300 transition-colors break-words mt-1 block">https://testrigor-com.translate.goog/blog/cryptographic-algorithms-symmetric-vs-asymmetric/?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc</a>
                     </li>
                 </ul>
             </div>
