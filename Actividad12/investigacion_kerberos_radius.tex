@@ -111,35 +111,46 @@
 \newpage
 
 % ══════════════════════════════════════════════
-\section{Introducci\'on}
+\section{Introduccion}
 % ══════════════════════════════════════════════
 
-En el contexto actual de las redes de comunicaci\'on, donde millones de dispositivos intercambian informaci\'on de manera constante, la seguridad se ha convertido en uno de los pilares fundamentales para garantizar la integridad, la confidencialidad y la disponibilidad de los datos. Cada vez que un usuario intenta acceder a un recurso dentro de una red corporativa, educativa o incluso dom\'estica, existe un proceso invisible pero cr\'itico que se lleva a cabo en segundo plano: la autenticaci\'on. Este proceso tiene como objetivo verificar que quien solicita el acceso sea realmente quien dice ser, y no un agente malicioso que pretenda suplantar su identidad.
+En en redes de datos, donde muchos dispositivos intercambian informaci\'on de manera constante, 
+es por esto que la seguridad se ha convertido en punto de inflexion importante y demasiado
+fundamental, que lo que hace es garantizar la integridad, la confidencialidad y la disponibilidad de los datos, que esto se le conoce a una de las triadas de seguridad.
 
-A lo largo de las \'ultimas d\'ecadas, se han desarrollado diversos protocolos y mecanismos de autenticaci\'on que buscan resolver este problema de forma eficiente y segura. Entre los m\'as relevantes y ampliamente utilizados en entornos empresariales y de telecomunicaciones se encuentran Kerberos y RADIUS. Ambos protocolos, aunque comparten el objetivo general de validar identidades, presentan diferencias sustanciales en su dise\~no, arquitectura y aplicaci\'on pr\'actica, lo que los hace adecuados para escenarios muy distintos.
-
-Kerberos, desarrollado originalmente en el Instituto Tecnol\'ogico de Massachusetts (MIT) durante la d\'ecada de 1980, fue concebido como un protocolo de autenticaci\'on basado en tickets criptogr\'aficos que permite a los usuarios acceder a m\'ultiples servicios dentro de una red sin necesidad de transmitir sus contrase\~nas por el canal de comunicaci\'on. Este enfoque result\'o revolucionario en su momento y sigue siendo la base del sistema de autenticaci\'on en entornos de Active Directory de Microsoft, as\'i como en numerosas plataformas Unix y Linux.
-
-Por otro lado, RADIUS (Remote Authentication Dial-In User Service) surgi\'o a principios de la d\'ecada de 1990 como una soluci\'on para gestionar el acceso remoto de usuarios que se conectaban a redes a trav\'es de l\'ineas telef\'onicas. Con el paso del tiempo, su utilidad se extendi\'o a la administraci\'on de accesos en redes inal\'ambricas, VPN y redes de proveedores de servicios de internet (ISP), convirti\'endose en un est\'andar para la gesti\'on centralizada de autenticaci\'on, autorizaci\'on y contabilidad, lo que com\'unmente se conoce como el modelo AAA.
-
-La presente investigaci\'on tiene como prop\'osito realizar un an\'alisis detallado de ambos protocolos, abordando sus or\'igenes, su funcionamiento interno, las caracter\'isticas que los definen, los mecanismos de seguridad que implementan y el proceso espec\'ifico de autenticaci\'on que cada uno lleva a cabo. Adem\'as, se presenta una tabla comparativa que permite visualizar de forma clara las diferencias y similitudes entre Kerberos y RADIUS, as\'i como un listado de organizaciones y empresas que han adoptado cada protocolo en sus infraestructuras tecnol\'ogicas. Con todo ello, se busca ofrecer una visi\'on integral que permita comprender la importancia de estos mecanismos dentro del panorama actual de la seguridad en redes.
+Donde cada vez que un usuario intenta acceder a un recurso dentro de una red, ya sea publica o privada, en esta
+existe un proceso de seguridad muy importante,. que es la autenticaci\'on. 
+Este proceso su principal objetivo es verificar que quien 
+solicita el acceso sea realmente quien dice ser, esto para verificar de que no se trata de una persona externa y exista una fuga de informacion.
 
 
-% ══════════════════════════════════════════════
-\section{Marco te\'orico}
-% ══════════════════════════════════════════════
+Recordemos que a durante. las ultimas decadas, se han desarrollado diversos protocolos y
+formas de autenticaci\'on que lo que hacen en si, es que buscan resolver 
+este problema de forma eficiente y segura. 
 
-\subsection{Concepto de autenticaci\'on en redes}
+Para esto obivamente unos destacan mas que otros, donde
+estos han llegado o son utilizados actualmente en entornos empresariales y de telecomunicaciones 
+estos son Kerberos y RADIUS. 
+Ambos protocolos han sido una revolucion total en el ambito de las redes, tanto por su seguirdad como en su eficiendia,
+aunque comparten el objetivo general de validar identidades, presentan diferencias en los diseños, 
+arquitectura y por consiguiente en la parte practica de como se ejecutan, 
+esto hace que sean los mas adecuados para escenarios muy distintos.
 
-La autenticaci\'on es el proceso mediante el cual un sistema verifica la identidad de un usuario, dispositivo o entidad que solicita acceso a un recurso determinado. En el \'ambito de las redes de datos, este proceso resulta indispensable para evitar accesos no autorizados que puedan comprometer la seguridad de la informaci\'on. Existen distintos m\'etodos de autenticaci\'on, que van desde el uso de contrase\~nas simples hasta sistemas m\'as sofisticados basados en certificados digitales, tokens criptogr\'aficos o datos biom\'etricos.
+Kerberos, desarrollado originalmente en el Instituto Tecnol\'ogico de Massachusetts (MIT) 
+durante la d\'ecada de 1980, fue creado como un protocolo de autenticacion basado en tickets 
+criptogaficos que esto lo que hacen es que permiten a los usuarios acceder 
+a multiples servicios dentro de una red sin necesidad de transmitir sus contraseñas, que de hecho esto esa una de las ventajas 
+principales de este proyecto, donde fue el pionero en integrar que las contraseñas nunca son enviadas por el canal de red. 
 
-\subsection{Modelo AAA (Autenticaci\'on, Autorizaci\'on y Contabilidad)}
+Este protocolo, fue el inspiro. los entornos de Active Directory de Microsoft, 
+asi como en numerosas plataformas Unix y Linux.
 
-El modelo AAA es un marco conceptual que agrupa tres funciones esenciales para la gesti\'on del acceso a recursos en una red. La primera funci\'on, la autenticaci\'on, se encarga de verificar la identidad del usuario. La segunda, la autorizaci\'on, define qu\'e recursos y servicios puede utilizar ese usuario una vez autenticado. La tercera, la contabilidad (o \textit{accounting}), registra las acciones realizadas por el usuario durante su sesi\'on, lo que resulta \'util para auditor\'ias, facturaci\'on y an\'alisis de uso. RADIUS implementa las tres funciones de este modelo de manera nativa, mientras que Kerberos se centra principalmente en la autenticaci\'on, dejando la autorizaci\'on y la contabilidad a otros componentes del sistema.
-
-\subsection{Criptograf\'ia sim\'etrica y su papel en la autenticaci\'on}
-
-La criptograf\'ia sim\'etrica es un m\'etodo de cifrado en el que tanto el emisor como el receptor comparten una misma clave secreta para cifrar y descifrar los mensajes. Kerberos utiliza este tipo de criptograf\'ia de forma extensiva: las comunicaciones entre el cliente, el servidor de autenticaci\'on y el servidor de concesi\'on de tickets se protegen mediante claves compartidas, lo que evita que las contrase\~nas viajen en texto claro a trav\'es de la red. Algoritmos como AES (Advanced Encryption Standard) y DES (Data Encryption Standard) han sido utilizados en distintas versiones de Kerberos para asegurar estas comunicaciones.
+RADIUS (Remote Authentication Dial-In User Service) se creo 
+a principios de la decada de 1990 como una posibile solucion para gestionar 
+el acceso remoto de usuarios quese conectaban a redes a traves de 
+lineas telefonicas. Despues de su salida, este sistema fue utilizado en la parte de administraci\'on
+de accesos en redes inalambricas, VPN e ISP, esto se convirtio en un estandar
+de la autenticacion, autorizacion y contabilidad, lo que comunmente se conoce como el modelo AAA.
 
 
 % ══════════════════════════════════════════════
