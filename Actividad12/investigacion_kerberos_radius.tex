@@ -1,0 +1,425 @@
+\documentclass[12pt, a4paper]{article}
+
+% ──────────────────────────────────────────────
+% Paquetes
+% ──────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{cite}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{caption}
+
+\geometry{
+  left=2.5cm,
+  right=2.5cm,
+  top=2.5cm,
+  bottom=2.5cm
+}
+
+\onehalfspacing
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Investigaci\'on: Kerberos y RADIUS}
+\fancyhead[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\titleformat{\section}{\Large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.5em}{}
+
+% ──────────────────────────────────────────────
+\begin{document}
+
+% ──────────────────────────────────────────────
+% Portada
+% ──────────────────────────────────────────────
+\begin{titlepage}
+  \centering
+  \vspace*{2cm}
+  {\LARGE \textbf{Universidad Aut\'onoma de Nuevo Le\'on}}\\[0.5cm]
+  {\Large Facultad de Ingenier\'ia Mec\'anica y El\'ectrica}\\[2cm]
+  {\Huge \textbf{Protocolos de Autenticaci\'on:\\Kerberos y RADIUS}}\\[1cm]
+  {\Large Investigaci\'on Documental}\\[2cm]
+  {\large \textbf{Materia:} Redes de Datos -- Teor\'ia}\\[0.4cm]
+  {\large \textbf{Actividad 12}}\\[0.4cm]
+  {\large \textbf{Alumno:} Angel Lara}\\[0.4cm]
+  {\large \textbf{Fecha:} 29 de abril de 2026}\\[2cm]
+  \vfill
+  {\large Semestre Agosto -- Diciembre 2026}
+\end{titlepage}
+
+% ──────────────────────────────────────────────
+% \'Indice
+% ──────────────────────────────────────────────
+\newpage
+\tableofcontents
+\newpage
+
+% ══════════════════════════════════════════════
+\section{Introducci\'on}
+% ══════════════════════════════════════════════
+
+En el contexto actual de las redes de comunicaci\'on, donde millones de dispositivos intercambian informaci\'on de manera constante, la seguridad se ha convertido en uno de los pilares fundamentales para garantizar la integridad, la confidencialidad y la disponibilidad de los datos. Cada vez que un usuario intenta acceder a un recurso dentro de una red corporativa, educativa o incluso dom\'estica, existe un proceso invisible pero cr\'itico que se lleva a cabo en segundo plano: la autenticaci\'on. Este proceso tiene como objetivo verificar que quien solicita el acceso sea realmente quien dice ser, y no un agente malicioso que pretenda suplantar su identidad.
+
+A lo largo de las \'ultimas d\'ecadas, se han desarrollado diversos protocolos y mecanismos de autenticaci\'on que buscan resolver este problema de forma eficiente y segura. Entre los m\'as relevantes y ampliamente utilizados en entornos empresariales y de telecomunicaciones se encuentran Kerberos y RADIUS. Ambos protocolos, aunque comparten el objetivo general de validar identidades, presentan diferencias sustanciales en su dise\~no, arquitectura y aplicaci\'on pr\'actica, lo que los hace adecuados para escenarios muy distintos.
+
+Kerberos, desarrollado originalmente en el Instituto Tecnol\'ogico de Massachusetts (MIT) durante la d\'ecada de 1980, fue concebido como un protocolo de autenticaci\'on basado en tickets criptogr\'aficos que permite a los usuarios acceder a m\'ultiples servicios dentro de una red sin necesidad de transmitir sus contrase\~nas por el canal de comunicaci\'on. Este enfoque result\'o revolucionario en su momento y sigue siendo la base del sistema de autenticaci\'on en entornos de Active Directory de Microsoft, as\'i como en numerosas plataformas Unix y Linux.
+
+Por otro lado, RADIUS (Remote Authentication Dial-In User Service) surgi\'o a principios de la d\'ecada de 1990 como una soluci\'on para gestionar el acceso remoto de usuarios que se conectaban a redes a trav\'es de l\'ineas telef\'onicas. Con el paso del tiempo, su utilidad se extendi\'o a la administraci\'on de accesos en redes inal\'ambricas, VPN y redes de proveedores de servicios de internet (ISP), convirti\'endose en un est\'andar para la gesti\'on centralizada de autenticaci\'on, autorizaci\'on y contabilidad, lo que com\'unmente se conoce como el modelo AAA.
+
+La presente investigaci\'on tiene como prop\'osito realizar un an\'alisis detallado de ambos protocolos, abordando sus or\'igenes, su funcionamiento interno, las caracter\'isticas que los definen, los mecanismos de seguridad que implementan y el proceso espec\'ifico de autenticaci\'on que cada uno lleva a cabo. Adem\'as, se presenta una tabla comparativa que permite visualizar de forma clara las diferencias y similitudes entre Kerberos y RADIUS, as\'i como un listado de organizaciones y empresas que han adoptado cada protocolo en sus infraestructuras tecnol\'ogicas. Con todo ello, se busca ofrecer una visi\'on integral que permita comprender la importancia de estos mecanismos dentro del panorama actual de la seguridad en redes.
+
+
+% ══════════════════════════════════════════════
+\section{Marco te\'orico}
+% ══════════════════════════════════════════════
+
+\subsection{Concepto de autenticaci\'on en redes}
+
+La autenticaci\'on es el proceso mediante el cual un sistema verifica la identidad de un usuario, dispositivo o entidad que solicita acceso a un recurso determinado. En el \'ambito de las redes de datos, este proceso resulta indispensable para evitar accesos no autorizados que puedan comprometer la seguridad de la informaci\'on. Existen distintos m\'etodos de autenticaci\'on, que van desde el uso de contrase\~nas simples hasta sistemas m\'as sofisticados basados en certificados digitales, tokens criptogr\'aficos o datos biom\'etricos.
+
+\subsection{Modelo AAA (Autenticaci\'on, Autorizaci\'on y Contabilidad)}
+
+El modelo AAA es un marco conceptual que agrupa tres funciones esenciales para la gesti\'on del acceso a recursos en una red. La primera funci\'on, la autenticaci\'on, se encarga de verificar la identidad del usuario. La segunda, la autorizaci\'on, define qu\'e recursos y servicios puede utilizar ese usuario una vez autenticado. La tercera, la contabilidad (o \textit{accounting}), registra las acciones realizadas por el usuario durante su sesi\'on, lo que resulta \'util para auditor\'ias, facturaci\'on y an\'alisis de uso. RADIUS implementa las tres funciones de este modelo de manera nativa, mientras que Kerberos se centra principalmente en la autenticaci\'on, dejando la autorizaci\'on y la contabilidad a otros componentes del sistema.
+
+\subsection{Criptograf\'ia sim\'etrica y su papel en la autenticaci\'on}
+
+La criptograf\'ia sim\'etrica es un m\'etodo de cifrado en el que tanto el emisor como el receptor comparten una misma clave secreta para cifrar y descifrar los mensajes. Kerberos utiliza este tipo de criptograf\'ia de forma extensiva: las comunicaciones entre el cliente, el servidor de autenticaci\'on y el servidor de concesi\'on de tickets se protegen mediante claves compartidas, lo que evita que las contrase\~nas viajen en texto claro a trav\'es de la red. Algoritmos como AES (Advanced Encryption Standard) y DES (Data Encryption Standard) han sido utilizados en distintas versiones de Kerberos para asegurar estas comunicaciones.
+
+
+% ══════════════════════════════════════════════
+\section{Protocolo Kerberos}
+% ══════════════════════════════════════════════
+
+\subsection{Or\'igenes y desarrollo hist\'orico}
+
+Kerberos fue desarrollado como parte del proyecto Athena en el MIT durante los a\~nos ochenta. El nombre del protocolo hace referencia a C\'erbero, el perro de tres cabezas que, seg\'un la mitolog\'ia griega, custodiaba las puertas del inframundo. Esta analog\'ia resulta apropiada, ya que el protocolo se apoya en tres componentes principales para resguardar el acceso a los recursos de una red. La primera versi\'on funcional que se distribuy\'o de forma p\'ublica fue Kerberos v4, aunque la versi\'on que se utiliza en la actualidad es Kerberos v5, definida en el RFC~4120. Esta versi\'on corrige diversas limitaciones de su predecesora, como la dependencia exclusiva del algoritmo DES y la falta de soporte para delegaci\'on de credenciales.
+
+\subsection{Componentes principales}
+
+El funcionamiento de Kerberos se apoya en tres entidades fundamentales que interact\'uan durante el proceso de autenticaci\'on:
+
+\subsubsection{Centro de Distribuci\'on de Claves (KDC)}
+
+El KDC es el componente central del sistema Kerberos. Se trata de un servidor de confianza que almacena las claves secretas de todos los usuarios y servicios registrados en el dominio. El KDC se compone internamente de dos servicios diferenciados: el Servidor de Autenticaci\'on (AS) y el Servidor de Concesi\'on de Tickets (TGS). Ambos trabajan de manera coordinada para emitir los tickets que permiten a los usuarios acceder a los servicios de la red sin necesidad de enviar sus credenciales repetidamente.
+
+\subsubsection{Servidor de Autenticaci\'on (AS)}
+
+El AS es la primera entidad con la que interact\'ua el cliente al momento de iniciar sesi\'on. Su funci\'on consiste en verificar la identidad del usuario a partir de sus credenciales y, en caso de que la verificaci\'on sea exitosa, emitir un Ticket de Concesi\'on de Tickets (TGT). Este TGT funciona como una especie de pase temporal que el usuario podr\'a presentar ante el TGS para solicitar acceso a servicios espec\'ificos.
+
+\subsubsection{Servidor de Concesi\'on de Tickets (TGS)}
+
+El TGS recibe las solicitudes de acceso a servicios por parte de los usuarios que ya poseen un TGT v\'alido. Al recibir dicha solicitud, el TGS valida el TGT y, si todo es correcto, emite un ticket de servicio (ST) que el usuario puede presentar directamente ante el servidor que aloja el recurso solicitado. De esta forma, el servidor del recurso puede verificar la identidad del usuario sin necesidad de contactar nuevamente al KDC.
+
+\subsection{Funcionamiento y proceso de autenticaci\'on}
+
+El proceso de autenticaci\'on en Kerberos se lleva a cabo en varias etapas claramente definidas, las cuales se describen a continuaci\'on de forma detallada:
+
+\textbf{Paso 1: Solicitud de autenticaci\'on inicial.} Cuando un usuario desea acceder a la red, introduce su nombre de usuario y contrase\~na en su equipo. El cliente genera una solicitud de autenticaci\'on (AS-REQ) que env\'ia al Servidor de Autenticaci\'on del KDC. Es importante se\~nalar que la contrase\~na del usuario nunca se transmite a trav\'es de la red; en su lugar, se utiliza para derivar una clave criptogr\'afica que se emplea en el proceso.
+
+\textbf{Paso 2: Emisi\'on del TGT.} El AS busca al usuario en su base de datos y, si lo encuentra, genera un Ticket de Concesi\'on de Tickets (TGT). Este ticket est\'a cifrado con la clave secreta del servicio TGS, de modo que solo el TGS puede descifrarlo. Adem\'as, el AS env\'ia al cliente una clave de sesi\'on cifrada con la clave derivada de la contrase\~na del usuario. De esta manera, solo el usuario leg\'itimo puede descifrar la clave de sesi\'on y utilizar el TGT.
+
+\textbf{Paso 3: Solicitud de ticket de servicio.} Cuando el usuario necesita acceder a un servicio espec\'ifico, su equipo env\'ia una solicitud al TGS (TGS-REQ) que incluye el TGT previamente obtenido, junto con un autenticador cifrado con la clave de sesi\'on. El autenticador contiene informaci\'on como la identidad del usuario y una marca de tiempo, lo que ayuda a prevenir ataques de repetici\'on.
+
+\textbf{Paso 4: Emisi\'on del ticket de servicio.} El TGS descifra el TGT, extrae la clave de sesi\'on y la utiliza para descifrar el autenticador. Si la informaci\'on coincide y el ticket es v\'alido, el TGS genera un ticket de servicio (ST) cifrado con la clave secreta del servidor de destino, junto con una nueva clave de sesi\'on para la comunicaci\'on entre el cliente y el servicio.
+
+\textbf{Paso 5: Acceso al servicio.} El cliente presenta el ticket de servicio al servidor que aloja el recurso solicitado. El servidor descifra el ticket con su propia clave secreta, verifica la identidad del usuario y, si todo es correcto, concede el acceso. En este punto, el servidor tambi\'en puede autenticarse ante el cliente, lo que constituye la autenticaci\'on mutua, una de las caracter\'isticas m\'as destacadas de Kerberos.
+
+\textbf{Paso 6: Comunicaci\'on segura.} Una vez que ambas partes se han autenticado mutuamente, la comunicaci\'on entre el cliente y el servidor se puede proteger utilizando la clave de sesi\'on compartida, lo que garantiza la confidencialidad e integridad de los datos intercambiados.
+
+\subsection{Caracter\'isticas principales}
+
+Kerberos presenta una serie de caracter\'isticas que lo distinguen de otros protocolos de autenticaci\'on y que han contribuido a su adopci\'on masiva en entornos empresariales:
+
+\begin{itemize}[leftmargin=2cm]
+  \item \textbf{Autenticaci\'on mutua:} Tanto el cliente como el servidor verifican la identidad del otro, lo que reduce significativamente el riesgo de ataques de suplantaci\'on.
+  \item \textbf{Inicio de sesi\'on \'unico (SSO):} Una vez que el usuario obtiene un TGT, puede acceder a m\'ultiples servicios dentro del dominio sin necesidad de volver a introducir sus credenciales, lo que mejora la experiencia del usuario y reduce la carga administrativa.
+  \item \textbf{No transmisi\'on de contrase\~nas:} Las contrase\~nas nunca viajan por la red en ning\'un formato. En su lugar, se utilizan claves derivadas y tickets cifrados, lo que minimiza el riesgo de interceptaci\'on.
+  \item \textbf{Tickets con tiempo de vida limitado:} Cada ticket tiene una marca de tiempo y un per\'iodo de validez definido, lo que dificulta los ataques de repetici\'on y limita la ventana de exposici\'on en caso de compromiso.
+  \item \textbf{Cifrado robusto:} Las versiones actuales de Kerberos soportan algoritmos de cifrado modernos como AES-256, lo que proporciona un nivel de seguridad acorde con los est\'andares contempor\'aneos.
+  \item \textbf{Interoperabilidad:} Kerberos v5 es compatible con m\'ultiples sistemas operativos, incluyendo Windows, macOS, Linux y diversas variantes de Unix, lo que facilita su integraci\'on en entornos heterog\'eneos.
+  \item \textbf{Delegaci\'on de credenciales:} Kerberos v5 permite que un servicio act\'ue en nombre de un usuario ante otro servicio, lo cual resulta \'util en arquitecturas de m\'ultiples capas.
+\end{itemize}
+
+\subsection{Seguridad en Kerberos}
+
+A pesar de ser considerado uno de los protocolos de autenticaci\'on m\'as seguros, Kerberos no est\'a exento de vulnerabilidades y riesgos que deben ser considerados por los administradores de red.
+
+\subsubsection{Fortalezas de seguridad}
+
+La principal fortaleza de Kerberos radica en que las contrase\~nas nunca se transmiten a trav\'es de la red. El uso de criptograf\'ia sim\'etrica para proteger los tickets y las claves de sesi\'on a\~nade una capa adicional de protecci\'on. Adem\'as, la autenticaci\'on mutua garantiza que tanto el cliente como el servidor son entidades leg\'itimas, lo que previene ataques de tipo \textit{man-in-the-middle}. Las marcas de tiempo incorporadas en los tickets tambi\'en dificultan los ataques de repetici\'on, ya que un ticket capturado por un atacante tendr\'a una ventana de validez muy limitada.
+
+\subsubsection{Vulnerabilidades conocidas}
+
+Entre las vulnerabilidades m\'as significativas de Kerberos se encuentran los llamados ataques de \textit{Golden Ticket} y \textit{Silver Ticket}. En un ataque de \textit{Golden Ticket}, el atacante logra obtener el hash de la contrase\~na de la cuenta KRBTGT, que es la cuenta de servicio del KDC responsable de firmar todos los TGT. Con este hash, el atacante puede generar TGT falsos con privilegios arbitrarios y con per\'iodos de validez extremadamente largos, lo que le otorga acceso irrestricto a todos los recursos del dominio. La \'unica forma de remediar este tipo de ataque consiste en restablecer la contrase\~na de la cuenta KRBTGT dos veces, ya que Active Directory almacena tanto la contrase\~na actual como la anterior.
+
+El ataque de \textit{Silver Ticket} es similar, pero opera a nivel de un servicio individual. El atacante obtiene el hash de la contrase\~na de la cuenta de servicio y genera tickets de servicio falsos que le permiten acceder a ese servicio espec\'ifico sin necesidad de interactuar con el KDC.
+
+Otra vulnerabilidad relevante es la dependencia de la sincronizaci\'on del reloj entre los equipos participantes. Kerberos requiere que los relojes de los clientes y los servidores est\'en sincronizados con una diferencia m\'axima de cinco minutos. Si un atacante logra manipular el reloj de un equipo, podr\'ia provocar fallos en la autenticaci\'on o facilitar la reutilizaci\'on de tickets expirados.
+
+Adicionalmente, el KDC representa un punto \'unico de fallo. Si el servidor que aloja el KDC queda fuera de servicio, ning\'un usuario podr\'a autenticarse ni acceder a los recursos de la red. Por esta raz\'on, en entornos de producci\'on se recomienda implementar KDC redundantes que garanticen la disponibilidad del servicio.
+
+
+% ══════════════════════════════════════════════
+\section{Protocolo RADIUS}
+% ══════════════════════════════════════════════
+
+\subsection{Or\'igenes y desarrollo hist\'orico}
+
+El protocolo RADIUS fue desarrollado originalmente por la empresa Livingston Enterprises en 1991, en respuesta a la necesidad de los proveedores de servicios de internet de gestionar de forma centralizada la autenticaci\'on de los usuarios que se conectaban a sus redes mediante conexiones de marcado telef\'onico (\textit{dial-up}). En aquella \'epoca, cada servidor de acceso remoto (NAS, por sus siglas en ingl\'es) manten\'ia su propia base de datos de usuarios, lo que resultaba ineficiente y dif\'icil de administrar a medida que el n\'umero de suscriptores crec\'ia. RADIUS ofreci\'o una soluci\'on elegante al centralizar toda la informaci\'on de autenticaci\'on en un \'unico servidor, al cual los distintos NAS pod\'ian consultar.
+
+Con el tiempo, RADIUS fue estandarizado por la IETF (Internet Engineering Task Force) y sus especificaciones se documentaron en diversos RFC, siendo los m\'as relevantes el RFC~2865 para la autenticaci\'on y autorizaci\'on, y el RFC~2866 para la contabilidad. Desde entonces, el protocolo ha evolucionado para adaptarse a las necesidades de las redes modernas, soportando autenticaci\'on en redes inal\'ambricas, VPN, conmutadores de red con 802.1X y m\'as.
+
+\subsection{Componentes principales}
+
+La arquitectura de RADIUS se basa en un modelo cliente-servidor que involucra tres componentes fundamentales:
+
+\subsubsection{Cliente RADIUS (NAS)}
+
+El cliente RADIUS, tambi\'en conocido como Network Access Server (NAS), es el dispositivo de red que recibe la solicitud de conexi\'on del usuario y la reenv\'ia al servidor RADIUS para su validaci\'on. Ejemplos t\'ipicos de clientes RADIUS incluyen puntos de acceso inal\'ambricos, concentradores VPN, conmutadores de red con soporte para 802.1X y servidores de acceso remoto.
+
+\subsubsection{Servidor RADIUS}
+
+El servidor RADIUS es la entidad central que recibe las solicitudes de autenticaci\'on provenientes de los clientes RADIUS, las procesa compar\'andolas contra una base de datos de usuarios y responde con una decisi\'on de aceptaci\'on o rechazo. Adem\'as de la autenticaci\'on, el servidor RADIUS tambi\'en se encarga de aplicar pol\'iticas de autorizaci\'on, como la asignaci\'on de VLAN, la limitaci\'on del ancho de banda o la restricci\'on de horarios de acceso. Existen diversas implementaciones de servidores RADIUS, tanto comerciales como de c\'odigo abierto, siendo FreeRADIUS una de las m\'as populares en el segundo grupo.
+
+\subsubsection{Base de datos de usuarios}
+
+El servidor RADIUS puede consultar diversas fuentes de informaci\'on para verificar las credenciales de los usuarios, tales como archivos locales, bases de datos SQL, directorios LDAP o incluso otros servidores RADIUS configurados en modo proxy. Esta flexibilidad permite a las organizaciones integrar RADIUS con su infraestructura de identidad existente sin necesidad de duplicar la informaci\'on de los usuarios.
+
+\subsection{Funcionamiento y proceso de autenticaci\'on}
+
+El proceso de autenticaci\'on en RADIUS sigue un flujo relativamente sencillo, aunque admite variaciones dependiendo del m\'etodo de autenticaci\'on utilizado. A continuaci\'on se describe el flujo general:
+
+\textbf{Paso 1: Solicitud de conexi\'on del usuario.} El usuario intenta conectarse a la red a trav\'es de un dispositivo de acceso, como un punto de acceso Wi-Fi o un concentrador VPN. El dispositivo le solicita sus credenciales, que generalmente consisten en un nombre de usuario y una contrase\~na.
+
+\textbf{Paso 2: Env\'io del paquete Access-Request.} El cliente RADIUS (NAS) construye un paquete de tipo \texttt{Access-Request} que contiene la informaci\'on del usuario, incluyendo su nombre de usuario, la contrase\~na cifrada mediante un secreto compartido entre el NAS y el servidor RADIUS, la direcci\'on IP del NAS y el puerto desde el cual se origina la solicitud. Este paquete se env\'ia al servidor RADIUS utilizando el protocolo UDP, generalmente a trav\'es de los puertos 1812 (autenticaci\'on) y 1813 (contabilidad).
+
+\textbf{Paso 3: Procesamiento en el servidor RADIUS.} El servidor RADIUS recibe el paquete, extrae la informaci\'on del usuario y la compara contra su base de datos. Si las credenciales coinciden, el servidor verifica las pol\'iticas de autorizaci\'on asociadas a ese usuario para determinar qu\'e nivel de acceso debe otorgarle.
+
+\textbf{Paso 4: Respuesta del servidor.} El servidor RADIUS env\'ia una de las siguientes respuestas al NAS:
+
+\begin{itemize}[leftmargin=2cm]
+  \item \texttt{Access-Accept}: Las credenciales son v\'alidas y el usuario tiene permiso para acceder a la red. La respuesta puede incluir atributos adicionales que definen las condiciones del acceso, como la VLAN asignada, el ancho de banda m\'aximo permitido o el tiempo m\'aximo de sesi\'on.
+  \item \texttt{Access-Reject}: Las credenciales son inv\'alidas o el usuario no tiene permiso para acceder. El NAS deniega la conexi\'on.
+  \item \texttt{Access-Challenge}: El servidor requiere informaci\'on adicional del usuario antes de tomar una decisi\'on, lo que permite implementar mecanismos de autenticaci\'on de m\'ultiples factores.
+\end{itemize}
+
+\textbf{Paso 5: Concesi\'on o denegaci\'on del acceso.} Con base en la respuesta del servidor RADIUS, el NAS permite o bloquea el acceso del usuario a la red.
+
+\textbf{Paso 6: Contabilidad de la sesi\'on.} Si el usuario fue autenticado exitosamente, el NAS env\'ia paquetes de contabilidad (\texttt{Accounting-Request}) al servidor RADIUS para registrar el inicio y el fin de la sesi\'on, as\'i como datos de uso como el volumen de tr\'afico transmitido y recibido, la duraci\'on de la sesi\'on y la causa de la desconexi\'on.
+
+\subsection{Caracter\'isticas principales}
+
+RADIUS presenta un conjunto de caracter\'isticas que lo han convertido en un est\'andar ampliamente adoptado para la gesti\'on del acceso a redes:
+
+\begin{itemize}[leftmargin=2cm]
+  \item \textbf{Modelo AAA integrado:} RADIUS implementa de forma nativa las tres funciones del modelo AAA (autenticaci\'on, autorizaci\'on y contabilidad), lo que permite gestionar de manera centralizada todo el ciclo de vida del acceso de un usuario.
+  \item \textbf{Protocolo basado en UDP:} RADIUS utiliza el protocolo de transporte UDP, lo que lo hace ligero y eficiente en t\'erminos de consumo de recursos de red. Sin embargo, la falta de garant\'ia de entrega inherente a UDP requiere que las implementaciones incluyan mecanismos propios de retransmisi\'on.
+  \item \textbf{Soporte para m\'ultiples m\'etodos de autenticaci\'on:} RADIUS es compatible con diversos protocolos de autenticaci\'on, incluyendo PAP (Password Authentication Protocol), CHAP (Challenge-Handshake Authentication Protocol) y EAP (Extensible Authentication Protocol), lo que le permite adaptarse a diferentes requisitos de seguridad.
+  \item \textbf{Extensibilidad mediante atributos:} El protocolo utiliza un sistema de pares atributo-valor (AVP) que permite incluir informaci\'on adicional en los paquetes de solicitud y respuesta. Los fabricantes de equipos de red pueden definir atributos propietarios (\textit{Vendor-Specific Attributes}) para soportar funcionalidades espec\'ificas de sus productos.
+  \item \textbf{Alta escalabilidad:} RADIUS puede administrar cientos de miles o incluso millones de usuarios de forma centralizada, lo que lo hace especialmente adecuado para proveedores de servicios de internet y grandes organizaciones.
+  \item \textbf{Soporte para proxy:} Los servidores RADIUS pueden funcionar en modo proxy, reenviando las solicitudes de autenticaci\'on a otros servidores RADIUS en dominios diferentes, lo que facilita la implementaci\'on de arquitecturas federadas y acuerdos de roaming.
+  \item \textbf{Registro detallado de sesiones:} La funcionalidad de contabilidad de RADIUS permite a las organizaciones llevar un registro detallado de las sesiones de los usuarios, lo que resulta \'util tanto para la facturaci\'on como para la auditor\'ia de seguridad.
+\end{itemize}
+
+\subsection{Seguridad en RADIUS}
+
+La seguridad del protocolo RADIUS se sustenta en varios mecanismos, aunque tambi\'en presenta ciertas limitaciones que deben ser consideradas.
+
+\subsubsection{Fortalezas de seguridad}
+
+RADIUS utiliza un secreto compartido entre el cliente y el servidor para cifrar la contrase\~na del usuario en los paquetes \texttt{Access-Request}, lo que evita que esta viaje en texto claro por la red. Adem\'as, el soporte para el protocolo EAP permite implementar m\'etodos de autenticaci\'on avanzados, como EAP-TLS (basado en certificados digitales), EAP-TTLS y PEAP, que proporcionan un nivel de seguridad significativamente mayor que PAP o CHAP.
+
+La centralizaci\'on de la autenticaci\'on tambi\'en constituye una ventaja de seguridad, ya que permite aplicar pol\'iticas consistentes a todos los puntos de acceso de la red y facilita la detecci\'on de anomal\'ias en los patrones de acceso.
+
+En a\~nos recientes, la aparici\'on de RadSec (RADIUS sobre TLS) ha abordado una de las principales cr\'iticas al protocolo original: la falta de cifrado integral de los paquetes. RadSec encapsula los mensajes RADIUS dentro de una conexi\'on TLS, lo que garantiza la confidencialidad e integridad de toda la comunicaci\'on entre el cliente y el servidor RADIUS.
+
+\subsubsection{Vulnerabilidades conocidas}
+
+Una de las debilidades hist\'oricas de RADIUS es que, en su implementaci\'on est\'andar, \'unicamente cifra la contrase\~na del usuario dentro del paquete \texttt{Access-Request}, mientras que el resto de los atributos se transmiten en texto claro. Esto significa que un atacante que capture el tr\'afico de red podr\'ia obtener informaci\'on sensible como el nombre de usuario, la direcci\'on IP del NAS o los par\'ametros de autorizaci\'on.
+
+El uso de UDP como protocolo de transporte tambi\'en introduce riesgos, ya que UDP es susceptible a ataques de suplantaci\'on de direcci\'on IP (\textit{IP spoofing}). Un atacante podr\'ia enviar respuestas falsas al NAS haci\'endose pasar por el servidor RADIUS, lo que podr\'ia resultar en la autorizaci\'on de accesos no leg\'itimos.
+
+Otra vulnerabilidad relevante se relaciona con la fortaleza del secreto compartido. Si el secreto compartido entre el NAS y el servidor RADIUS es d\'ebil o se ve comprometido, un atacante podr\'ia descifrar las contrase\~nas de los usuarios y falsificar mensajes RADIUS. Por esta raz\'on, se recomienda utilizar secretos compartidos largos y complejos, y rotarlos peri\'odicamente.
+
+Finalmente, RADIUS no ofrece autenticaci\'on mutua de forma nativa. El NAS conf\'ia en que la respuesta proviene del servidor RADIUS leg\'itimo \'unicamente sobre la base del secreto compartido, lo que lo hace potencialmente vulnerable a ataques de intermediario si el secreto se ve comprometido.
+
+
+% ══════════════════════════════════════════════
+\section{Tabla comparativa entre Kerberos y RADIUS}
+% ══════════════════════════════════════════════
+
+A continuaci\'on se presenta una tabla que sintetiza las principales diferencias y similitudes entre ambos protocolos, lo que permite visualizar de forma clara las fortalezas y limitaciones de cada uno en distintos aspectos.
+
+\begin{table}[h!]
+\centering
+\caption{Comparaci\'on entre los protocolos Kerberos y RADIUS}
+\label{tab:comparacion}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{|>{\bfseries}p{3.8cm}|X|X|}
+\hline
+\textbf{Criterio} & \textbf{Kerberos} & \textbf{RADIUS} \\
+\hline
+Tipo de protocolo & Protocolo de autenticaci\'on basado en tickets criptogr\'aficos & Protocolo AAA (autenticaci\'on, autorizaci\'on y contabilidad) \\
+\hline
+Origen & MIT, proyecto Athena (d\'ecada de 1980) & Livingston Enterprises (1991), estandarizado por la IETF \\
+\hline
+Modelo de funcionamiento & Cliente--KDC--Servidor de servicio & Cliente (NAS)--Servidor RADIUS \\
+\hline
+Protocolo de transporte & TCP y UDP (puerto 88) & UDP (puertos 1812 y 1813) \\
+\hline
+Cifrado & Cifrado completo de tickets y claves de sesi\'on mediante criptograf\'ia sim\'etrica (AES, DES) & Cifrado parcial: solo la contrase\~na en el paquete Access-Request (salvo con RadSec) \\
+\hline
+Autenticaci\'on mutua & S\'i, tanto el cliente como el servidor se autentican mutuamente & No de forma nativa; depende del secreto compartido \\
+\hline
+Inicio de sesi\'on \'unico (SSO) & S\'i, mediante el uso del TGT & No soporta SSO de forma nativa \\
+\hline
+Contabilidad & No incluye funcionalidad de contabilidad nativa & S\'i, contabilidad detallada de sesiones (inicio, fin, volumen de datos) \\
+\hline
+Escalabilidad & Limitada al dominio o \textit{realm}; la inter-operaci\'on entre dominios requiere relaciones de confianza & Alta escalabilidad; soporta millones de usuarios y configuraciones de proxy \\
+\hline
+Principales usos & Autenticaci\'on en redes corporativas, Active Directory, servicios internos & Acceso remoto, redes Wi-Fi, VPN, ISP, redes 802.1X \\
+\hline
+Dependencia de sincronizaci\'on temporal & S\'i, requiere sincronizaci\'on de relojes con tolerancia m\'axima de 5 minutos & No requiere sincronizaci\'on temporal \\
+\hline
+Punto \'unico de fallo & El KDC; se mitiga con servidores redundantes & El servidor RADIUS; se mitiga con redundancia y failover \\
+\hline
+Transmisi\'on de contrase\~nas & Nunca se transmiten contrase\~nas por la red & Se transmite la contrase\~na cifrada con el secreto compartido \\
+\hline
+Estandarizaci\'on & RFC 4120 (Kerberos v5) & RFC 2865 (autenticaci\'on), RFC 2866 (contabilidad) \\
+\hline
+\end{tabularx}
+\end{table}
+
+
+% ══════════════════════════════════════════════
+\section{Empresas y organizaciones que utilizan Kerberos y RADIUS}
+% ══════════════════════════════════════════════
+
+\subsection{Empresas que implementan Kerberos}
+
+Kerberos ha sido adoptado por una amplia gama de empresas y organizaciones tecnol\'ogicas que lo integran en sus productos y sistemas internos. A continuaci\'on se presenta un listado de las m\'as relevantes:
+
+\begin{enumerate}[leftmargin=2cm]
+  \item \textbf{Microsoft:} Kerberos es el protocolo de autenticaci\'on predeterminado en Windows Active Directory desde la versi\'on de Windows 2000. Todos los entornos empresariales basados en Windows Server utilizan Kerberos de forma extensiva para la autenticaci\'on de usuarios, equipos y servicios dentro del dominio.
+
+  \item \textbf{Apple:} El sistema operativo macOS incluye soporte nativo para Kerberos, lo que permite a los equipos Mac integrarse en entornos de Active Directory y autenticarse mediante este protocolo.
+
+  \item \textbf{Oracle:} La base de datos Oracle y otros productos de la compa\~n\'ia soportan autenticaci\'on mediante Kerberos, lo que permite a las organizaciones integrar el acceso a sus bases de datos con la infraestructura de autenticaci\'on centralizada.
+
+  \item \textbf{Google:} La infraestructura interna de Google utiliza Kerberos para la autenticaci\'on de sus empleados en diversos servicios internos. Adem\'as, Google Cloud Platform ofrece soporte para Kerberos en determinados servicios.
+
+  \item \textbf{Cisco:} Los equipos de red de Cisco soportan autenticaci\'on mediante Kerberos, lo que permite integrarlos en entornos de directorio activo y otras infraestructuras basadas en este protocolo.
+
+  \item \textbf{Amazon Web Services (AWS):} AWS ofrece soporte para Kerberos a trav\'es de su servicio AWS Managed Microsoft AD, que permite crear dominios de Active Directory en la nube con autenticaci\'on Kerberos.
+
+  \item \textbf{Red Hat / IBM:} Las distribuciones de Linux empresariales como Red Hat Enterprise Linux incluyen implementaciones de Kerberos (MIT Kerberos y Heimdal) y herramientas como FreeIPA para gestionar la autenticaci\'on centralizada en entornos Linux.
+
+  \item \textbf{Intel:} Intel ha participado en el desarrollo y la adopci\'on de est\'andares de Kerberos, integrando soporte para este protocolo en diversas soluciones de infraestructura.
+
+  \item \textbf{Microsoft Azure:} Azure Active Directory Domain Services ofrece soporte completo para Kerberos, lo que permite a las organizaciones migrar sus cargas de trabajo a la nube manteniendo la autenticaci\'on basada en tickets.
+\end{enumerate}
+
+\subsection{Empresas que implementan RADIUS}
+
+RADIUS es utilizado por una variedad a\'un m\'as amplia de organizaciones, dado que su enfoque en la gesti\'on del acceso a redes lo hace indispensable en m\'ultiples sectores:
+
+\begin{enumerate}[leftmargin=2cm]
+  \item \textbf{Cisco:} Cisco es uno de los principales promotores de RADIUS en el \'ambito de las redes empresariales. Sus conmutadores, routers y controladores de red inal\'ambrica integran clientes RADIUS para gestionar el acceso a la red mediante 802.1X.
+
+  \item \textbf{AT\&T:} Como uno de los mayores proveedores de servicios de telecomunicaciones del mundo, AT\&T utiliza servidores RADIUS para autenticar a millones de suscriptores que se conectan a sus redes de banda ancha y servicios m\'oviles.
+
+  \item \textbf{Comcast:} Al igual que otros grandes ISP, Comcast emplea RADIUS para gestionar la autenticaci\'on y la contabilidad de los usuarios que acceden a su red de internet residencial y comercial.
+
+  \item \textbf{Verizon:} Verizon utiliza infraestructura RADIUS para la gesti\'on del acceso de sus clientes de servicios de internet y comunicaciones empresariales.
+
+  \item \textbf{Aruba Networks (Hewlett Packard Enterprise):} Los controladores de red inal\'ambrica de Aruba integran clientes RADIUS para la autenticaci\'on de usuarios en redes Wi-Fi empresariales con 802.1X.
+
+  \item \textbf{Juniper Networks:} Los equipos de red de Juniper soportan RADIUS como mecanismo de autenticaci\'on, tanto para el acceso de usuarios a la red como para la administraci\'on de los propios equipos.
+
+  \item \textbf{Universidades e instituciones educativas:} Redes acad\'emicas como Eduroam utilizan RADIUS como columna vertebral de su sistema de autenticaci\'on, permitiendo a estudiantes y personal acad\'emico acceder a redes Wi-Fi de instituciones participantes en todo el mundo mediante un sistema federado de autenticaci\'on.
+
+  \item \textbf{Fortinet:} Los firewalls y controladores de red de Fortinet soportan integraci\'on con servidores RADIUS para la autenticaci\'on de usuarios en redes corporativas y VPN.
+
+  \item \textbf{Deutsche Telekom:} El operador de telecomunicaciones alem\'an utiliza infraestructura RADIUS para la gesti\'on del acceso de sus millones de suscriptores de banda ancha en Europa.
+
+  \item \textbf{Telef\'onica:} El grupo de telecomunicaciones espa\~nol emplea servidores RADIUS en sus operaciones en Latinoam\'erica y Europa para la autenticaci\'on de clientes de servicios de internet y comunicaciones.
+\end{enumerate}
+
+
+% ══════════════════════════════════════════════
+\section{An\'alisis}
+% ══════════════════════════════════════════════
+
+Al examinar ambos protocolos en conjunto, resulta evidente que Kerberos y RADIUS no son tecnolog\'ias que compitan directamente entre s\'i, sino que m\'as bien se complementan al abordar necesidades distintas dentro del espectro de la autenticaci\'on y la gesti\'on del acceso a redes.
+
+Kerberos destaca en entornos donde la autenticaci\'on mutua y el inicio de sesi\'on \'unico son requisitos fundamentales. Su dise\~no basado en tickets criptogr\'aficos elimina la necesidad de transmitir contrase\~nas a trav\'es de la red, lo que representa una ventaja significativa frente a protocolos que dependen del env\'io de credenciales cifradas. Sin embargo, esta robustez tiene un costo: la complejidad de la infraestructura necesaria para su implementaci\'on, que incluye la configuraci\'on y el mantenimiento de servidores KDC, la sincronizaci\'on de relojes y la gesti\'on de relaciones de confianza entre dominios. Adem\'as, las vulnerabilidades como los ataques de \textit{Golden Ticket} demuestran que, si bien el protocolo en s\'i es s\'olido, su seguridad depende en gran medida de la correcta administraci\'on de las cuentas de servicio y de las pol\'iticas de seguridad del dominio.
+
+RADIUS, por su parte, sobresale en escenarios donde la escalabilidad, la flexibilidad y la capacidad de contabilidad son prioritarias. Su adopci\'on masiva por parte de proveedores de servicios de internet y en redes inal\'ambricas empresariales se debe en gran medida a su capacidad para gestionar millones de usuarios de forma centralizada y a su soporte para una amplia variedad de m\'etodos de autenticaci\'on. No obstante, el cifrado parcial de los paquetes RADIUS representa una limitaci\'on que ha sido parcialmente subsanada con la aparici\'on de RadSec, aunque su adopci\'on a\'un no es universal.
+
+En la pr\'actica, muchas organizaciones utilizan ambos protocolos de manera complementaria. Por ejemplo, una empresa puede utilizar Kerberos para la autenticaci\'on de usuarios en su red corporativa interna a trav\'es de Active Directory, mientras que emplea RADIUS para gestionar el acceso a su red Wi-Fi corporativa y a las conexiones VPN de sus empleados remotos. En este escenario, el servidor RADIUS puede estar configurado para consultar el directorio de Active Directory como fuente de autenticaci\'on, lo que crea una integraci\'on transparente entre ambos protocolos.
+
+Desde una perspectiva de seguridad, es importante reconocer que ning\'un protocolo de autenticaci\'on es infalible por s\'i solo. La seguridad de un sistema depende no solo del protocolo utilizado, sino tambi\'en de las pol\'iticas de gesti\'on de contrase\~nas, la configuraci\'on de los servidores, la segmentaci\'on de la red, la monitorizaci\'on de eventos de seguridad y la formaci\'on de los usuarios. Tanto Kerberos como RADIUS ofrecen herramientas poderosas para proteger el acceso a los recursos de una red, pero su eficacia depende de una implementaci\'on cuidadosa y de un mantenimiento continuo.
+
+
+% ══════════════════════════════════════════════
+\section{Conclusiones}
+% ══════════════════════════════════════════════
+
+A lo largo de esta investigaci\'on se han analizado dos de los protocolos de autenticaci\'on m\'as importantes y ampliamente utilizados en el \'ambito de las redes de datos: Kerberos y RADIUS. Cada uno de ellos fue dise\~nado para resolver problem\'aticas espec\'ificas, y su evoluci\'on a lo largo de las d\'ecadas refleja la creciente complejidad de los entornos de red y las amenazas de seguridad que enfrentan.
+
+Kerberos ha demostrado ser una soluci\'on robusta para la autenticaci\'on en redes corporativas, particularmente en entornos basados en Active Directory. Su enfoque basado en tickets criptogr\'aficos, la autenticaci\'on mutua y el soporte para inicio de sesi\'on \'unico lo convierten en una elecci\'on natural para organizaciones que requieren un alto nivel de seguridad en sus redes internas. Sin embargo, su implementaci\'on exige una planificaci\'on cuidadosa y una administraci\'on rigurosa para mitigar las vulnerabilidades inherentes a su arquitectura, como los ataques de \textit{Golden Ticket} y la dependencia de la sincronizaci\'on temporal.
+
+RADIUS, por otro lado, ha demostrado su valor como soluci\'on est\'andar para la gesti\'on del acceso a redes en una amplia variedad de contextos, desde proveedores de servicios de internet hasta redes inal\'ambricas empresariales y acad\'emicas. Su implementaci\'on del modelo AAA, su alta escalabilidad y su flexibilidad para integrarse con diversas fuentes de autenticaci\'on lo convierten en una pieza clave de la infraestructura de red de innumerables organizaciones en todo el mundo.
+
+En definitiva, la elecci\'on entre Kerberos y RADIUS no debe plantearse como una disyuntiva excluyente, sino como una decisi\'on que depende del contexto espec\'ifico de cada organizaci\'on. En muchos casos, la estrategia m\'as efectiva consiste en utilizar ambos protocolos de manera complementaria, aprovechando las fortalezas de cada uno para construir una infraestructura de autenticaci\'on s\'olida, escalable y adaptada a las necesidades particulares del entorno.
+
+El estudio de estos protocolos resulta fundamental para cualquier profesional de las redes y la seguridad inform\'atica, ya que comprender su funcionamiento interno, sus fortalezas y sus limitaciones constituye la base para dise\~nar e implementar soluciones de autenticaci\'on que protejan de manera efectiva los recursos y la informaci\'on de las organizaciones frente a las amenazas actuales y futuras.
+
+
+% ══════════════════════════════════════════════
+\section{Fuentes de informaci\'on}
+% ══════════════════════════════════════════════
+
+\begin{enumerate}[leftmargin=2cm]
+  \item Fortinet. (s.f.). \textit{What Is Kerberos? Kerberos Authentication Explained}. Recuperado de: \url{https://www.fortinet.com/resources/cyberglossary/kerberos-authentication}
+
+  \item Cisco Systems. (s.f.). \textit{Examine how the RADIUS Works}. Recuperado de: \url{https://www.cisco.com/c/en/us/support/docs/security-vpn/remote-authentication-dial-user-service-radius/12433-32.html}
+
+  \item TechTarget. (s.f.). \textit{What is Kerberos and How Does It Work?}. Recuperado de: \url{https://www.techtarget.com/searchsecurity/definition/Kerberos}
+
+  \item TechTarget. (s.f.). \textit{What is RADIUS (Remote Authentication Dial-In User Service)?}. Recuperado de: \url{https://www.techtarget.com/searchsecurity/definition/RADIUS}
+
+  \item MIT Kerberos Consortium. (s.f.). \textit{Kerberos: The Network Authentication Protocol}. Recuperado de: \url{https://web.mit.edu/kerberos/}
+
+  \item CrowdStrike. (s.f.). \textit{What is a Golden Ticket Attack?}. Recuperado de: \url{https://www.crowdstrike.com/en-us/cybersecurity-101/cyberattacks/golden-ticket-attack/}
+
+  \item FreeRADIUS Project. (s.f.). \textit{The RADIUS Protocol}. Recuperado de: \url{https://networkradius.com/doc/current/introduction/RADIUS.html}
+
+  \item Neuman, C., Yu, T., Hartman, S. y Raeburn, K. (2005). \textit{The Kerberos Network Authentication Service (V5)}. RFC~4120, IETF. Recuperado de: \url{https://datatracker.ietf.org/doc/html/rfc4120}
+
+  \item Rigney, C., Willens, S., Rubens, A. y Simpson, W. (2000). \textit{Remote Authentication Dial In User Service (RADIUS)}. RFC~2865, IETF. Recuperado de: \url{https://datatracker.ietf.org/doc/html/rfc2865}
+\end{enumerate}
+
+\end{document}
