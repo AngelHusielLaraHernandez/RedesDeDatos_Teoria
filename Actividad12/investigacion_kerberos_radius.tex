@@ -1,79 +1,113 @@
-\documentclass[12pt, a4paper]{article}
-
-% ──────────────────────────────────────────────
-% Paquetes
-% ──────────────────────────────────────────────
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[spanish]{babel}
-\usepackage{geometry}
-\usepackage{setspace}
-\usepackage{parskip}
-\usepackage{graphicx}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{longtable}
-\usepackage{hyperref}
-\usepackage{cite}
-\usepackage{fancyhdr}
-\usepackage{titlesec}
-\usepackage{enumitem}
+\documentclass[a4paper,12pt]{article}
+\usepackage{siunitx}
+\usepackage[utf8]{inputenc} 
+\usepackage{amsmath}
 \usepackage{xcolor}
-\usepackage{tabularx}
-\usepackage{caption}
+\usepackage{graphicx}
+\usepackage[citecolor=blue]{hyperref}       % Para enlaces en el documento
+\usepackage{fancyhdr}
+\usepackage{circuitikz}
+\usepackage{amssymb}
+\usepackage{animate}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{gensymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{enumitem}
 
-\geometry{
-  left=2.5cm,
-  right=2.5cm,
-  top=2.5cm,
-  bottom=2.5cm
+% Ajuste de la altura del encabezado
+\setlength{\headheight}{76.27646pt}
+\addtolength{\topmargin}{-34.27646pt}
+
+\lstdefinestyle{mystyle}{
+    language=Matlab,
+    inputencoding=utf8, % <-- AQUÍ ESTÁ LA CORRECCIÓN
+    backgroundcolor=\color{black!5},
+    commentstyle=\color{green!60!black},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{purple},
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showstringspaces=false,
 }
+\lstset{style=mystyle}
 
-\onehalfspacing
+\setlength{\parindent}{0pt}
 
-\hypersetup{
-  colorlinks=true,
-  linkcolor=black,
-  citecolor=blue,
-  urlcolor=blue
-}
 
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\small Investigaci\'on: Kerberos y RADIUS}
-\fancyhead[R]{\small \thepage}
-\renewcommand{\headrulewidth}{0.4pt}
-
-\titleformat{\section}{\Large\bfseries}{\thesection.}{0.5em}{}
-\titleformat{\subsection}{\large\bfseries}{\thesubsection.}{0.5em}{}
-\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.5em}{}
-
-% ──────────────────────────────────────────────
+% Crear la portada manualmente
 \begin{document}
 
-% ──────────────────────────────────────────────
-% Portada
-% ──────────────────────────────────────────────
-\begin{titlepage}
-  \centering
-  \vspace*{2cm}
-  {\LARGE \textbf{Universidad Aut\'onoma de Nuevo Le\'on}}\\[0.5cm]
-  {\Large Facultad de Ingenier\'ia Mec\'anica y El\'ectrica}\\[2cm]
-  {\Huge \textbf{Protocolos de Autenticaci\'on:\\Kerberos y RADIUS}}\\[1cm]
-  {\Large Investigaci\'on Documental}\\[2cm]
-  {\large \textbf{Materia:} Redes de Datos -- Teor\'ia}\\[0.4cm]
-  {\large \textbf{Actividad 12}}\\[0.4cm]
-  {\large \textbf{Alumno:} Angel Lara}\\[0.4cm]
-  {\large \textbf{Fecha:} 29 de abril de 2026}\\[2cm]
-  \vfill
-  {\large Semestre Agosto -- Diciembre 2026}
-\end{titlepage}
+% Desactivar la numeración de página para la portada
+\thispagestyle{empty}
 
-% ──────────────────────────────────────────────
-% \'Indice
-% ──────────────────────────────────────────────
+% Colocar las imágenes en las esquinas superiores
+\begin{minipage}[t]{0.4\textwidth}
+    \raggedright
+    \includegraphics[width=2cm]{image/der.png}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+    \raggedleft
+    \includegraphics[width=2cm]{image/izq.png}
+\end{minipage}
+
+\vspace{1cm}
+
+\begin{center}
+    \Huge{\textbf{Tarea 2 ACTIVIDAD 2.}} \\
+    \vspace{2cm}
+    \Large{\textbf{Universidad Nacional Autonoma de Mexico.}}\\
+    \Large{\textbf{Facultad de ingeniería.}}\\
+    \vspace{1cm}
+    %\Large{Departamento de Ing. en Control y Robotica.} \\
+    %\vspace{0.5cm}
+    \Large{Redes de datos seguras.} \\
+    \vspace{0.5cm}
+    \LARGE{\textbf{Profesora:}}
+    \LARGE{\textit{MTRA. MARIA EUGENIA BAUTISTA GONZALEZ.}}\\
+    \vspace{0.5cm}
+    \Large{\textbf{Grupo:} 2} \\
+    \vspace{0.5cm}
+    \LARGE{\textbf{Alumno:}}\\
+    \Large{Lara Hernandez Angel Husiel} \\
+    \vspace{0.5cm}
+    \Large{\textbf{No.Cuenta:}}
+    \Large{32006082-9} \\
+    \vspace{0.5cm}
+    \vspace{3cm}
+    \Large{\textbf{Fecha de Entrega:}}\\
+    \vspace{0.5cm}
+    \large{{Febrero 12, 2026}}
+\end{center} 
+
+
 \newpage
+
+% Configuración del encabezado y pie de página
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[width=1.5cm]{image/izq.png}}
+\fancyhead[R]{\includegraphics[width=1.5cm]{image/der.png}}
+\fancyfoot[C]{\thepage}  % Coloca el número de página en el centro del pie de página
+
+% Línea horizontal en el pie de página
+\renewcommand{\footrulewidth}{0.4pt}  % Define el grosor de la línea en el pie de página
+
+% Empezar numeración de páginas desde 1 en la segunda página
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+%\maketitle
 \tableofcontents
+
 \newpage
 
 % ══════════════════════════════════════════════
