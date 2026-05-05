@@ -1,0 +1,241 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{siunitx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[citecolor=blue,breaklinks=true]{hyperref}        % Para enlaces en el documento
+\usepackage{fancyhdr}
+\usepackage{circuitikz}
+\usepackage{amssymb}
+\usepackage{animate}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{gensymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{microtype}      % Micro-tipografía: reduce overfull hbox automáticamente
+
+% Ajuste de la altura del encabezado
+\setlength{\headheight}{76.27646pt}
+\addtolength{\topmargin}{-34.27646pt}
+
+\lstdefinestyle{mystyle}{
+    language=Matlab,
+    inputencoding=utf8,
+    backgroundcolor=\color{black!5},
+    commentstyle=\color{green!60!black},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{purple},
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showstringspaces=false,
+}
+\lstset{style=mystyle}
+
+\setlength{\parindent}{0pt}
+\emergencystretch=3em          % Tolerancia extra para evitar overfull hbox residuales
+
+% Crear la portada manualmente
+\begin{document}
+
+% Desactivar la numeración de página para la portada
+\thispagestyle{empty}
+
+% Colocar las imágenes en las esquinas superiores
+\begin{minipage}[t]{0.4\textwidth}
+    \raggedright
+    \includegraphics[width=2cm]{image/der.png}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+    \raggedleft
+    \includegraphics[width=2cm]{image/izq.png}
+\end{minipage}
+
+\vspace{1cm}
+
+\begin{center}
+    \Huge{\textbf{Práctica Complementaria y Obligatoria 9.  Uso de protocolos TCP y UDP.}} \\
+    \vspace{0.5cm}
+    \Huge{\textbf{Cuestionario Previo.}} \\
+    \vspace{1.5cm}
+    \Large{\textbf{Universidad Nacional Autónoma de México.}}\\
+    \Large{\textbf{Facultad de Ingeniería.}}\\
+    \vspace{1cm}
+    \Large{Redes de Datos Seguras.} \\
+    \vspace{0.5cm}
+    \LARGE{\textbf{Profesora:}}
+    \LARGE{\textit{MTRA. MARIA EUGENIA BAUTISTA GONZALEZ.}}\\
+    \vspace{0.5cm}
+    \Large{\textbf{Grupo:} 02} \\
+    \vspace{0.5cm}
+    \LARGE{\textbf{Alumno:}}\\
+    \Large{320060829} \\
+    \vspace{3cm}
+    \Large{\textbf{Fecha de Entrega:}}\\
+    \vspace{0.5cm}
+    \large{{Mayo 5, 2026}}
+\end{center}
+
+\newpage
+
+% Configuración del encabezado y pie de página
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[width=1.5cm]{image/izq.png}}
+\fancyhead[R]{\includegraphics[width=1.5cm]{image/der.png}}
+\fancyfoot[C]{\thepage}  % Coloca el número de página en el centro del pie de página
+
+% Línea horizontal en el pie de página
+\renewcommand{\footrulewidth}{0.4pt}  % Define el grosor de la línea en el pie de página
+
+% Empezar numeración de páginas desde 1 en la segunda página
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\tableofcontents
+
+\newpage
+
+\section{Defina Investigue y describa: ¿Qué es y cómo se configura el protocolo NTP en un router?}
+
+El Protocolo de Tiempo de Red (NTP, por sus siglas en inglés) es un protocolo diseñado para sincronizar los relojes de los sistemas informáticos a través de una red de datos con latencia variable.[1] El protocolo NTP se basa en una estructura jerárquica de fuentes de tiempo conocidas como "estratos" (stratum).[1] Un dispositivo de estrato 1 está conectado directamente a una fuente de tiempo confiable y autorizada (como un reloj atómico o de radio), mientras que los dispositivos de estrato 2 reciben su tiempo a través de la red desde un servidor de estrato 1, y así sucesivamente en cascada hasta el estrato 16, el cual se considera como no sincronizado.[1]
+
+Para configurar un router Cisco y habilitar la sincronización, se utilizan comandos de configuración global. A continuación se muestran los comandos básicos de implementación en un router [2]:
+
+\begin{lstlisting}
+! 1. Entrar al modo de configuracion global
+Router> enable
+Router# configure terminal
+
+! 2. Configurar el router para sincronizarse con un servidor NTP remoto
+Router(config)# ntp server 198.51.100.1
+
+! 3. (Opcional) Configurar el router como un reloj maestro para su propia red interna,
+! estableciendo un nivel de estrato (ej. 3).
+Router(config)# ntp master 3
+
+! 4. Verificar la sincronizacion (Modo EXEC Privilegiado)
+Router# show ntp status
+Router# show ntp associations
+\end{lstlisting}
+
+
+\newpage
+\section{Investigue y mencione las diferencias entre Telnet y SSH.}
+
+Tanto Telnet (Telecommunication Network) como SSH (Secure Shell) son protocolos de red que permiten a un usuario o administrador de red acceder remotamente a la interfaz de línea de comandos de un dispositivo.[3] Sin embargo, la diferencia principal y más crítica recae en la seguridad [3]:
+
+\begin{itemize}
+    \item \textbf{Cifrado de Datos (Confidencialidad):} Telnet transmite todos los datos, incluidos comandos, credenciales, nombres de usuario y contraseñas en texto plano absoluto (sin cifrar).[3] SSH, en cambio, establece un túnel cifrado asimétricamente y protege todo el flujo de datos mediante cifrado simétrico (como algoritmos AES), haciendo que el tráfico sea ilegible ante herramientas de captura de red e intercepciones.[3]
+    \item \textbf{Mecanismos de Autenticación:} Telnet carece de un sistema de autenticación robusto, limitándose a solicitar la credencial preconfigurada sin protección. SSH emplea criptografía de clave pública para la autenticación, lo que permite al cliente verificar de forma criptográfica la verdadera identidad del servidor para prevenir ataques como el de "hombre en el medio" (Man-in-the-Middle).[3]
+    \item \textbf{Puertos por Defecto y Mejores Prácticas:} Telnet escucha de manera predeterminada en el puerto TCP 23, mientras que SSH lo hace en el puerto TCP 22.[3] Hoy en día, las normativas de ciberseguridad industrial exigen inhabilitar Telnet y usar únicamente SSH para administración remota.[3]
+\end{itemize}
+
+
+\newpage
+\section{¿Cuál es la dirección IP denominada como gateway?}
+
+Un gateway (o puerta de enlace) en el ámbito de las arquitecturas de red es un dispositivo, como un router o firewall, que funciona como intermediario y punto de interconexión para enlazar redes de datos dispares que pueden emplear distintos protocolos de comunicación.[4]
+
+La \textbf{dirección IP denominada como gateway} (comúnmente conocida como "Puerta de enlace predeterminada" o "Default Gateway") es la dirección IP de la interfaz local del dispositivo enrutador al que están conectados directamente los equipos de una red LAN.[4] Cuando una computadora necesita enviar un paquete de datos hacia un destino que no se encuentra dentro de su propia subred local, envía automáticamente este paquete hacia la IP del gateway.[4] 
+
+El gateway recibe el paquete, lo analiza, a menudo traduce el protocolo si es necesario (como al salir hacia Internet) y lo encamina correctamente hacia redes exteriores mediante sus tablas de enrutamiento.[4]
+
+
+\newpage
+\section{¿Cuál es la función de un servidor syslog?}
+
+Un servidor Syslog es un sistema y protocolo estándar utilizado fundamentalmente para la recolección, el registro y la centralización de mensajes (logs) generados por los dispositivos interconectados en la red (routers, switches, firewalls y servidores).[5] Se basa en la especificación RFC 5424 de la IETF.[5]
+
+La función principal del servidor syslog es separar la carga de trabajo entre el software que origina o dispara el evento del sistema que lo archiva y lo audita.[5] Las principales ventajas y funciones incluyen [5]:
+\begin{itemize}
+    \item \textbf{Centralización:} Permite consolidar inmensos volúmenes de datos de telemetría provenientes de múltiples plataformas en un único repositorio seguro.
+    \item \textbf{Gestión de Seguridad:} En caso de una brecha cibernética, el servidor almacena registros inmutables que no se pierden aunque el dispositivo de origen sea apagado, facilitando el análisis forense profundo.
+    \item \textbf{Clasificación:} Los servidores de registro permiten clasificar y filtrar alertas automáticamente basándose en códigos paramétricos estandarizados, como el tipo de origen ("Facility") y la gravedad del incidente ("Severity").[5]
+\end{itemize}
+
+
+\newpage
+\section{Investigue los comandos que se necesitan para poder configurar un servidor FTP.}
+
+Para habilitar la transferencia de archivos en dispositivos bajo el sistema operativo Cisco IOS (como copias de respaldo de archivos de configuración y actualizaciones de firmware) e interactuar con un servidor FTP en la red, se deben configurar los credenciales que usará el router y definir cómo tratará la transferencia.[6]
+
+Los comandos fundamentales requeridos desde el modo de configuración global son [6]:
+
+\begin{lstlisting}
+! 1. Ingresar al modo privilegiado y luego al modo de configuracion global
+Router> enable
+Router# configure terminal
+
+! 2. Suministrar el nombre de usuario que el router usara para conectarse al FTP
+Router(config)# ip ftp username admin_red
+
+! 3. Suministrar la contrasena correspondiente al usuario del servidor FTP
+Router(config)# ip ftp password mi_clave_segura
+
+! 4. Salir al modo EXEC para invocar los comandos de transferencia de archivos
+Router(config)# end
+Router# copy running-config ftp:
+\end{lstlisting}
+
+Al ejecutar la copia, el sistema operativo interrogará interactivamente la dirección IP destino remota del servidor FTP y el nombre del archivo. Las variables definidas con \texttt{ip ftp} facilitan el proceso al inyectar pasivamente las credenciales.[6]
+
+
+\newpage
+\section{Investigue cuáles son las notificaciones soportadas por el protocolo Syslog.}
+
+El protocolo Syslog cuenta con un marco de notificación basado en niveles jerárquicos de urgencia denominados \textbf{Niveles de Severidad} (Severity Levels), de acuerdo a lo estipulado normativamente en el documento RFC 5424.[5] 
+
+Las notificaciones soportadas se rigen del valor numérico 0 (el de mayor impacto sistémico) al 7 (el de menor impacto) [5]:
+
+\begin{enumerate}
+    \setcounter{enumi}{0}
+    \item \textbf{Emergencia (Emergency - 0):} La notificación más crítica. Indica que el sistema entero se encuentra paralizado o es completamente inutilizable.[5]
+    \item \textbf{Alerta (Alert - 1):} Una condición que exige acción operativa humana de forma inmediata (por ejemplo, la caída inminente de enlaces perimetrales).
+    \item \textbf{Crítico (Critical - 2):} Condiciones y fallas a nivel de hardware o de software que requieren revisión antes de empeorar.
+    \item \textbf{Error (Error - 3):} Informa de procesos o funciones que no pudieron completarse correctamente y fallaron.
+    \item \textbf{Advertencia (Warning - 4):} Condiciones preventivas, como capacidades de memoria excediéndose cerca de sus límites de seguridad.
+    \item \textbf{Aviso (Notice - 5):} El sistema reporta una conducta que es normal pero de suma significancia (como el levantamiento administrativo de una interfaz clave).
+    \item \textbf{Informativo (Informational - 6):} Telemetría estándar y mensajes descriptivos comunes y ordinarios.
+    \item \textbf{Depuración (Debug - 7):} Volúmenes masivos de datos granulares producidos puramente para que el administrador resuelva fallas complejas analizando el código.[5]
+\end{enumerate}
+
+
+\newpage
+% Bibliografia en formato APA 6 usando el entorno thebibliography
+
+\renewcommand{\refname}{Referencias (Formato APA 6)}
+\begin{thebibliography}{9}
+
+    \bibitem{CiscoNTP} 
+    Cisco Systems. (2025). \textit{Solucionar y depurar problemas de protocolo de tiempo de red (NTP)}. Recuperado de: \url{https://www.cisco.com/c/es_mx/support/docs/ip/network-time-protocol-ntp/116161-trouble-ntp-00.html}
+    
+    \bibitem{LightyearSSH}
+    Lightyear. (2026). \textit{Telnet vs SSH: Secure Remote Access Comparison}. Recuperado de: \url{https://lightyear.ai/tips/telnet-versus-ssh}
+    
+    \bibitem{GoDaddyGateway}
+    GoDaddy. (2025). \textit{API Gateway: Qué es y cómo gestiona el tráfico entre servicios}. Recuperado de: \url{https://www.godaddy.com/resources/es/digitalizacion/que-es-gateway-teconologia}
+    
+    \bibitem{InvGateSyslog}
+    InvGate. (2024). \textit{Syslog Protocol (RFC 5424): Levels, Transport Mechanisms and Architecture}. Recuperado de: \url{https://blog.invgate.com/es/que-es-syslog}
+    
+    \bibitem{CiscoFTP}
+    Cisco Systems. (2019). \textit{Integrated File System Configuration Guide: Configuring Basic File Transfer Services (FTP/TFTP)}. Cisco IOS XE Gibraltar 16.11.x. Recuperado de: \url{https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ifs/configuration/xe-16-11/ifs-xe-16-11-book/ifs-file-trans.html}
+    
+    \bibitem{NTPConfigBlinky}
+    Blinky, N. (2023). \textit{Configuring NTP on a Cisco Device}. Recuperado de: \url{https://blog.noblinkyblinky.com/2023/07/07/configuring-ntp-on-a-cisco-device/}
+
+\end{thebibliography}
+
+\end{document}
