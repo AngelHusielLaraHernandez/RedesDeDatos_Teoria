@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actividad13 LaraHernandez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;600;800;900&family=Permanent+Marker&family=Caveat:wght@600;700&family=Russo+One&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   PALETA MODERNA — CIBERSEGURIDAD / CAPA DE APLICACIÓN
+   ========================================================= */
+:root{
+  --bg-1:#0B1437;
+  --bg-2:#10204F;
+  --bg-3:#1A0E3F;
+
+  --auth-1:#FFB300;   /* Autenticación – ámbar */
+  --auth-2:#FF6F00;   /* naranja profundo */
+  --auth-3:#FFE082;   /* destello */
+
+  --conf-1:#00C2FF;   /* Confidencialidad – cian eléctrico */
+  --conf-2:#0066FF;   /* azul tech */
+  --conf-3:#80E5FF;
+
+  --integ-1:#00E676;  /* Integridad – verde neón */
+  --integ-2:#00B894;  /* esmeralda */
+  --integ-3:#7CF7B5;
+
+  --pink:#FF2E93;
+  --purple:#8E44FF;
+  --gold:#FFD60A;
+  --link-blue:#3FA9FF;
+  --link-blue-2:#1E90FF;
+
+  --ink:#F4F6FF;
+  --ink-soft:#D6DCF2;
+  --ink-mute:#9AA5C7;
+  --paper:#FFFDF7;
+}
+
+/* =========================================================
+   RESET / BASE
+   ========================================================= */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{
+  width:100%;
+  background:var(--bg-1);
+  color:var(--ink);
+  font-family:'Poppins',sans-serif;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+body{
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(142,68,255,0.18), transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(0,194,255,0.18), transparent 60%),
+    radial-gradient(ellipse at 60% 50%, rgba(255,46,147,0.10), transparent 70%),
+    linear-gradient(180deg,#0B1437 0%, #1A0E3F 50%, #0B1437 100%);
+}
+
+/* =========================================================
+   PÁGINAS A4 — UNA POR PANTALLA / UNA POR HOJA
+   ========================================================= */
+.page{
+  position:relative;
+  width:210mm;
+  min-height:297mm;
+  margin:0 auto;
+  padding:11mm 12mm 12mm 12mm;
+  overflow:hidden;
+  page-break-after:always;
+  break-after:page;
+  page-break-inside:avoid;
+  break-inside:avoid;
+  background:
+    radial-gradient(ellipse at top right, rgba(142,68,255,0.20), transparent 55%),
+    radial-gradient(ellipse at bottom left, rgba(0,194,255,0.18), transparent 55%),
+    linear-gradient(180deg,#0B1437 0%, #1A0E3F 100%);
+}
+.page:last-child{page-break-after:auto;break-after:auto}
+
+/* Marco decorativo */
+.page::after{
+  content:"";
+  position:absolute;
+  inset:6mm;
+  border:1.5px dashed rgba(255,214,10,0.35);
+  border-radius:6mm;
+  pointer-events:none;
+  z-index:1;
+}
+
+/* =========================================================
+   FONDOS DE POKÉMON — distribuidos en TODAS las páginas
+   ========================================================= */
+.poke{
+  position:absolute;
+  pointer-events:none;
+  z-index:0;
+  filter:drop-shadow(0 0 18px rgba(0,0,0,0.4));
+}
+.poke img{width:100%;height:100%;object-fit:contain}
+
+/* PÁGINA 1 */
+.p1 .poke.rayquaza{width:120mm;height:120mm;top:-25mm;right:-30mm;opacity:.18;transform:rotate(-15deg)}
+.p1 .poke.arceus  {width:90mm; height:90mm; bottom:5mm; left:-25mm; opacity:.16}
+.p1 .poke.dialga  {width:55mm; height:55mm; top:120mm; right:-10mm; opacity:.14;transform:rotate(20deg)}
+.p1 .poke.palkia  {width:50mm; height:50mm; top:160mm; left:6mm;  opacity:.12;transform:rotate(-12deg)}
+
+/* PÁGINA 2 */
+.p2 .poke.lugia   {width:95mm;height:95mm;top:-20mm;left:-25mm;opacity:.18;transform:rotate(15deg)}
+.p2 .poke.hooh    {width:85mm;height:85mm;top:-15mm;right:-25mm;opacity:.18;transform:rotate(-10deg)}
+.p2 .poke.raikou  {width:75mm;height:75mm;bottom:-15mm;right:-15mm;opacity:.16;transform:rotate(8deg)}
+.p2 .poke.entei2  {width:55mm;height:55mm;bottom:50mm;left:-15mm;opacity:.14;transform:rotate(-20deg)}
+
+/* PÁGINA 3 */
+.p3 .poke.kyogre  {width:100mm;height:100mm;top:-25mm;right:-30mm;opacity:.20;transform:rotate(-12deg)}
+.p3 .poke.suicune {width:85mm;height:85mm;bottom:-15mm;left:-25mm;opacity:.18;transform:rotate(10deg)}
+.p3 .poke.palkia2 {width:70mm;height:70mm;top:140mm;right:-10mm;opacity:.13;transform:rotate(20deg)}
+.p3 .poke.lugia2  {width:55mm;height:55mm;top:90mm;left:-15mm;opacity:.10;transform:rotate(-15deg)}
+
+/* PÁGINA 4 */
+.p4 .poke.giratina{width:110mm;height:110mm;top:-30mm;left:-30mm;opacity:.20;transform:rotate(20deg)}
+.p4 .poke.entei   {width:80mm;height:80mm;top:-15mm;right:-20mm;opacity:.18;transform:rotate(-12deg)}
+.p4 .poke.groudon {width:85mm;height:85mm;bottom:-20mm;right:-20mm;opacity:.18;transform:rotate(15deg)}
+.p4 .poke.arceus2 {width:60mm;height:60mm;bottom:80mm;left:-15mm;opacity:.13;transform:rotate(-10deg)}
+
+/* Capa de contenido por encima del fondo */
+.layer{position:relative;z-index:2}
+
+/* =========================================================
+   ENCABEZADO COMPACTO INTEGRADO A PÁGINA 1
+   ========================================================= */
+.student-strip{
+  position:relative;
+  z-index:3;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:6mm;
+  padding:3mm 6mm;
+  margin-bottom:4mm;
+  border-radius:3mm;
+  background:linear-gradient(95deg,rgba(255,179,0,0.18),rgba(0,194,255,0.18));
+  border:1.5px solid rgba(255,214,10,0.6);
+  box-shadow:0 4px 12px rgba(0,0,0,0.45);
+  font-family:'Poppins',sans-serif;
+  font-size:9pt;
+  color:var(--ink);
+}
+.student-strip .item strong{
+  font-family:'Russo One',sans-serif;
+  color:var(--gold);
+  letter-spacing:0.5px;
+  margin-right:1.5mm;
+  font-weight:400;
+}
+.student-strip .sep{
+  width:1px;
+  height:6mm;
+  background:linear-gradient(180deg,transparent,var(--gold),transparent);
+}
+
+/* =========================================================
+   PORTADA / TÍTULO PRINCIPAL
+   ========================================================= */
+.cover-block{
+  position:relative;
+  text-align:center;
+  margin-top:6mm;
+  margin-bottom:6mm;
+}
+.cover-pre{
+  font-family:'Caveat',cursive;
+  font-size:18pt;
+  color:var(--auth-3);
+  transform:rotate(-2deg);
+  display:inline-block;
+  margin-bottom:2mm;
+}
+.cover-title{
+  font-family:'Archivo Black',sans-serif;
+  font-size:46pt;
+  line-height:0.95;
+  letter-spacing:-1px;
+  color:var(--ink);
+  text-shadow:
+    0 0 22px rgba(0,194,255,0.40),
+    0 4px 0 rgba(0,0,0,0.55);
+  margin-bottom:1mm;
+}
+.cover-title .gradient{
+  background:linear-gradient(95deg,var(--auth-1),var(--pink),var(--conf-1),var(--integ-1));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.cover-tagline{
+  font-family:'Poppins',sans-serif;
+  font-size:11pt;
+  font-weight:300;
+  color:var(--ink-soft);
+  max-width:155mm;
+  margin:3mm auto 0 auto;
+  line-height:1.45;
+}
+.cover-tagline strong{font-weight:700;color:var(--gold)}
+
+/* Sticker rotado decorativo */
+.sticker{
+  position:absolute;
+  background:var(--gold);
+  color:#0B1437;
+  font-family:'Permanent Marker',cursive;
+  font-size:11pt;
+  padding:2mm 5mm;
+  border-radius:3mm;
+  box-shadow:3px 3px 0 #0B1437, 0 0 18px rgba(255,214,10,0.5);
+  border:2px solid #0B1437;
+}
+.sticker.s-cover-1{top:6mm;right:8mm;transform:rotate(8deg);background:var(--conf-1);color:#0B1437}
+.sticker.s-cover-2{top:54mm;left:6mm;transform:rotate(-7deg);background:var(--pink);color:#fff}
+.sticker.s-cover-3{top:48mm;right:6mm;transform:rotate(5deg);background:var(--integ-1);color:#0B1437}
+
+/* =========================================================
+   3 PILARES (TARJETAS POSTING – PÁGINA 1)
+   ========================================================= */
+.triad-row{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:3mm;
+  margin-top:6mm;
+  margin-bottom:5mm;
+  padding-left:0;
+  padding-right:12mm; /* Crea un tope en la derecha para que no toque la línea punteada */
+  margin-left:-0mm;   /* Jala todo el bloque de tarjetas hacia la izquierda */
+}
+.triad-card{
+  position:relative;
+  padding:5mm 4mm 6mm 4mm;
+  border-radius:5mm;
+  background:rgba(255,255,255,0.96);
+  color:#0B1437;
+  box-shadow:6px 6px 0 rgba(0,0,0,0.55), 0 0 24px rgba(255,255,255,0.06);
+  border:3px solid #0B1437;
+}
+.triad-card.t-auth   {transform:rotate(-3.5deg);background:linear-gradient(160deg,#FFE082 0%, #FFB300 100%)}
+.triad-card.t-confid {transform:rotate(2deg);background:linear-gradient(160deg,#80E5FF 0%, #00C2FF 100%)}
+.triad-card.t-integ  {transform:rotate(-2deg);background:linear-gradient(160deg,#7CF7B5 0%, #00E676 100%)}
+.triad-card .icon-circle{
+  width:14mm;height:14mm;border-radius:50%;
+  background:#0B1437;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Russo One',sans-serif;font-size:14pt;
+  margin-bottom:2.5mm;
+  box-shadow:0 0 14px rgba(0,0,0,0.4);
+}
+.triad-card h3{
+  font-family:'Archivo Black',sans-serif;
+  font-size:16pt;
+  letter-spacing:-0.5px;
+  margin-bottom:1.2mm;
+  color:#0B1437;
+}
+.triad-card p{
+  font-family:'Poppins',sans-serif;
+  font-size:8.5pt;
+  font-weight:500;
+  line-height:1.4;
+  color:#0B1437;
+}
+.triad-card .tag{
+  position:absolute;top:-3mm;right:5mm;
+  background:#0B1437;color:var(--gold);
+  font-family:'Russo One',sans-serif;font-size:8pt;
+  padding:1mm 3mm;border-radius:2mm;
+  letter-spacing:1.5px;
+  transform:rotate(6deg);
+}
+
+/* =========================================================
+   CABECERA DE SECCIÓN Y TEMAS
+   ========================================================= */
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:8mm;
+  margin-top:2mm;
+  margin-bottom:5mm;
+}
+.section-title-wrap{flex:1}
+.section-num{
+  display:inline-block;
+  font-family:'Caveat',cursive;
+  font-size:24pt;
+  color:var(--auth-3);
+  line-height:1;
+  margin-bottom: 15mm; /* Cambiamos el margen negativo a uno positivo para separarlos */
+  margin-left:2mm;
+  transform:rotate(-3deg);
+}
+.section-title-tag{
+  display:inline-block;
+  font-family:'Archivo Black',sans-serif;
+  font-size:34pt;
+  letter-spacing:-1px;
+  padding:3mm 7mm;
+  border-radius:3mm;
+  border:3px solid #0B1437;
+  box-shadow:6px 6px 0 rgba(0,0,0,0.6), 0 0 30px rgba(255,255,255,0.05);
+  transform:rotate(-2.5deg);
+  background:linear-gradient(95deg,var(--auth-1),var(--auth-2));
+  color:#0B1437;
+}
+.section-subtitle{
+  font-family:'Poppins',sans-serif;
+  font-size:9pt;
+  font-weight:300;
+  color:var(--ink-soft);
+  margin-top:5mm;
+  margin-left:3mm;
+  font-style:italic;
+}
+
+/* Temas dinámicos usando clases en lugar de selectores de página */
+.theme-confid .section-num{color:var(--conf-3)}
+.theme-confid .section-title-tag{
+  background:linear-gradient(95deg,var(--conf-1),var(--conf-2));
+  color:#fff;
+  transform:rotate(2deg);
+}
+.theme-integ .section-num{color:var(--integ-3)}
+.theme-integ .section-title-tag{
+  background:linear-gradient(95deg,var(--integ-1),var(--integ-2));
+  color:#0B1437;
+  transform:rotate(-2deg);
+}
+
+/* =========================================================
+   TARJETA DEFINICIÓN
+   ========================================================= */
+.def-box{
+  position:relative;
+  background:rgba(255,253,247,0.96);
+  color:#0B1437;
+  padding:5mm 6mm 5mm 8mm;
+  border-radius:3mm;
+  font-size:9pt;
+  line-height:1.5;
+  border-left:5mm solid var(--auth-1);
+  box-shadow:5px 5px 0 rgba(0,0,0,0.45);
+  margin-bottom:5mm;
+  transform:rotate(0.5deg);
+}
+.theme-confid .def-box{border-left-color:var(--conf-1);transform:rotate(-0.5deg)}
+.theme-integ .def-box{border-left-color:var(--integ-1);transform:rotate(0.4deg)}
+.def-box::before{
+  content:"⬢ DEFINICIÓN";
+  position:absolute;top:-3mm;left:8mm;
+  font-family:'Russo One',sans-serif;font-size:7pt;
+  letter-spacing:2.5px;
+  background:#0B1437;color:var(--gold);
+  padding:1mm 3mm;border-radius:1.5mm;
+}
+
+/* =========================================================
+   POSTINGS DE MECANISMOS
+   ========================================================= */
+.posting-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5mm;
+  margin-bottom:5mm;
+}
+.posting{
+  position:relative;
+  padding:4mm 5mm 4mm 5mm;
+  border-radius:3mm;
+  background:rgba(255,255,255,0.96);
+  color:#0B1437;
+  border:2.5px solid #0B1437;
+  box-shadow:4px 4px 0 rgba(0,0,0,0.45);
+}
+.posting.tilt-l{transform:rotate(-2deg)}
+.posting.tilt-r{transform:rotate(1.8deg)}
+.posting h4{
+  font-family:'Archivo Black',sans-serif;
+  font-size:11pt;
+  letter-spacing:-0.3px;
+  color:#0B1437;
+  margin-bottom:2mm;
+  display:flex;align-items:center;gap:2mm;
+}
+.posting h4 .dot{
+  display:inline-block;
+  width:5mm;height:5mm;border-radius:50%;
+  background:var(--auth-1);
+  border:2px solid #0B1437;
+  box-shadow:2px 2px 0 #0B1437;
+}
+.theme-confid .posting h4 .dot{background:var(--conf-1)}
+.theme-integ .posting h4 .dot{background:var(--integ-1)}
+
+.posting ul{list-style:none;padding-left:0}
+.posting ul li{
+  position:relative;
+  padding-left:6mm;
+  font-family:'Poppins',sans-serif;
+  font-size:8pt;
+  color:#1B2353;
+  line-height:1.45;
+  margin-bottom:1mm;
+}
+.posting ul li::before{
+  content:"▶";
+  position:absolute;left:0;top:0;
+  font-size:8pt;
+  color:var(--auth-2);
+}
+.theme-confid .posting ul li::before{color:var(--conf-2)}
+.theme-integ .posting ul li::before{color:var(--integ-2)}
+
+.posting .pin{
+  position:absolute;top:-2.5mm;right:5mm;
+  width:5mm;height:5mm;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, #FF6B6B, #C0392B);
+  box-shadow:0 1px 0 rgba(0,0,0,0.55), inset 0 1mm 0 rgba(255,255,255,0.4);
+  border:0.4mm solid #4A0F0F;
+}
+
+.posting.alt{background:linear-gradient(160deg,#FFE082,#FFFDF7)}
+.theme-confid .posting.alt{background:linear-gradient(160deg,#80E5FF,#FFFDF7)}
+.theme-integ .posting.alt{background:linear-gradient(160deg,#7CF7B5,#FFFDF7)}
+
+/* =========================================================
+   EJEMPLOS
+   ========================================================= */
+.examples-row{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:5mm;
+  margin-top:3mm;
+}
+.example{
+  position:relative;
+  background:#FFFDF7;
+  color:#0B1437;
+  border-radius:3mm;
+  border:2.5px solid #0B1437;
+  box-shadow:5px 5px 0 rgba(0,0,0,0.55);
+  padding:3mm 3mm 4mm 3mm;
+  min-height:70mm;
+}
+.example.tilt-1{transform:rotate(-2.5deg)}
+.example.tilt-2{transform:rotate(1.5deg)}
+.example.tilt-3{transform:rotate(-1.5deg)}
+
+.ex-img{
+  width:100%;
+  aspect-ratio:4/3;
+  border-radius:2mm;
+  border:2.5px dashed #0B1437;
+  margin-bottom:2.5mm;
+  background:linear-gradient(135deg,var(--auth-3),var(--auth-1));
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+.ex-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Hace que la imagen llene el cuadro. Si prefieres que no se recorte nada, cambialo por 'contain' */
+  border-radius: 1.5mm;
+}
+.theme-confid .ex-img{background:linear-gradient(135deg,var(--conf-3),var(--conf-1))}
+.theme-integ .ex-img{background:linear-gradient(135deg,var(--integ-3),var(--integ-1))}
+.ex-img .ic{
+  font-family:'Archivo Black',sans-serif;
+  font-size:24pt;
+  color:#0B1437;
+  line-height:1;
+  letter-spacing:-1px;
+}
+.ex-img .ph-label{
+  position:absolute;bottom:1.5mm;
+  font-family:'Permanent Marker',cursive;
+  font-size:7pt;color:#0B1437;
+  background:rgba(255,253,247,0.85);
+  padding:0.5mm 2mm;border-radius:1.5mm;
+  letter-spacing:1px;
+}
+.ex-tag{
+  position:absolute;top:-3mm;left:3mm;
+  font-family:'Russo One',sans-serif;font-size:7pt;
+  background:var(--auth-1);color:#0B1437;
+  padding:1mm 3mm;border-radius:1.5mm;
+  letter-spacing:1.5px;
+  border:1.5px solid #0B1437;
+}
+.theme-confid .ex-tag{background:var(--conf-1);color:#0B1437}
+.theme-integ .ex-tag{background:var(--integ-1);color:#0B1437}
+
+.example h5{
+  font-family:'Archivo Black',sans-serif;
+  font-size:10.5pt;
+  letter-spacing:-0.3px;
+  color:#0B1437;
+  margin-bottom:1.5mm;
+  line-height:1.15;
+}
+.example p{
+  font-family:'Poppins',sans-serif;
+  font-size:7.7pt;
+  font-weight:400;
+  line-height:1.4;
+  color:#1B2353;
+}
+
+/* =========================================================
+   PIE / FOOTER POR PÁGINA
+   ========================================================= */
+.page-footer{
+  position:absolute;
+  bottom:6mm;
+  left:14mm;right:14mm;
+  z-index:3;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-family:'Orbitron',sans-serif;
+  font-size:7pt;
+  letter-spacing:3px;
+  color:rgba(255,214,10,0.75);
+}
+.page-footer span{
+  background:rgba(255,214,10,0.12);
+  border:1px solid rgba(255,214,10,0.4);
+  padding:1mm 3mm;border-radius:2mm;
+}
+
+/* =========================================================
+   REFERENCIAS — PÁGINA 4 PARTE INFERIOR
+   ========================================================= */
+.refs-section{
+  position:relative;
+  margin-top:6mm;
+  padding:6mm 5mm 5mm 5mm;
+  border-radius:4mm;
+  background:rgba(11,20,55,0.78);
+  border:2px solid var(--gold);
+  box-shadow:0 6px 18px rgba(0,0,0,0.55);
+  z-index:3;
+}
+.refs-section::before{
+  content:"Bibliografias";
+  position:absolute;top:-4mm;left:6mm;
+  background:var(--gold);color:#0B1437;
+  font-family:'Archivo Black',sans-serif;
+  font-size:9pt;letter-spacing:2.5px;
+  padding:1.5mm 4mm;border-radius:2mm;
+  box-shadow:3px 3px 0 #0B1437;
+  border:2px solid #0B1437;
+}
+.refs-list{list-style:none;counter-reset:rc;margin-top:2mm}
+.refs-list li{
+  counter-increment:rc;
+  position:relative;
+  padding:2mm 0 2mm 8mm;
+  border-bottom:1px dashed rgba(255,255,255,0.18);
+  font-family:'Poppins',sans-serif;
+  font-size:8.2pt;
+  line-height:1.45;
+  color:var(--ink-soft);
+}
+.refs-list li:last-child{border-bottom:none}
+.refs-list li::before{
+  content:counter(rc);
+  position:absolute;left:0;top:2mm;
+  width:5.5mm;height:5.5mm;
+  border-radius:50%;
+  background:var(--gold);color:#0B1437;
+  font-family:'Russo One',sans-serif;
+  font-size:8pt;
+  text-align:center;line-height:5.5mm;
+  box-shadow:0 0 10px rgba(255,214,10,0.6);
+}
+.refs-list li strong{color:var(--ink);font-weight:700}
+.refs-list li em{color:var(--auth-3);font-style:italic}
+
+/* Enlaces clickeables AZULES */
+a.weblink, .refs-list a{
+  color:var(--link-blue) !important;
+  text-decoration:underline;
+  text-decoration-color:var(--link-blue);
+  word-break:break-all;
+  transition:color .15s;
+}
+a.weblink:hover, .refs-list a:hover{
+  color:var(--link-blue-2) !important;
+  text-decoration-color:var(--link-blue-2);
+}
+
+/* =========================================================
+   ELEMENTOS DECORATIVOS — sparks, líneas, cintas
+   ========================================================= */
+.spark{
+  position:absolute;
+  font-family:'Caveat',cursive;
+  color:var(--gold);
+  text-shadow:0 0 12px rgba(255,214,10,0.7);
+  z-index:2;
+}
+.tape{
+  position:absolute;
+  width:24mm;height:6mm;
+  background:linear-gradient(95deg,rgba(255,214,10,0.85),rgba(255,179,0,0.55));
+  border-left:1px dashed rgba(0,0,0,0.4);
+  border-right:1px dashed rgba(0,0,0,0.4);
+  box-shadow:0 1mm 2mm rgba(0,0,0,0.4);
+  z-index:3;
+}
+
+/* =========================================================
+   PRINT — A4 sin márgenes para que el PDF salga 1 página = 1 hoja
+   ========================================================= */
+@page{size:A4 portrait;margin:0}
+@media print{
+  html,body{background:var(--bg-1) !important}
+  .page{
+    margin:0;
+    width:210mm;
+    height:297mm;
+    max-height:297mm;
+    box-shadow:none;
+    page-break-after:always;
+  }
+  .page:last-child{page-break-after:auto}
+  a{color:var(--link-blue) !important}
+}
+
+/* =========================================================
+   En pantalla, dejar un poco de margen entre hojas
+   ========================================================= */
+@media screen{
+  body{padding:8mm 0}
+  .page{
+    box-shadow:0 8px 30px rgba(0,0,0,0.7);
+    margin-bottom:8mm;
+  }
+}
+</style>
+</head>
+<body>
+
+<section class="page p1">
+  <div class="poke rayquaza"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png" alt=""></div>
+  <div class="poke arceus"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/493.png" alt=""></div>
+  <div class="poke dialga"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/483.png" alt=""></div>
+  <div class="poke palkia"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/484.png" alt=""></div>
+
+  <div class="student-strip">
+    <div class="item"><strong>NOMBRE:</strong> Lara Hernández Ángel Husiel</div>
+    <div class="sep"></div>
+    <div class="item"><strong>ACTIVIDAD:</strong> 13</div>
+    <div class="sep"></div>
+    <div class="item"><strong>NO. CUENTA:</strong> 320060829</div>
+  </div>
+
+  <div class="layer">
+    <span class="sticker s-cover-1">★ Capa 7 OSI</span>
+
+    <div class="cover-block">
+      <div class="cover-pre">la triada de la red...</div>
+      <h1 class="cover-title">
+        TRÍADA DE
+        <span class="gradient">SEGURIDAD</span>
+      </h1>
+      <div class="cover-tagline">
+        <strong>Autenticación · Confidencialidad · Integridad</strong> los pilares en la <strong>capa de aplicación</strong>.
+      </div>
+    </div>
+
+    <span class="spark" style="top:50mm;left:12mm;font-size:24pt;transform:rotate(-15deg)">✦</span>
+    <span class="spark" style="top:65mm;right:15mm;font-size:18pt;transform:rotate(20deg)">✧</span>
+
+    <div class="triad-row">
+      <div class="triad-card t-auth">
+        <span class="tag">PILAR 01</span>
+        <div class="icon-circle">A</div>
+        <h3>AUTENTICACIÓN</h3>
+        <p>Confirma que el usuario o servicio es realmente quien dice ser.</p>
+      </div>
+      <div class="triad-card t-confid">
+        <span class="tag" style="background:#0B1437;color:var(--conf-1)">PILAR 02</span>
+        <div class="icon-circle">C</div>
+        <h3>CONFIDENCIALIDAD</h3>
+        <p>Asegura que la información solo sea vista y leida para los usuarios autorizadas durante su tránsito.</p>
+      </div>
+      <div class="triad-card t-integ">
+        <span class="tag" style="background:#0B1437;color:var(--integ-1)">PILAR 03</span>
+        <div class="icon-circle">I</div>
+        <h3>INTEGRIDAD</h3>
+        <p>Detecta cualquier alteración, intencional o accidental, sufrida por los datos.</p>
+      </div>
+    </div>
+
+    <div class="theme-auth" style="margin-top: 8mm;">
+      <div class="section-head">
+        <div class="section-title-wrap">
+          <div class="section-num">pilar 01 ✦</div><br>
+          <div class="section-title-tag">AUTENTICACIÓN</div>
+          <div class="section-subtitle">"¿Eres realmente quien dices ser?".</div>
+        </div>
+      </div>
+
+      <div class="def-box">
+        Es el proceso mediante el cual una aplicación verifica la identidad de un usuario o sistema. Es la parte inicial que sirve para evitar suplantaciones y asegurar que quien solicita acceso tiene las validaciones o nivel de acceso para hacerlo.
+      </div>
+
+      <div class="posting-grid">
+        <div class="posting tilt-l">
+          <span class="pin"></span>
+          <h4><span class="dot"></span>Factores de autenticación</h4>
+          <ul>
+            <li><strong>Algo que sabes:</strong> contraseña, PIN, frase clave.</li>
+            <li><strong>Algo que tienes:</strong> token TOTP, llave U2F/FIDO2, smartcard.</li>
+            <li><strong>Algo que eres:</strong> huella, iris, reconocimiento facial.</li>
+          </ul>
+        </div>
+        <div class="posting tilt-r alt">
+          <span class="pin"></span>
+          <h4><span class="dot"></span>Mecanismos en la capa 7</h4>
+          <ul>
+            <li><strong>HTTP Basic / Digest:</strong> esquemas históricos.</li>
+            <li><strong>JWT firmado:</strong> tokens portables y verificables.</li>
+            <li><strong>OAuth 2.0 / OpenID Connect:</strong> identidad federada.</li>
+            <li><strong>mTLS:</strong> certificados X.509 mutuos.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>HOJA 01 / 04</span>
+
+  </div>
+</section>
+
+
+<section class="page p2">
+  <div class="poke lugia"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/249.png" alt=""></div>
+  <div class="poke hooh"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/250.png" alt=""></div>
+  <div class="poke raikou"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/243.png" alt=""></div>
+  <div class="poke entei2"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/244.png" alt=""></div>
+
+  <div class="layer">
+    <div class="theme-auth">
+      <div class="examples-row">
+        <div class="example tilt-1">
+          <span class="ex-tag">EJEMPLO 01</span>
+          <span class="tape" style="top:-4mm;right:2mm;transform:rotate(8deg)"></span>
+          <div class="ex-img">
+            <img src="image/autenticacion/2FA.png" alt="2FA">
+          </div>
+          <h5>Login bancario con MFA</h5>
+          <p>El cliente captura su contraseña y luego un código TOTP de seis dígitos generado por su app autenticadora. Aunque la contraseña sea robada por phishing, el atacante no puede iniciar sesión sin el segundo factor.</p>
+        </div>
+
+        <div class="example tilt-2">
+          <span class="ex-tag">EJEMPLO 02</span>
+          <span class="tape" style="top:-4mm;left:32mm;transform:rotate(-6deg)"></span>
+          <div class="ex-img">
+            <img src="image/autenticacion/SSO.png" alt="SSO">
+          </div>
+          <h5>Inicio de sesión con OAuth 2.0</h5>
+          <p>Plataformas como Spotify o Trello permiten "Iniciar sesión con Google". Google autentica al usuario y emite un token firmado; la aplicación nunca conoce la contraseña real.</p>
+        </div>
+
+        <div class="example tilt-3">
+          <span class="ex-tag">EJEMPLO 03</span>
+          <span class="tape" style="top:-4mm;right:2mm;transform:rotate(10deg)"></span>
+          <div class="ex-img">
+            <img src="image/autenticacion/BIO.png" alt="BIO">
+          </div>
+          <h5>Autenticación biométrica</h5>
+          <p>Aplicaciones bancarias móviles emplean Face ID o huella dactilar (WebAuthn / FIDO2).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="theme-confid" style="margin-top: 10mm;">
+      <div class="section-head">
+        <div class="section-title-wrap">
+          <div class="section-num">pilar 02 ✦</div><br>
+          <div class="section-title-tag">CONFIDENCIALIDAD</div>
+          <div class="section-subtitle">"Lo que viaja por la red, solo lo leen quienes deben hacerlo."</div>
+        </div>
+      </div>
+
+      <div class="def-box">
+        Garantiza que la información que se envia por la red, o es directamente procesada por el sistema sea accesible exclusivamente para entidades o clientes autorizados. El proposito de esta es prevenir la fuga de datos sensibles y el espionaje de los datos.
+      </div>
+
+      <div class="posting-grid">
+        <div class="posting tilt-l">
+          <span class="pin"></span>
+          <h4><span class="dot"></span>Cifrado simétrico y asimétrico</h4>
+          <ul>
+            <li><strong>AES-256-GCM:</strong> estándar para grandes volúmenes.</li>
+            <li><strong>ChaCha20-Poly1305:</strong> alternativa móvil eficiente.</li>
+            <li><strong>RSA y ECDHE:</strong> intercambio de claves y firmas.</li>
+          </ul>
+        </div>
+        <div class="posting tilt-r alt">
+          <span class="pin"></span>
+          <h4><span class="dot"></span>Aplicaciones en la capa 7</h4>
+          <ul>
+            <li><strong>HTTPS (TLS 1.3):</strong> cifra todo el tráfico web.</li>
+            <li><strong>SMTPS / IMAPS:</strong> correo cifrado.</li>
+            <li><strong>SSH:</strong> sesiones administrativas remotas.</li>
+            <li><strong>E2EE:</strong> mensajería extremo a extremo.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <span class="spark" style="bottom:-38mm;left:30mm;font-size:22pt;transform:rotate(-12deg);color:var(--conf-1)">✦</span>
+    <span class="spark" style="bottom:-24mm;right:38mm;font-size:18pt;transform:rotate(15deg)">✧</span>
+
+  </div>
+
+  <div class="page-footer">
+    <span>HOJA 02 / 04</span>
+
+  </div>
+</section>
+
+
+<section class="page p3">
+  <div class="poke kyogre"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/382.png" alt=""></div>
+  <div class="poke suicune"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/245.png" alt=""></div>
+  <div class="poke palkia2"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/484.png" alt=""></div>
+  <div class="poke lugia2"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/249.png" alt=""></div>
+
+  <div class="layer">
+    <div class="theme-confid">
+      <div class="examples-row">
+        <div class="example tilt-1">
+          <span class="ex-tag">EJEMPLO 01</span>
+          <span class="tape" style="top:-4mm;right:2mm;transform:rotate(8deg);background:linear-gradient(95deg,rgba(0,194,255,0.85),rgba(0,102,255,0.55))"></span>
+          <div class="ex-img">
+            <img src="image/confidencialidad/HHTPS.png" alt="HTTPS">
+          </div>
+          <h5>HTTPS en tienda en línea</h5>
+          <p>Durante una compra online, los datos de la tarjeta de crédito se encriptan al viajar desde el navegador hasta la pasarela de pago, haciéndolos ilegibles para interceptores</p>
+        </div>
+
+        <div class="example tilt-2">
+          <span class="ex-tag">EJEMPLO 02</span>
+          <span class="tape" style="top:-4mm;left:32mm;transform:rotate(-6deg);background:linear-gradient(95deg,rgba(0,194,255,0.85),rgba(0,102,255,0.55))"></span>
+          <div class="ex-img">
+            <img src="image/confidencialidad/E2EE.png" alt="E2E">
+          </div>
+          <h5>WhatsApp y Signal con E2EE</h5>
+          <p>El protocolo Signal cifra cada mensaje con claves derivadas en el dispositivo del emisor; ni el servidor de WhatsApp puede leerlos. Solo emisor y receptor poseen las claves.</p>
+        </div>
+
+        <div class="example tilt-3">
+          <span class="ex-tag">EJEMPLO 03</span>
+          <span class="tape" style="top:-4mm;right:2mm;;transform:rotate(10deg);background:linear-gradient(95deg,rgba(0,194,255,0.85),rgba(0,102,255,0.55))"></span>
+          <div class="ex-img">
+            <img src="image/confidencialidad/VPN.png" alt="VPN">
+          </div>
+          <h5>VPN corporativa</h5>
+          <p>Un empleado remoto se conecta a la red de la empresa mediante una VPN (OpenVPN o WireGuard). Todo su tráfico se encapsula cifrado, evitando que un atacante en una red Wi-Fi pública intercepte la sesión.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="theme-integ" style="margin-top: 12mm;">
+      <div class="section-head">
+        <div class="section-title-wrap">
+          <div class="section-num">pilar 03 ✦</div><br>
+          <div class="section-title-tag">INTEGRIDAD</div>
+          <div class="section-subtitle">"Los datos que llegan deben ser, los que se enviaron."</div>
+        </div>
+      </div>
+
+      <div class="def-box">
+        Este pilar tiene como objetivo principal la detección de cualquier modificación intencional o accidental sobre los datos ya sea cuando se envian por la red, o cuando se almacenan, este logra dar un certificado de que el mensaje recibido es el original se envio.
+      </div>
+
+      <div class="posting-grid">
+        <div class="posting tilt-l">
+          <span class="pin"></span>
+          <h4><span class="dot"></span>Funciones hash y firmas</h4>
+          <ul>
+            <li><strong>SHA-256 / SHA-3:</strong> huella criptográfica fija.</li>
+            <li><strong>HMAC:</strong> hash con clave secreta.</li>
+            <li><strong>Ed25519 / RSA-PSS:</strong> firmas digitales.</li>
+          </ul>
+        </div>
+        <div class="posting tilt-r alt">
+          <span class="pin"></span>
+          <h4><span class="dot"></span>Aplicaciones en la capa 7</h4>
+          <ul>
+            <li><strong>Etiquetas AEAD en TLS 1.3:</strong> integridad por registro.</li>
+            <li><strong>JWT firmado:</strong> previene manipulación de claims.</li>
+            <li><strong>Firmas de paquetes:</strong> APK, RPM, DEB, MSI.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <span class="spark" style="bottom:-18mm;left:30mm;font-size:22pt;transform:rotate(-12deg);color:var(--integ-1)">✦</span>
+    <span class="spark" style="bottom:-24mm;right:38mm;font-size:18pt;transform:rotate(15deg);color:var(--integ-3)">✧</span>
+
+  </div>
+
+  <div class="page-footer">
+    <span>HOJA 03 / 04</span>
+
+  </div>
+</section>
+
+
+<section class="page p4">
+  <div class="poke giratina"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/487.png" alt=""></div>
+  <div class="poke entei"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/244.png" alt=""></div>
+  <div class="poke groudon"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/383.png" alt=""></div>
+  <div class="poke arceus2"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/493.png" alt=""></div>
+
+  <div class="layer">
+    <div class="theme-integ">
+      <div class="examples-row">
+        <div class="example tilt-1">
+          <span class="ex-tag">EJEMPLO 01</span>
+          <span class="tape" style="top:-4mm;right:2mm;transform:rotate(8deg);background:linear-gradient(95deg,rgba(0,230,118,0.85),rgba(0,184,148,0.55))"></span>
+          <div class="ex-img">
+            <img src="image/integridad/SHA.png" alt="SHA">
+          </div>
+          <h5>Verificación SHA-256 de ISO</h5>
+          <p>Un servidor proporciona un archivo de actualización de software junto con su valor Hash (SHA-256). La aplicación cliente calcula el Hash al descargar; si coinciden, el archivo está íntegro y sin inyección de malware.</p>
+        </div>
+
+        <div class="example tilt-2">
+          <span class="ex-tag">EJEMPLO 02</span>
+          <span class="tape" style="top:-4mm;left:32mm;transform:rotate(-6deg);background:linear-gradient(95deg,rgba(0,230,118,0.85),rgba(0,184,148,0.55))"></span>
+          <div class="ex-img">
+            <img src="image/integridad/PDF.png" alt="Firma PDF">
+          </div>
+          <h5>Firma digital de PDF / SAT</h5>
+          <p>El SAT y notarios firman documentos PDF con certificados X.509. El lector verifica la firma con la clave pública del emisor y detecta cualquier modificación posterior, incluso de un solo carácter.</p>
+        </div>
+
+        <div class="example tilt-3">
+          <span class="ex-tag">EJEMPLO 03</span>
+          <span class="tape" style="top:-4mm;right:2mm;transform:rotate(10deg);background:linear-gradient(95deg,rgba(0,230,118,0.85),rgba(0,184,148,0.55))"></span>
+          <div class="ex-img">
+            <img src="image/integridad/FirmaSO.jpg" alt="Actualizaciones firmadas del SO">
+          </div>
+          <h5>Actualizaciones firmadas del SO</h5>
+          <p>Windows Update, APT y Play Store rechazan paquetes cuyo hash y firma no coincidan con la del proveedor oficial, evitando la instalación de actualizaciones maliciosas en cadena.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="refs-section" style="margin-top: 12mm;">
+      <ol class="refs-list">
+        <li>
+          OWASP Foundation. (2024). <em>Authentication Cheat Sheet</em>. OWASP Cheat Sheet Series. Disponible en:
+          <a class="weblink" href="https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html" target="_blank" rel="noopener">https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html</a>
+        </li>
+        <li>
+          Cloudflare, Inc. (2024). <em>What is application security? | Application security explained</em>. Cloudflare Learning Center. Disponible en:
+          <a class="weblink" href="https://www.cloudflare.com/learning/security/what-is-application-security/" target="_blank" rel="noopener">https://www.cloudflare.com/learning/security/what-is-application-security/</a>
+        </li>
+        <li>
+          Internet Engineering Task Force (IETF). (2018). <em>RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3</em>. Disponible en:
+          <a class="weblink" href="https://datatracker.ietf.org/doc/html/rfc8446" target="_blank" rel="noopener">https://datatracker.ietf.org/doc/html/rfc8446</a>
+        </li>
+        <li>
+          National Institute of Standards and Technology. (2022). <em>NIST SP 800-63B: Digital Identity Guidelines — Authentication and Lifecycle Management</em>. Disponible en:
+          <a class="weblink" href="https://pages.nist.gov/800-63-3/sp800-63b.html" target="_blank" rel="noopener">https://pages.nist.gov/800-63-3/sp800-63b.html</a>
+        </li>
+        <li>
+          Mozilla Foundation. (2024). <em>Web Security — Mozilla Infosec Guidelines</em>. Disponible en:
+          <a class="weblink" href="https://infosec.mozilla.org/guidelines/web_security" target="_blank" rel="noopener">https://infosec.mozilla.org/guidelines/web_security</a>
+        </li>
+      </ol>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>HOJA 04 / 04</span>
+
+  </div>
+</section>
+
+</body>
+</html>
